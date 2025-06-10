@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9D05E1B02D9FEBE500B37E2B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1AD2D9FEBE500B37E2B /* ProfileView.swift */; };
-		9D05E1B12D9FEBE500B37E2B /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1AE2D9FEBE500B37E2B /* HistoryView.swift */; };
+		9D05E1B12D9FEBE500B37E2B /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1AE2D9FEBE500B37E2B /* TodayView.swift */; };
 		9D05E1B22D9FEBE500B37E2B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1AF2D9FEBE500B37E2B /* HomeView.swift */; };
 		9D05E1B42D9FEC3900B37E2B /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1B32D9FEC3900B37E2B /* SupabaseManager.swift */; };
 		9D05E1B72D9FF74A00B37E2B /* SwiftOpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 9D05E1B62D9FF74A00B37E2B /* SwiftOpenAI */; };
@@ -19,6 +19,14 @@
 		9D05E1C32DA66F0B00B37E2B /* AggregateMeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1C22DA66F0B00B37E2B /* AggregateMeals.swift */; };
 		9D05E1C62DA7A65A00B37E2B /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1C52DA7A65A00B37E2B /* SpeechRecognizer.swift */; };
 		9D05E1C92DAADE6500B37E2B /* ScoreGuageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1C82DAADE6500B37E2B /* ScoreGuageView.swift */; };
+		9D05E1CF2DB4166100B37E2B /* MealDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1CE2DB4166100B37E2B /* MealDetailView.swift */; };
+		9D05E1D12DB421E400B37E2B /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1D02DB421E400B37E2B /* TipsView.swift */; };
+		9D05E1D42DB993C500B37E2B /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 9D05E1D32DB993C500B37E2B /* Auth */; };
+		9D05E1D62DB993C500B37E2B /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 9D05E1D52DB993C500B37E2B /* Functions */; };
+		9D05E1D82DB993C500B37E2B /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 9D05E1D72DB993C500B37E2B /* PostgREST */; };
+		9D05E1DA2DB993C500B37E2B /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 9D05E1D92DB993C500B37E2B /* Realtime */; };
+		9D05E1DC2DB993C500B37E2B /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 9D05E1DB2DB993C500B37E2B /* Storage */; };
+		9D05E1DE2DB993C500B37E2B /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9D05E1DD2DB993C500B37E2B /* Supabase */; };
 		9D219E8C2D9FEA9A00357A55 /* mineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D219E8B2D9FEA9A00357A55 /* mineApp.swift */; };
 		9D219E902D9FEA9A00357A55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D219E8F2D9FEA9A00357A55 /* Assets.xcassets */; };
 		9D219E932D9FEA9A00357A55 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D219E922D9FEA9A00357A55 /* Preview Assets.xcassets */; };
@@ -28,11 +36,12 @@
 		9D219EA12D9FEAF100357A55 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 9D219EA02D9FEAF100357A55 /* Realtime */; };
 		9D219EA32D9FEAF100357A55 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 9D219EA22D9FEAF100357A55 /* Storage */; };
 		9D219EA52D9FEAF100357A55 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9D219EA42D9FEAF100357A55 /* Supabase */; };
+		9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9D05E1AD2D9FEBE500B37E2B /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		9D05E1AE2D9FEBE500B37E2B /* HistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		9D05E1AE2D9FEBE500B37E2B /* TodayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		9D05E1AF2D9FEBE500B37E2B /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9D05E1B32D9FEC3900B37E2B /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
 		9D05E1B82D9FF76900B37E2B /* OpenAIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIManager.swift; sourceTree = "<group>"; };
@@ -40,13 +49,16 @@
 		9D05E1BC2DA0EE7500B37E2B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		9D05E1BF2DA0EF8400B37E2B /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		9D05E1C22DA66F0B00B37E2B /* AggregateMeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateMeals.swift; sourceTree = "<group>"; };
-		9D05E1C42DA7A57100B37E2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9D05E1C42DA7A57100B37E2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D05E1C52DA7A65A00B37E2B /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		9D05E1C82DAADE6500B37E2B /* ScoreGuageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreGuageView.swift; sourceTree = "<group>"; };
-		9D219E882D9FEA9A00357A55 /* mine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D05E1CE2DB4166100B37E2B /* MealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailView.swift; sourceTree = "<group>"; };
+		9D05E1D02DB421E400B37E2B /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
+		9D219E882D9FEA9A00357A55 /* Calify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D219E8B2D9FEA9A00357A55 /* mineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mineApp.swift; sourceTree = "<group>"; };
 		9D219E8F2D9FEA9A00357A55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D219E922D9FEA9A00357A55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSetupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,13 +66,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D05E1DC2DB993C500B37E2B /* Storage in Frameworks */,
 				9D219E9F2D9FEAF100357A55 /* PostgREST in Frameworks */,
 				9D219E9D2D9FEAF100357A55 /* Functions in Frameworks */,
 				9D219EA52D9FEAF100357A55 /* Supabase in Frameworks */,
+				9D05E1D62DB993C500B37E2B /* Functions in Frameworks */,
+				9D05E1D82DB993C500B37E2B /* PostgREST in Frameworks */,
 				9D05E1B72D9FF74A00B37E2B /* SwiftOpenAI in Frameworks */,
 				9D219E9B2D9FEAF100357A55 /* Auth in Frameworks */,
 				9D219EA32D9FEAF100357A55 /* Storage in Frameworks */,
+				9D05E1D42DB993C500B37E2B /* Auth in Frameworks */,
 				9D219EA12D9FEAF100357A55 /* Realtime in Frameworks */,
+				9D05E1DA2DB993C500B37E2B /* Realtime in Frameworks */,
+				9D05E1DE2DB993C500B37E2B /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,10 +106,13 @@
 			isa = PBXGroup;
 			children = (
 				9D05E1AF2D9FEBE500B37E2B /* HomeView.swift */,
-				9D05E1AE2D9FEBE500B37E2B /* HistoryView.swift */,
+				9D05E1AE2D9FEBE500B37E2B /* TodayView.swift */,
 				9D05E1AD2D9FEBE500B37E2B /* ProfileView.swift */,
 				9D05E1BA2DA0EE5B00B37E2B /* MealResultView.swift */,
 				9D05E1BC2DA0EE7500B37E2B /* LoadingView.swift */,
+				9D05E1CE2DB4166100B37E2B /* MealDetailView.swift */,
+				9D05E1D02DB421E400B37E2B /* TipsView.swift */,
+				9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -120,18 +141,26 @@
 			path = UIComponents;
 			sourceTree = "<group>";
 		};
+		9D05E1D22DB98EA200B37E2B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9D219E7F2D9FEA9A00357A55 = {
 			isa = PBXGroup;
 			children = (
 				9D219E8A2D9FEA9A00357A55 /* mine */,
 				9D219E892D9FEA9A00357A55 /* Products */,
+				9D05E1D22DB98EA200B37E2B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		9D219E892D9FEA9A00357A55 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9D219E882D9FEA9A00357A55 /* mine.app */,
+				9D219E882D9FEA9A00357A55 /* Calify.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,15 +169,15 @@
 			isa = PBXGroup;
 			children = (
 				9D05E1C72DAADE3300B37E2B /* UIComponents */,
-				9D05E1C42DA7A57100B37E2B /* Info.plist */,
 				9D05E1C12DA66EF000B37E2B /* Helpers */,
 				9D05E1BE2DA0EF7600B37E2B /* Models */,
 				9D05E1AC2D9FEBC400B37E2B /* Views */,
 				9D05E1AB2D9FEBB600B37E2B /* Services */,
 				9D05E1AA2D9FEBB000B37E2B /* App */,
+				9D219E912D9FEA9A00357A55 /* Preview Content */,
+				9D05E1C42DA7A57100B37E2B /* Info.plist */,
 				9D219E8B2D9FEA9A00357A55 /* mineApp.swift */,
 				9D219E8F2D9FEA9A00357A55 /* Assets.xcassets */,
-				9D219E912D9FEA9A00357A55 /* Preview Content */,
 			);
 			path = mine;
 			sourceTree = "<group>";
@@ -164,9 +193,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9D219E872D9FEA9A00357A55 /* mine */ = {
+		9D219E872D9FEA9A00357A55 /* Calify */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9D219E962D9FEA9A00357A55 /* Build configuration list for PBXNativeTarget "mine" */;
+			buildConfigurationList = 9D219E962D9FEA9A00357A55 /* Build configuration list for PBXNativeTarget "Calify" */;
 			buildPhases = (
 				9D219E842D9FEA9A00357A55 /* Sources */,
 				9D219E852D9FEA9A00357A55 /* Frameworks */,
@@ -176,7 +205,7 @@
 			);
 			dependencies = (
 			);
-			name = mine;
+			name = Calify;
 			packageProductDependencies = (
 				9D219E9A2D9FEAF100357A55 /* Auth */,
 				9D219E9C2D9FEAF100357A55 /* Functions */,
@@ -185,9 +214,15 @@
 				9D219EA22D9FEAF100357A55 /* Storage */,
 				9D219EA42D9FEAF100357A55 /* Supabase */,
 				9D05E1B62D9FF74A00B37E2B /* SwiftOpenAI */,
+				9D05E1D32DB993C500B37E2B /* Auth */,
+				9D05E1D52DB993C500B37E2B /* Functions */,
+				9D05E1D72DB993C500B37E2B /* PostgREST */,
+				9D05E1D92DB993C500B37E2B /* Realtime */,
+				9D05E1DB2DB993C500B37E2B /* Storage */,
+				9D05E1DD2DB993C500B37E2B /* Supabase */,
 			);
 			productName = mine;
-			productReference = 9D219E882D9FEA9A00357A55 /* mine.app */;
+			productReference = 9D219E882D9FEA9A00357A55 /* Calify.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -222,7 +257,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9D219E872D9FEA9A00357A55 /* mine */,
+				9D219E872D9FEA9A00357A55 /* Calify */,
 			);
 		};
 /* End PBXProject section */
@@ -244,16 +279,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D05E1B12D9FEBE500B37E2B /* HistoryView.swift in Sources */,
+				9D05E1B12D9FEBE500B37E2B /* TodayView.swift in Sources */,
 				9D05E1B92D9FF76900B37E2B /* OpenAIManager.swift in Sources */,
 				9D05E1C62DA7A65A00B37E2B /* SpeechRecognizer.swift in Sources */,
 				9D05E1C92DAADE6500B37E2B /* ScoreGuageView.swift in Sources */,
+				9D05E1D12DB421E400B37E2B /* TipsView.swift in Sources */,
 				9D05E1B02D9FEBE500B37E2B /* ProfileView.swift in Sources */,
 				9D05E1B42D9FEC3900B37E2B /* SupabaseManager.swift in Sources */,
 				9D05E1BB2DA0EE5B00B37E2B /* MealResultView.swift in Sources */,
 				9D05E1BD2DA0EE7500B37E2B /* LoadingView.swift in Sources */,
 				9D05E1C32DA66F0B00B37E2B /* AggregateMeals.swift in Sources */,
 				9D05E1C02DA0EF8400B37E2B /* Models.swift in Sources */,
+				9D05E1CF2DB4166100B37E2B /* MealDetailView.swift in Sources */,
+				9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */,
 				9D05E1B22D9FEBE500B37E2B /* HomeView.swift in Sources */,
 				9D219E8C2D9FEA9A00357A55 /* mineApp.swift in Sources */,
 			);
@@ -387,11 +425,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"mine/Preview Content\"";
 				DEVELOPMENT_TEAM = HYU3B9NY64;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = mine/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
@@ -408,6 +446,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NSMicrophoneUsageDescription = "Calify uses your microphone to log meals using voice input.";
+				NSSpeechRecognitionUsageDescription = "Calify uses speech recognition to interpret your spoken meal descriptions.";
 				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -422,11 +462,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"mine/Preview Content\"";
 				DEVELOPMENT_TEAM = HYU3B9NY64;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = mine/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
@@ -443,6 +483,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NSMicrophoneUsageDescription = "Calify uses your microphone to log meals using voice input.";
+				NSSpeechRecognitionUsageDescription = "Calify uses speech recognition to interpret your spoken meal descriptions.";
 				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -463,7 +505,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9D219E962D9FEA9A00357A55 /* Build configuration list for PBXNativeTarget "mine" */ = {
+		9D219E962D9FEA9A00357A55 /* Build configuration list for PBXNativeTarget "Calify" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9D219E972D9FEA9A00357A55 /* Debug */,
@@ -498,6 +540,30 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9D05E1B52D9FF74A00B37E2B /* XCRemoteSwiftPackageReference "SwiftOpenAI" */;
 			productName = SwiftOpenAI;
+		};
+		9D05E1D32DB993C500B37E2B /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Auth;
+		};
+		9D05E1D52DB993C500B37E2B /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Functions;
+		};
+		9D05E1D72DB993C500B37E2B /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PostgREST;
+		};
+		9D05E1D92DB993C500B37E2B /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Realtime;
+		};
+		9D05E1DB2DB993C500B37E2B /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Storage;
+		};
+		9D05E1DD2DB993C500B37E2B /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Supabase;
 		};
 		9D219E9A2D9FEAF100357A55 /* Auth */ = {
 			isa = XCSwiftPackageProductDependency;

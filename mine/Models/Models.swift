@@ -8,4 +8,10 @@ struct MealEstimate: Codable, Hashable { //codable protocol enables ability to d
     let calories: Int
     let description: String
     let accuracyScore: Int
+    let created_at: Date?
+}
+struct Profiles: Codable {
+    let id: UUID?
+    let created_at: Date?
+    let name: String
 }
