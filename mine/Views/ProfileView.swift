@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     var body: some View {
-        Text("Welcome! You are currently signed in as a guest. ")
+        Text("Welcome! You are currently signed in as a guest. Login feature coming soon...")
     }
 }
 

@@ -10,12 +10,12 @@ class SupabaseManager {
     private init() {
         
         let url = URL(string: "https://ypzdjlfgckfyqqhyhgjc.supabase.co")!
-        let key = ProcessInfo.processInfo.environment["SUPABASE_KEY"] ?? ""
+        let key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwemRqbGZnY2tmeXFxaHloZ2pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM0NzM5MTYsImV4cCI6MjA1OTA0OTkxNn0.hv8kcWuQJsRXCswZFad2YAONTouzUat6rlwpU0CEX_s"
         
         self.client = SupabaseClient(
             supabaseURL: url,
             supabaseKey: key
-        )
+)
     }
     
     func getUserId()async throws -> UUID {
@@ -47,7 +47,8 @@ class SupabaseManager {
                 fat: fat,
                 calories: calories,
                 description: description,
-                accuracyScore: accuracyScore
+                accuracyScore: accuracyScore,
+                created_at: nil
             )
             
             try await client.from("Meals").insert(meal).execute()
@@ -57,23 +58,25 @@ class SupabaseManager {
         }
             
     }
-        
     
-    
-    func fetchTodaysMeals() async throws -> [MealEstimate] {
+    func fetchMeals(for date: Date = Date()) async throws -> [MealEstimate] {
         do {
-                let userId = try await self.getUserId()
-                
-                // Use the userId to fetch meals
-                let today = Calendar.current.startOfDay(for: Date())
+            let userId = try await self.getUserId()
+            
+            let calendar = Calendar.current
+            let startOfDay = calendar.startOfDay(for: date)
+            let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+            
                 
             let meals: [MealEstimate] = try await client
-                    .from("Meals")
+                    .from("Meals") //1. display meals
                     .select()
                     .eq("user_id", value: userId)
-                    .gte("created_at", value: today.ISO8601Format()) // You'll need to format this properly
+                    .gte("created_at", value: startOfDay.ISO8601Format()) //2. starting from this day
+                    .lt("created_at", value: endOfDay.ISO8601Format()) //3. limit to this day
                     .execute()
                     .value //generic property returning decoded type that was declared (here, its meal estimate.)
+            
             return meals
             
             } catch {
@@ -82,7 +85,19 @@ class SupabaseManager {
             }
 
     }
-    
+    func mealLimit() async throws -> Bool {
+        do {
+            let userId = try await self.getUserId() // get the user ID
+            let mealsArray = try await fetchMeals(for: Date()) // get today’s meals
+
+            // Return true if user has exceeded the limit
+            return mealsArray.count >= 15
+        } catch {
+            print("❌ Error checking meal limit: \(error)")
+            throw error
+        }
+    }
+
     func deleteMeal(id: Int) async { //This will delete a meal from the database.
         do {
             

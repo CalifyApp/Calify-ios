@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>CalifyWatchApp Watch App.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>mine.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -13,6 +18,21 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>9D219E872D9FEA9A00357A55</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9D2D49172DFA4D1D00C5858C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9D2D49262DFA4D1E00C5858C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9D2D49302DFA4D1E00C5858C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
