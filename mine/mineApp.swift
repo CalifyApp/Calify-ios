@@ -38,6 +38,11 @@ struct ContentView: View {
                     Image(systemName: "clock.fill")
                     Text("History")
                 }
+            WaterView()
+                .tabItem{
+                    Image(systemName: "drop.fill")
+                    Text("Water Intake")
+                }
 
             ProfileView()
                 .tabItem {

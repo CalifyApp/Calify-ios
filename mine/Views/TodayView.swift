@@ -5,6 +5,8 @@ struct TodayView: View {
     @State private var todaysTotal: NutrientTotals? = nil
     @State private var isLoading = true
     @State private var errorMessage: String? = nil
+    @State private var mealToDelete: MealEstimate? = nil
+    @State private var showingDeleteAlert = false
     @State private var currentDate = Date() //Track current displayed date. what current date are we on/displaying?
 
     private var isToday: Bool {
@@ -25,15 +27,12 @@ struct TodayView: View {
             return formatter.string(from: currentDate)
     }
     
-    
-    
     var body: some View {
         NavigationView {
-            ZStack { //todo: wtf is a zstack? and how does .navtitle and .toolbar attach?
-                // Background
+            ZStack {
                 Color(.systemGroupedBackground)
                     .ignoresSafeArea()
-                
+
                 if isLoading {
                     ProgressView("Loading your meals...")
                 } else if let error = errorMessage {
@@ -42,40 +41,85 @@ struct TodayView: View {
                 } else if todaysMeals.isEmpty {
                     ContentUnavailableView("No Meals Today", systemImage: "fork.knife", description: Text("Meals you add will appear here"))
                 } else {
-                    ScrollView {
-                        VStack(spacing: 16) {
-                            // Daily Summary Card
-                            if let summary = todaysTotal {
+                    List {
+                       
+                        if let summary = todaysTotal {
+                            ZStack {
                                 DailySummaryCard(summary: summary)
                             }
-                            
-                            // List of individual meals
-                            VStack(spacing: 8) {
-                                Text(isToday ? "Today's Meals" : "\(formattedDate)'s Meals")
 
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.horizontal)
-                                
-                                ForEach(todaysMeals, id: \.description) { meal in
-                                    NavigationLink(destination: MealDetailView(meal: meal)) {
-                                        MealCard(meal: meal, onDelete: {
-                                            refreshData()
-                                        })
-                                    }
-                                    .buttonStyle(PlainButtonStyle()) // This ensures the card looks normal
-                                }
-
-                            }
-                            .padding(.bottom)
                         }
-                        .padding(.top)
+
+
+                    
+                        Text(isToday ? "Today's Meals" : "\(formattedDate)'s Meals")
+                            .font(.headline)
+                            .padding(.horizontal, 4)
+                            .padding(.top, 12)
+                            .padding(.bottom, 4)
+                            .listRowInsets(EdgeInsets()) // Remove system padding
+                            .listRowBackground(Color.clear)
+                        
+                        
+                        ForEach(todaysMeals, id: \.description) { meal in
+                            ZStack {
+                                MealCard(meal: meal, onDelete: {
+                                    refreshData()
+                                })
+                                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                    Button(role: .none) {
+                                        mealToDelete = meal
+                                        showingDeleteAlert = true
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                    .tint(.red)
+                                }
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color(.secondarySystemGroupedBackground))
+                                )
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                                NavigationLink(destination: MealDetailView(meal: meal)) {
+                                    EmptyView()
+                                }
+                                
+                                .buttonStyle(.plain)
+                                .opacity(0)
+                            }
+                            .listRowBackground(Color.clear)
+                            .listRowInsets(EdgeInsets())
+                            .padding(.vertical, 4) // spacing between cards
+                        }
+//                        .onDelete(perform: deleteMeals)
+                        
                     }
+                    .listStyle(InsetGroupedListStyle())
                 }
             }
-            .navigationTitle((Text(isToday ? "Today's Nutrition" : formattedDate)
-)) //nav title at the top
-            .toolbar { //toolbar at the top
+            .alert("Are you sure you want to delete?", isPresented: $showingDeleteAlert) {
+                Button("Cancel", role: .cancel) {
+                    mealToDelete = nil
+                }
+                Button("Delete", role: .none) {
+                    if let meal = mealToDelete, let id = meal.id {
+                        Task {
+                            await SupabaseManager.shared.deleteMeal(id: id)
+                            await MainActor.run {
+                                todaysMeals.removeAll { $0.id == id }
+                                refreshData()
+                            }
+                            mealToDelete = nil
+                        }
+                    }
+                }
+            } message: {
+                Text("This action cannot be undone.")
+            }
+            .navigationTitle(isToday ? "Today's Nutrition" : formattedDate)
+            .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         navigateToPreviousDay()
@@ -85,7 +129,7 @@ struct TodayView: View {
                             Text("Previous Day")
                         }
                     }
-                    .disabled(isAtSevenDayLimit) //i assume this says, if the bool is true, disable this toolbar item (Grey it out)
+                    .disabled(isAtSevenDayLimit)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack {
@@ -105,21 +149,14 @@ struct TodayView: View {
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
-
                 }
-                
-                
-//                Button {
-//                    refreshData()
-//                } label: {
-//                    Image(systemName: "arrow.clockwise")
-//                }
+            }
+            .onAppear {
+                refreshData()
             }
         }
-        .onAppear {
-            refreshData()
-        }
     }
+    
     
     //update current day to previous day
     func navigateToPreviousDay() {
@@ -199,12 +236,9 @@ struct DailySummaryCard: View {
                 MacroItem(value: summary.totalFat, label: "Fat", color: .orange)
             }
         }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color(.secondarySystemGroupedBackground))
-        )
-        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+        .padding(.top, 4)
+        .padding(.bottom, 4)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal)
     }
 }
@@ -242,33 +276,11 @@ struct MealCard: View {
                 
                 Spacer()
                 
-                // Trash Icon Button
-                Button(action: {
-                    showDeleteConfirmation = true
-                }) {
-                    Image(systemName: "trash")
-                        .foregroundColor(.red)
-                        .font(.system(size: 16))
-                        .padding(8)
-                        .background(Circle().fill(Color.gray.opacity(0.2)))
-                }
-                .alert(isPresented: $showDeleteConfirmation) {
-                    Alert(
-                        title: Text("Delete Meal"),
-                        message: Text("Are you sure you want to delete this meal? This action cannot be undone."),
-                        primaryButton: .destructive(Text("Delete")) {
-                            Task {
-                                if let mealId = meal.id {
-                                    await SupabaseManager.shared.deleteMeal(id: mealId)
-                                    onDelete()
-                                } else {
-                                    print("Error: Meal ID is nil and cannot be deleted.")
-                                }
-                            }
-                        },
-                        secondaryButton: .cancel()
-                    )
-                }
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.gray)
+                    .font(.system(size: 16))
+                    .padding(8)
+//                    .background(Circle().fill(Color.gray.opacity(0.2)))
             }
             
             // Nutrition section
@@ -300,20 +312,14 @@ struct MealCard: View {
                 // Limit the size of the accuracy gauge
                 ScoreGaugeView(
                     score: meal.accuracyScore,
-                    title: "accuracy",
-                    description: "How certain we are about these values"
+                    title: "accuracy"
                 )
                 .frame(maxWidth: 80) // limit how wide it can go
             }
-
+            
         }
-        .padding()
+
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.secondarySystemGroupedBackground))
-        )
-        .padding(.horizontal)
     }
 }
 
@@ -366,6 +372,6 @@ struct NutritionPill: View {
     }
 }
 
-#Preview {
-    TodayView()
-}
+//#Preview {
+//    TodayView()
+//}

@@ -37,6 +37,7 @@
 		9D219EA32D9FEAF100357A55 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 9D219EA22D9FEAF100357A55 /* Storage */; };
 		9D219EA52D9FEAF100357A55 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9D219EA42D9FEAF100357A55 /* Supabase */; };
 		9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */; };
+		CEFD79362E0389AA00BD4B66 /* WaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFD79352E0389A300BD4B66 /* WaterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		9D219E8F2D9FEA9A00357A55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D219E922D9FEA9A00357A55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSetupView.swift; sourceTree = "<group>"; };
+		CEFD79352E0389A300BD4B66 /* WaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		9D05E1AC2D9FEBC400B37E2B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CEFD79352E0389A300BD4B66 /* WaterView.swift */,
 				9D05E1AF2D9FEBE500B37E2B /* HomeView.swift */,
 				9D05E1AE2D9FEBE500B37E2B /* TodayView.swift */,
 				9D05E1AD2D9FEBE500B37E2B /* ProfileView.swift */,
@@ -287,6 +290,7 @@
 				9D05E1B02D9FEBE500B37E2B /* ProfileView.swift in Sources */,
 				9D05E1B42D9FEC3900B37E2B /* SupabaseManager.swift in Sources */,
 				9D05E1BB2DA0EE5B00B37E2B /* MealResultView.swift in Sources */,
+				CEFD79362E0389AA00BD4B66 /* WaterView.swift in Sources */,
 				9D05E1BD2DA0EE7500B37E2B /* LoadingView.swift in Sources */,
 				9D05E1C32DA66F0B00B37E2B /* AggregateMeals.swift in Sources */,
 				9D05E1C02DA0EF8400B37E2B /* Models.swift in Sources */,

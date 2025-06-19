@@ -14,7 +14,13 @@ import SwiftUI
 struct ScoreGaugeView: View {
     let score: Int
     let title: String
-    let description: String
+    let description: String?
+    
+    init(score: Int, title: String, description: String? = nil) {
+        self.score = score
+        self.title = title
+        self.description = description
+    }
     
     // Get color based on score
     private var color: Color {
@@ -53,11 +59,15 @@ struct ScoreGaugeView: View {
                 }
             }
             
-            Text(description)
-                .font(.caption)
-                .foregroundColor(.gray)
-                .multilineTextAlignment(.center)
-                .frame(width: 100)
+            if let description = description {
+                Text(description)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .lineLimit(1)
+                    .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.7)
+                    .truncationMode(.tail)
+            }
         }
     }
 }
