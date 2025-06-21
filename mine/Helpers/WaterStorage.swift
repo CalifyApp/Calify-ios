@@ -34,4 +34,7 @@ struct WaterTrackerStorage {
         let value = UserDefaults.standard.integer(forKey: goalKey)
         return value > 0 ? value : 100
     }
+    static func clearIntake() {
+        UserDefaults.standard.set(0, forKey: intakeKey)
+    }
 }
