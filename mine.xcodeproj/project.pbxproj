@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -36,12 +36,66 @@
 		9D219EA12D9FEAF100357A55 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 9D219EA02D9FEAF100357A55 /* Realtime */; };
 		9D219EA32D9FEAF100357A55 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 9D219EA22D9FEAF100357A55 /* Storage */; };
 		9D219EA52D9FEAF100357A55 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9D219EA42D9FEAF100357A55 /* Supabase */; };
-		9D290E2A2E073E9900A84424 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D290E292E073E9700A84424 /* KeyboardResponder.swift */; };
+		9D290DF62DFF8DB300A84424 /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D290DF52DFF8DA500A84424 /* WatchSessionManager.swift */; };
+		9D290DF82E021D6B00A84424 /* SwiftOpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 9D290DF72E021D6B00A84424 /* SwiftOpenAI */; };
+		9D290DFA2E021D9400A84424 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 9D290DF92E021D9400A84424 /* Auth */; };
+		9D290DFC2E021D9400A84424 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 9D290DFB2E021D9400A84424 /* Functions */; };
+		9D290DFE2E021D9400A84424 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 9D290DFD2E021D9400A84424 /* PostgREST */; };
+		9D290E002E021D9400A84424 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 9D290DFF2E021D9400A84424 /* Realtime */; };
+		9D290E022E021D9400A84424 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 9D290E012E021D9400A84424 /* Storage */; };
+		9D290E042E021D9400A84424 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9D290E032E021D9400A84424 /* Supabase */; };
+		9D290E052E021EAD00A84424 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1BF2DA0EF8400B37E2B /* Models.swift */; };
+		9D290E092E02418400A84424 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D2D49622DFB941700C5858C /* Speech.framework */; };
+		9D290E0C2E02419600A84424 /* CalifyWatchApp Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9D2D49182DFA4D1D00C5858C /* CalifyWatchApp Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9DD5E6462DFF6EF900406FC8 /* OpenAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1B82D9FF76900B37E2B /* OpenAIManager.swift */; };
+		9DD5E6472DFF6F0E00406FC8 /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1B32D9FEC3900B37E2B /* SupabaseManager.swift */; };
 		9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */; };
-		CEFD79362E0389AA00BD4B66 /* WaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFD79352E0389A300BD4B66 /* WaterView.swift */; };
-		CEFD79382E058B2900BD4B66 /* WaterGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFD79372E058B2100BD4B66 /* WaterGaugeView.swift */; };
-		CEFD793A2E05B10B00BD4B66 /* WaterStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFD79392E05B0F600BD4B66 /* WaterStorage.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9D290E0D2E02419600A84424 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D219E802D9FEA9A00357A55 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9D2D49172DFA4D1D00C5858C;
+			remoteInfo = "CalifyWatchApp Watch App";
+		};
+		9D290E102E0241D900A84424 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D219E802D9FEA9A00357A55 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9D2D49172DFA4D1D00C5858C;
+			remoteInfo = "CalifyWatchApp Watch App";
+		};
+		9D2D49282DFA4D1E00C5858C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D219E802D9FEA9A00357A55 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9D2D49172DFA4D1D00C5858C;
+			remoteInfo = "CalifyWatchApp Watch App";
+		};
+		9D2D49322DFA4D1E00C5858C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D219E802D9FEA9A00357A55 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9D2D49172DFA4D1D00C5858C;
+			remoteInfo = "CalifyWatchApp Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9D290E0F2E02419600A84424 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				9D290E0C2E02419600A84424 /* CalifyWatchApp Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9D05E1AD2D9FEBE500B37E2B /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -62,12 +116,17 @@
 		9D219E8B2D9FEA9A00357A55 /* mineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mineApp.swift; sourceTree = "<group>"; };
 		9D219E8F2D9FEA9A00357A55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D219E922D9FEA9A00357A55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		9D290E292E073E9700A84424 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
+		9D290DF52DFF8DA500A84424 /* WatchSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
+		9D2D49182DFA4D1D00C5858C /* CalifyWatchApp Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CalifyWatchApp Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D2D49272DFA4D1E00C5858C /* CalifyWatchApp Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CalifyWatchApp Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D2D49312DFA4D1E00C5858C /* CalifyWatchApp Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CalifyWatchApp Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D2D49622DFB941700C5858C /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
 		9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSetupView.swift; sourceTree = "<group>"; };
-		CEFD79352E0389A300BD4B66 /* WaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterView.swift; sourceTree = "<group>"; };
-		CEFD79372E058B2100BD4B66 /* WaterGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterGaugeView.swift; sourceTree = "<group>"; };
-		CEFD79392E05B0F600BD4B66 /* WaterStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9D2D49192DFA4D1D00C5858C /* CalifyWatchApp Watch App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "CalifyWatchApp Watch App"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		9D219E852D9FEA9A00357A55 /* Frameworks */ = {
@@ -78,6 +137,7 @@
 				9D219E9F2D9FEAF100357A55 /* PostgREST in Frameworks */,
 				9D219E9D2D9FEAF100357A55 /* Functions in Frameworks */,
 				9D219EA52D9FEAF100357A55 /* Supabase in Frameworks */,
+				9D290E092E02418400A84424 /* Speech.framework in Frameworks */,
 				9D05E1D62DB993C500B37E2B /* Functions in Frameworks */,
 				9D05E1D82DB993C500B37E2B /* PostgREST in Frameworks */,
 				9D05E1B72D9FF74A00B37E2B /* SwiftOpenAI in Frameworks */,
@@ -87,6 +147,34 @@
 				9D219EA12D9FEAF100357A55 /* Realtime in Frameworks */,
 				9D05E1DA2DB993C500B37E2B /* Realtime in Frameworks */,
 				9D05E1DE2DB993C500B37E2B /* Supabase in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D2D49152DFA4D1D00C5858C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D290E042E021D9400A84424 /* Supabase in Frameworks */,
+				9D290E022E021D9400A84424 /* Storage in Frameworks */,
+				9D290DFE2E021D9400A84424 /* PostgREST in Frameworks */,
+				9D290DFC2E021D9400A84424 /* Functions in Frameworks */,
+				9D290DFA2E021D9400A84424 /* Auth in Frameworks */,
+				9D290E002E021D9400A84424 /* Realtime in Frameworks */,
+				9D290DF82E021D6B00A84424 /* SwiftOpenAI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D2D49242DFA4D1E00C5858C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D2D492E2DFA4D1E00C5858C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,8 +191,7 @@
 		9D05E1AB2D9FEBB600B37E2B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				9D05E1B32D9FEC3900B37E2B /* SupabaseManager.swift */,
-				9D05E1B82D9FF76900B37E2B /* OpenAIManager.swift */,
+				9D290DF52DFF8DA500A84424 /* WatchSessionManager.swift */,
 				9D05E1C52DA7A65A00B37E2B /* SpeechRecognizer.swift */,
 			);
 			path = Services;
@@ -155,6 +242,7 @@
 		9D05E1D22DB98EA200B37E2B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D2D49622DFB941700C5858C /* Speech.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -162,7 +250,9 @@
 		9D219E7F2D9FEA9A00357A55 = {
 			isa = PBXGroup;
 			children = (
+				9DD5E6452DFF6DEF00406FC8 /* Shared */,
 				9D219E8A2D9FEA9A00357A55 /* mine */,
+				9D2D49192DFA4D1D00C5858C /* CalifyWatchApp Watch App */,
 				9D219E892D9FEA9A00357A55 /* Products */,
 				9D05E1D22DB98EA200B37E2B /* Frameworks */,
 			);
@@ -172,6 +262,9 @@
 			isa = PBXGroup;
 			children = (
 				9D219E882D9FEA9A00357A55 /* Calify.app */,
+				9D2D49182DFA4D1D00C5858C /* CalifyWatchApp Watch App.app */,
+				9D2D49272DFA4D1E00C5858C /* CalifyWatchApp Watch AppTests.xctest */,
+				9D2D49312DFA4D1E00C5858C /* CalifyWatchApp Watch AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,7 +275,6 @@
 				9D290E2C2E073EAA00A84424 /* Utils */,
 				9D05E1C72DAADE3300B37E2B /* UIComponents */,
 				9D05E1C12DA66EF000B37E2B /* Helpers */,
-				9D05E1BE2DA0EF7600B37E2B /* Models */,
 				9D05E1AC2D9FEBC400B37E2B /* Views */,
 				9D05E1AB2D9FEBB600B37E2B /* Services */,
 				9D05E1AA2D9FEBB000B37E2B /* App */,
@@ -202,12 +294,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		9D290E2C2E073EAA00A84424 /* Utils */ = {
+		9DD5E6452DFF6DEF00406FC8 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				9D290E292E073E9700A84424 /* KeyboardResponder.swift */,
+				9D05E1B82D9FF76900B37E2B /* OpenAIManager.swift */,
+				9D05E1B32D9FEC3900B37E2B /* SupabaseManager.swift */,
+				9D05E1BE2DA0EF7600B37E2B /* Models */,
 			);
-			path = Utils;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,10 +314,13 @@
 				9D219E842D9FEA9A00357A55 /* Sources */,
 				9D219E852D9FEA9A00357A55 /* Frameworks */,
 				9D219E862D9FEA9A00357A55 /* Resources */,
+				9D290E0F2E02419600A84424 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9D290E0E2E02419600A84424 /* PBXTargetDependency */,
+				9D290E112E0241D900A84424 /* PBXTargetDependency */,
 			);
 			name = Calify;
 			packageProductDependencies = (
@@ -245,6 +342,76 @@
 			productReference = 9D219E882D9FEA9A00357A55 /* Calify.app */;
 			productType = "com.apple.product-type.application";
 		};
+		9D2D49172DFA4D1D00C5858C /* CalifyWatchApp Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D2D49432DFA4D1E00C5858C /* Build configuration list for PBXNativeTarget "CalifyWatchApp Watch App" */;
+			buildPhases = (
+				9D2D49142DFA4D1D00C5858C /* Sources */,
+				9D2D49152DFA4D1D00C5858C /* Frameworks */,
+				9D2D49162DFA4D1D00C5858C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9D2D49192DFA4D1D00C5858C /* CalifyWatchApp Watch App */,
+			);
+			name = "CalifyWatchApp Watch App";
+			packageProductDependencies = (
+				9D290DF72E021D6B00A84424 /* SwiftOpenAI */,
+				9D290DF92E021D9400A84424 /* Auth */,
+				9D290DFB2E021D9400A84424 /* Functions */,
+				9D290DFD2E021D9400A84424 /* PostgREST */,
+				9D290DFF2E021D9400A84424 /* Realtime */,
+				9D290E012E021D9400A84424 /* Storage */,
+				9D290E032E021D9400A84424 /* Supabase */,
+			);
+			productName = "CalifyWatchApp Watch App";
+			productReference = 9D2D49182DFA4D1D00C5858C /* CalifyWatchApp Watch App.app */;
+			productReference = 9D219E882D9FEA9A00357A55 /* Calify.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9D2D49262DFA4D1E00C5858C /* CalifyWatchApp Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D2D49442DFA4D1E00C5858C /* Build configuration list for PBXNativeTarget "CalifyWatchApp Watch AppTests" */;
+			buildPhases = (
+				9D2D49232DFA4D1E00C5858C /* Sources */,
+				9D2D49242DFA4D1E00C5858C /* Frameworks */,
+				9D2D49252DFA4D1E00C5858C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9D2D49292DFA4D1E00C5858C /* PBXTargetDependency */,
+			);
+			name = "CalifyWatchApp Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "CalifyWatchApp Watch AppTests";
+			productReference = 9D2D49272DFA4D1E00C5858C /* CalifyWatchApp Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9D2D49302DFA4D1E00C5858C /* CalifyWatchApp Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D2D49452DFA4D1E00C5858C /* Build configuration list for PBXNativeTarget "CalifyWatchApp Watch AppUITests" */;
+			buildPhases = (
+				9D2D492D2DFA4D1E00C5858C /* Sources */,
+				9D2D492E2DFA4D1E00C5858C /* Frameworks */,
+				9D2D492F2DFA4D1E00C5858C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9D2D49332DFA4D1E00C5858C /* PBXTargetDependency */,
+			);
+			name = "CalifyWatchApp Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "CalifyWatchApp Watch AppUITests";
+			productReference = 9D2D49312DFA4D1E00C5858C /* CalifyWatchApp Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -252,11 +419,22 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1520;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					9D219E872D9FEA9A00357A55 = {
 						CreatedOnToolsVersion = 15.2;
+					};
+					9D2D49172DFA4D1D00C5858C = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					9D2D49262DFA4D1E00C5858C = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 9D2D49172DFA4D1D00C5858C;
+					};
+					9D2D49302DFA4D1E00C5858C = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 9D2D49172DFA4D1D00C5858C;
 					};
 				};
 			};
@@ -278,6 +456,9 @@
 			projectRoot = "";
 			targets = (
 				9D219E872D9FEA9A00357A55 /* Calify */,
+				9D2D49172DFA4D1D00C5858C /* CalifyWatchApp Watch App */,
+				9D2D49262DFA4D1E00C5858C /* CalifyWatchApp Watch AppTests */,
+				9D2D49302DFA4D1E00C5858C /* CalifyWatchApp Watch AppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -289,6 +470,27 @@
 			files = (
 				9D219E932D9FEA9A00357A55 /* Preview Assets.xcassets in Resources */,
 				9D219E902D9FEA9A00357A55 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D2D49162DFA4D1D00C5858C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D2D49252DFA4D1E00C5858C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D2D492F2DFA4D1E00C5858C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +515,7 @@
 				CEFD79362E0389AA00BD4B66 /* WaterView.swift in Sources */,
 				9D05E1BD2DA0EE7500B37E2B /* LoadingView.swift in Sources */,
 				9D05E1C32DA66F0B00B37E2B /* AggregateMeals.swift in Sources */,
+				9D290DF62DFF8DB300A84424 /* WatchSessionManager.swift in Sources */,
 				9D05E1C02DA0EF8400B37E2B /* Models.swift in Sources */,
 				9D05E1CF2DB4166100B37E2B /* MealDetailView.swift in Sources */,
 				9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */,
@@ -321,7 +524,54 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9D2D49142DFA4D1D00C5858C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DD5E6462DFF6EF900406FC8 /* OpenAIManager.swift in Sources */,
+				9DD5E6472DFF6F0E00406FC8 /* SupabaseManager.swift in Sources */,
+				9D290E052E021EAD00A84424 /* Models.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D2D49232DFA4D1E00C5858C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D2D492D2DFA4D1E00C5858C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9D290E0E2E02419600A84424 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9D2D49172DFA4D1D00C5858C /* CalifyWatchApp Watch App */;
+			targetProxy = 9D290E0D2E02419600A84424 /* PBXContainerItemProxy */;
+		};
+		9D290E112E0241D900A84424 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9D2D49172DFA4D1D00C5858C /* CalifyWatchApp Watch App */;
+			targetProxy = 9D290E102E0241D900A84424 /* PBXContainerItemProxy */;
+		};
+		9D2D49292DFA4D1E00C5858C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9D2D49172DFA4D1D00C5858C /* CalifyWatchApp Watch App */;
+			targetProxy = 9D2D49282DFA4D1E00C5858C /* PBXContainerItemProxy */;
+		};
+		9D2D49332DFA4D1E00C5858C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9D2D49172DFA4D1D00C5858C /* CalifyWatchApp Watch App */;
+			targetProxy = 9D2D49322DFA4D1E00C5858C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		9D219E942D9FEA9A00357A55 /* Debug */ = {
@@ -477,6 +727,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
 			};
 			name = Debug;
 		};
@@ -514,6 +765,147 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+			};
+			name = Release;
+		};
+		9D2D493D2DFA4D1E00C5858C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CalifyWatchApp Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = HYU3B9NY64;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = CalifyWatchApp;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = Calify.mine;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.6;
+			};
+			name = Debug;
+		};
+		9D2D493E2DFA4D1E00C5858C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CalifyWatchApp Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = HYU3B9NY64;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = CalifyWatchApp;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = Calify.mine;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.6;
+			};
+			name = Release;
+		};
+		9D2D493F2DFA4D1E00C5858C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HYU3B9NY64;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Calify.CalifyWatchApp-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CalifyWatchApp Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CalifyWatchApp Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+		9D2D49402DFA4D1E00C5858C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HYU3B9NY64;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Calify.CalifyWatchApp-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CalifyWatchApp Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CalifyWatchApp Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+		9D2D49412DFA4D1E00C5858C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HYU3B9NY64;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Calify.CalifyWatchApp-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "CalifyWatchApp Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+		9D2D49422DFA4D1E00C5858C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HYU3B9NY64;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Calify.CalifyWatchApp-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "CalifyWatchApp Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
@@ -534,6 +926,33 @@
 			buildConfigurations = (
 				9D219E972D9FEA9A00357A55 /* Debug */,
 				9D219E982D9FEA9A00357A55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9D2D49432DFA4D1E00C5858C /* Build configuration list for PBXNativeTarget "CalifyWatchApp Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D2D493D2DFA4D1E00C5858C /* Debug */,
+				9D2D493E2DFA4D1E00C5858C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9D2D49442DFA4D1E00C5858C /* Build configuration list for PBXNativeTarget "CalifyWatchApp Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D2D493F2DFA4D1E00C5858C /* Debug */,
+				9D2D49402DFA4D1E00C5858C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9D2D49452DFA4D1E00C5858C /* Build configuration list for PBXNativeTarget "CalifyWatchApp Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D2D49412DFA4D1E00C5858C /* Debug */,
+				9D2D49422DFA4D1E00C5858C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -617,6 +1036,35 @@
 		9D219EA42D9FEAF100357A55 /* Supabase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9D219E992D9FEAF100357A55 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		9D290DF72E021D6B00A84424 /* SwiftOpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D05E1B52D9FF74A00B37E2B /* XCRemoteSwiftPackageReference "SwiftOpenAI" */;
+			productName = SwiftOpenAI;
+		};
+		9D290DF92E021D9400A84424 /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Auth;
+		};
+		9D290DFB2E021D9400A84424 /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Functions;
+		};
+		9D290DFD2E021D9400A84424 /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PostgREST;
+		};
+		9D290DFF2E021D9400A84424 /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Realtime;
+		};
+		9D290E012E021D9400A84424 /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Storage;
+		};
+		9D290E032E021D9400A84424 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = Supabase;
 		};
 /* End XCSwiftPackageProductDependency section */

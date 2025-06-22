@@ -179,7 +179,7 @@ struct HomeView: View {
     }
 
     
-    //this function is essentially, taking the response from chatgpt(raw json string), parsing it, and storing cals/macros in result which is of type MealEstimate struct
+    //this function is essentially, sending meal description to chatgpt, taking the response from chatgpt(raw json string), parsing it, and storing cals/macros in result which is of type MealEstimate struct
     private func submitMeal() {
         guard !userMeal.isEmpty else { return }
         
