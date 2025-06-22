@@ -25,7 +25,6 @@ struct CalifyApp: App {
             else {
                 NameSetupView()
             }
-
         }
     }
 }
@@ -43,6 +42,11 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "clock.fill")
                     Text("History")
+                }
+            WaterView()
+                .tabItem{
+                    Image(systemName: "drop.fill")
+                    Text("Water Intake")
                 }
 
             ProfileView()

@@ -123,8 +123,8 @@ struct TipSection: View {
     }
 }
 
-#Preview {
-    NavigationView {
-        TipsView()
-    }
-}
+//#Preview {
+//    NavigationView {
+//        TipsView()
+//    }
+//}

@@ -50,6 +50,10 @@
 		9DD5E6462DFF6EF900406FC8 /* OpenAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1B82D9FF76900B37E2B /* OpenAIManager.swift */; };
 		9DD5E6472DFF6F0E00406FC8 /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1B32D9FEC3900B37E2B /* SupabaseManager.swift */; };
 		9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */; };
+		9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */; };
+		CEFD79362E0389AA00BD4B66 /* WaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFD79352E0389A300BD4B66 /* WaterView.swift */; };
+		CEFD79382E058B2900BD4B66 /* WaterGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFD79372E058B2100BD4B66 /* WaterGaugeView.swift */; };
+		CEFD793A2E05B10B00BD4B66 /* WaterStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFD79392E05B0F600BD4B66 /* WaterStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +126,10 @@
 		9D2D49312DFA4D1E00C5858C /* CalifyWatchApp Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CalifyWatchApp Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D2D49622DFB941700C5858C /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
 		9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSetupView.swift; sourceTree = "<group>"; };
+		9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSetupView.swift; sourceTree = "<group>"; };
+		CEFD79352E0389A300BD4B66 /* WaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterView.swift; sourceTree = "<group>"; };
+		CEFD79372E058B2100BD4B66 /* WaterGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterGaugeView.swift; sourceTree = "<group>"; };
+		CEFD79392E05B0F600BD4B66 /* WaterStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -200,6 +208,7 @@
 		9D05E1AC2D9FEBC400B37E2B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CEFD79352E0389A300BD4B66 /* WaterView.swift */,
 				9D05E1AF2D9FEBE500B37E2B /* HomeView.swift */,
 				9D05E1AE2D9FEBE500B37E2B /* TodayView.swift */,
 				9D05E1AD2D9FEBE500B37E2B /* ProfileView.swift */,
@@ -223,6 +232,7 @@
 		9D05E1C12DA66EF000B37E2B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				CEFD79392E05B0F600BD4B66 /* WaterStorage.swift */,
 				9D05E1C22DA66F0B00B37E2B /* AggregateMeals.swift */,
 			);
 			path = Helpers;
@@ -231,6 +241,7 @@
 		9D05E1C72DAADE3300B37E2B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				CEFD79372E058B2100BD4B66 /* WaterGaugeView.swift */,
 				9D05E1C82DAADE6500B37E2B /* ScoreGuageView.swift */,
 			);
 			path = UIComponents;
@@ -504,6 +515,9 @@
 				9D05E1B02D9FEBE500B37E2B /* ProfileView.swift in Sources */,
 				9D05E1B42D9FEC3900B37E2B /* SupabaseManager.swift in Sources */,
 				9D05E1BB2DA0EE5B00B37E2B /* MealResultView.swift in Sources */,
+				CEFD79382E058B2900BD4B66 /* WaterGaugeView.swift in Sources */,
+				CEFD793A2E05B10B00BD4B66 /* WaterStorage.swift in Sources */,
+				CEFD79362E0389AA00BD4B66 /* WaterView.swift in Sources */,
 				9D05E1BD2DA0EE7500B37E2B /* LoadingView.swift in Sources */,
 				9D05E1C32DA66F0B00B37E2B /* AggregateMeals.swift in Sources */,
 				9D290DF62DFF8DB300A84424 /* WatchSessionManager.swift in Sources */,

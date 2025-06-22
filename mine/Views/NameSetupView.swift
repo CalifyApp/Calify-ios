@@ -10,7 +10,7 @@ import SwiftUI
 
 struct NameSetupView: View {
     @State private var name: String = ""
-    @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false //TODO: Why is this both here and in entry point?
+    @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
     @AppStorage("userName") var userName: String = ""
 
     var body: some View {
