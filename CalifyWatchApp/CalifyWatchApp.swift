@@ -11,7 +11,7 @@ import Foundation
 import WatchConnectivity
 
 @main
-struct CalifyWatchApp_Watch_AppApp: App {
+struct CalifyWatchApp: App {
     init() {
         //Activate Watch Connectivity early
         _ = WatchSessionManager.shared

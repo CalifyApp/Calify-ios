@@ -25,7 +25,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9D219E872D9FEA9A00357A55"
-               BuildableName = "Calify.app"
+               BuildableName = "CalifyWatchApp.app"
                BlueprintName = "Calify"
                ReferencedContainer = "container:mine.xcodeproj">
             </BuildableReference>
@@ -39,8 +39,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9D2D49172DFA4D1D00C5858C"
-               BuildableName = "CalifyWatchApp Watch App.app"
-               BlueprintName = "CalifyWatchApp Watch App"
+               BuildableName = "CalifyWatchApp.app"
+               BlueprintName = "CalifyWatchApp"
                ReferencedContainer = "container:mine.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -92,8 +92,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9D2D49172DFA4D1D00C5858C"
-            BuildableName = "CalifyWatchApp Watch App.app"
-            BlueprintName = "CalifyWatchApp Watch App"
+            BuildableName = "CalifyWatchApp.app"
+            BlueprintName = "CalifyWatchApp"
             ReferencedContainer = "container:mine.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -109,8 +109,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9D2D49172DFA4D1D00C5858C"
-            BuildableName = "CalifyWatchApp Watch App.app"
-            BlueprintName = "CalifyWatchApp Watch App"
+            BuildableName = "CalifyWatchApp.app"
+            BlueprintName = "CalifyWatchApp"
             ReferencedContainer = "container:mine.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
