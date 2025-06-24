@@ -74,6 +74,7 @@ class SupabaseManager {
                     .eq("user_id", value: userId)
                     .gte("created_at", value: startOfDay.ISO8601Format()) //2. starting from this day
                     .lt("created_at", value: endOfDay.ISO8601Format()) //3. limit to this day
+                    .order("created_at", ascending: false)
                     .execute()
                     .value //generic property returning decoded type that was declared (here, its meal estimate.)
             

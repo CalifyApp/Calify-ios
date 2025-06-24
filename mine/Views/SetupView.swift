@@ -8,9 +8,10 @@
 import Foundation
 import SwiftUI
 
-struct NameSetupView: View {
+struct SetupView: View {
     @State private var name: String = ""
     @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
+    @AppStorage("didPromptForNotifications") var didPromptForNotifications: Bool = false
     @AppStorage("userName") var userName: String = ""
 
     var body: some View {
@@ -24,8 +25,26 @@ struct NameSetupView: View {
             
             Button("Continue") {
                 userName = name
-                hasLaunchedBefore = true
+                
                 Task {
+                    await permissions()
+                    if !didPromptForNotifications {
+                        await withCheckedContinuation { continuation in
+                            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                                DispatchQueue.main.async {
+                                    print("Notification permission granted: \(granted)")
+                                    if granted {
+                                        NotificationManager.scheduleMealReminders()
+                                    }
+                                    if let error = error {
+                                        print("Notification error: \(error)")
+                                    }
+                                    didPromptForNotifications = true
+                                    continuation.resume()
+                                }
+                            }
+                        }
+                    }
                     do {
                         var userID: UUID?
                         if let session = try? await SupabaseManager.shared.client.auth.session {
@@ -49,13 +68,15 @@ struct NameSetupView: View {
                             name: name
                         )
                         try await SupabaseManager.shared.client.from("Profiles").insert(userProfile).execute()
+                        
+                        hasLaunchedBefore = true
                     }
                     catch {
                         print("Error inserting profile: ", error)
                     }
+                    
                 }
             }
-            
         }
         .padding()
     }
