@@ -8,11 +8,54 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State private var profile: Profiles? = nil
+    
+    
+    
+    let todaysTotal: NutrientTotals?
+    
     var body: some View {
-        Text("Welcome! You are currently signed in as a guest. Login feature coming soon...")
-    }
-}
+        VStack(spacing: 16) {
+            Text("Welcome! You are currently signed in as a guest. Login feature coming soon...")
+            if let profile = profile {
+                GoalsCardView(
+                    userId: profile.id?.uuidString ?? "unknown",
+                    cal: profile.cal_goal ?? 2000,
+                    protein: profile.protein_goal ?? 50,
+                    carbs: profile.carb_goal ?? 250,
+                    fat: profile.fat_goal ?? 70,
+                    currentCal: todaysTotal?.totalCalories ?? 0,
+                    currentProtein: todaysTotal?.totalProtein ?? 0,
+                    currentCarbs: todaysTotal?.totalCarbs ?? 0,
+                    currentFat: todaysTotal?.totalFat ?? 0
+                )
+            } else{
+                ProgressView("Loading...")
+            }
+            
+        }
+        .padding()
+        .task {
+            print("🌀 .task started in ProfileView")
 
-#Preview {
-    ProfileView()
-}
+                if profile == nil {
+                    do {
+                        let result = try await SupabaseManager.shared.getProfilesInfo()
+                        print("result")
+                        if let loadedProfile = result {
+                            print("✅ Profile loaded: \(loadedProfile)")
+                            profile = loadedProfile
+                        } else {
+                            print("⚠️ Supabase returned nil profile")
+                        }
+                    } catch {
+                        print("❌ Failed to fetch profile: \(error)")
+                    }
+                } else {
+                    print("ℹ️ Profile already loaded")
+                }
+            }
+
+        }
+    }
+

@@ -91,12 +91,21 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9D219E872D9FEA9A00357A55"
+            BuildableName = "CalifyWatchApp.app"
+            BlueprintName = "Calify"
+            ReferencedContainer = "container:mine.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
             BlueprintIdentifier = "9D2D49172DFA4D1D00C5858C"
             BuildableName = "CalifyWatchApp.app"
             BlueprintName = "CalifyWatchApp"
             ReferencedContainer = "container:mine.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

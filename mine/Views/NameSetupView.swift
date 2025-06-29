@@ -46,7 +46,11 @@ struct NameSetupView: View {
                         let userProfile = Profiles(
                             id: finalUserID,
                             created_at: nil,
-                            name: name
+                            name: name,
+                            cal_goal: nil,
+                            protein_goal: nil,
+                            fat_goal: nil,
+                            carb_goal: nil 
                         )
                         try await SupabaseManager.shared.client.from("Profiles").insert(userProfile).execute()
                     }
