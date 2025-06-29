@@ -35,6 +35,50 @@ class SupabaseManager {
                 throw error //Re-throw error for proper upstream handling.
             }
     }
+    func getProfilesInfo() async throws -> Profiles? {
+        do {
+                let userId = try await SupabaseManager.shared.getUserId()
+                print(userId)
+                let response: [Profiles] = try await SupabaseManager.shared.client
+                    .from("Profiles")
+                    .select()
+                    .eq("id", value: userId)
+                    .limit(1)
+                    .execute()
+                    .value
+            if let profile = response.first {
+                print("Profile found!")
+                return profile
+            } else {
+                print("No profile found - creating new one...")
+                let newProfile = Profiles(
+                            id: nil,
+                            created_at: nil, // DB will auto-timestamp if configured correctly
+                            name: "Bob",     // or "New Profile" etc
+                            cal_goal: 2000,
+                            protein_goal: 150,
+                            fat_goal: 70,
+                            carb_goal: 250
+                        )
+
+                        // 3. Insert into Supabase
+                        _ = try await SupabaseManager.shared.client
+                            .from("Profiles")
+                            .insert([newProfile])
+                            .execute()
+
+                        print("✅ New profile inserted")
+
+                        // 4. Return the profile (assume insert worked) TODO: NEVER ASSUME
+                        return newProfile
+            }
+            
+        } catch {
+            print("Failed to fetch profile: \(error)")
+            throw error
+        }
+    }
+    
     func insertMeal(description: String, calories: Int, protein: Int, carbs: Int, fat: Int, accuracyScore: Int) async { //This will insert a new meal into the database.
         do {
             let userId = try await self.getUserId()

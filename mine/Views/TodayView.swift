@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TodayView: View {
     @State private var todaysMeals: [MealEstimate] = []
-    @State private var todaysTotal: NutrientTotals? = nil
+    @Binding var todaysTotal: NutrientTotals?
     @State private var isLoading = true
     @State private var errorMessage: String? = nil
     @State private var mealToDelete: MealEstimate? = nil
@@ -208,7 +208,7 @@ struct TodayView: View {
 }
 
 // MARK: - Supporting Views
-
+//TODO: Move to UI components folder.
 struct DailySummaryCard: View {
     var summary: NutrientTotals
     
@@ -218,7 +218,7 @@ struct DailySummaryCard: View {
             VStack(spacing: 4) {
                 Text("\(summary.totalCalories)")
                     .font(.system(size: 36, weight: .bold))
-                Text("CALORIES")
+                Text("Calories")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }

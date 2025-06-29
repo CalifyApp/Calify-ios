@@ -14,4 +14,8 @@ struct Profiles: Codable {
     let id: UUID?
     let created_at: Date?
     let name: String
+    let cal_goal: Int?
+    let protein_goal: Int?
+    let fat_goal: Int?
+    let carb_goal: Int?
 }

@@ -30,6 +30,8 @@ struct CalifyApp: App {
 }
 
 struct ContentView: View {
+    @State private var todaysTotal: NutrientTotals? = nil
+
     var body: some View {
         TabView {
             HomeView()
@@ -38,7 +40,7 @@ struct ContentView: View {
                     Text("Home")
                 }
 
-            TodayView()
+            TodayView(todaysTotal: $todaysTotal)
                 .tabItem {
                     Image(systemName: "clock.fill")
                     Text("History")
@@ -49,7 +51,7 @@ struct ContentView: View {
                     Text("Water Intake")
                 }
 
-            ProfileView()
+            ProfileView(todaysTotal: todaysTotal)
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("Profile")

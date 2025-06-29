@@ -46,7 +46,7 @@
 		9D290E042E021D9400A84424 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9D290E032E021D9400A84424 /* Supabase */; };
 		9D290E052E021EAD00A84424 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1BF2DA0EF8400B37E2B /* Models.swift */; };
 		9D290E092E02418400A84424 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D2D49622DFB941700C5858C /* Speech.framework */; };
-		9D290E0C2E02419600A84424 /* CalifyWatchApp Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9D2D49182DFA4D1D00C5858C /* CalifyWatchApp Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9D50035C2E087EBD00C6D046 /* GoalsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D50035B2E087EB900C6D046 /* GoalsCardView.swift */; };
 		9DD5E6462DFF6EF900406FC8 /* OpenAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1B82D9FF76900B37E2B /* OpenAIManager.swift */; };
 		9DD5E6472DFF6F0E00406FC8 /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1B32D9FEC3900B37E2B /* SupabaseManager.swift */; };
 		9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */; };
@@ -56,20 +56,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9D290E0D2E02419600A84424 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9D219E802D9FEA9A00357A55 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9D2D49172DFA4D1D00C5858C;
-			remoteInfo = "CalifyWatchApp Watch App";
-		};
-		9D290E102E0241D900A84424 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9D219E802D9FEA9A00357A55 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9D2D49172DFA4D1D00C5858C;
-			remoteInfo = "CalifyWatchApp Watch App";
-		};
 		9D2D49282DFA4D1E00C5858C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9D219E802D9FEA9A00357A55 /* Project object */;
@@ -93,7 +79,6 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				9D290E0C2E02419600A84424 /* CalifyWatchApp Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +109,7 @@
 		9D2D49272DFA4D1E00C5858C /* CalifyWatchApp Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CalifyWatchApp Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D2D49312DFA4D1E00C5858C /* CalifyWatchApp Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CalifyWatchApp Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D2D49622DFB941700C5858C /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
+		9D50035B2E087EB900C6D046 /* GoalsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCardView.swift; sourceTree = "<group>"; };
 		9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSetupView.swift; sourceTree = "<group>"; };
 		CEFD79352E0389A300BD4B66 /* WaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterView.swift; sourceTree = "<group>"; };
 		CEFD79372E058B2100BD4B66 /* WaterGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterGaugeView.swift; sourceTree = "<group>"; };
@@ -206,6 +192,7 @@
 		9D05E1AC2D9FEBC400B37E2B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9D50035B2E087EB900C6D046 /* GoalsCardView.swift */,
 				CEFD79352E0389A300BD4B66 /* WaterView.swift */,
 				9D05E1AF2D9FEBE500B37E2B /* HomeView.swift */,
 				9D05E1AE2D9FEBE500B37E2B /* TodayView.swift */,
@@ -324,8 +311,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9D290E0E2E02419600A84424 /* PBXTargetDependency */,
-				9D290E112E0241D900A84424 /* PBXTargetDependency */,
 			);
 			name = Calify;
 			packageProductDependencies = (
@@ -506,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D05E1B12D9FEBE500B37E2B /* TodayView.swift in Sources */,
+				9D50035C2E087EBD00C6D046 /* GoalsCardView.swift in Sources */,
 				9D05E1B92D9FF76900B37E2B /* OpenAIManager.swift in Sources */,
 				9D05E1C62DA7A65A00B37E2B /* SpeechRecognizer.swift in Sources */,
 				9D05E1C92DAADE6500B37E2B /* ScoreGuageView.swift in Sources */,
@@ -554,16 +540,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9D290E0E2E02419600A84424 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9D2D49172DFA4D1D00C5858C /* CalifyWatchApp Watch App */;
-			targetProxy = 9D290E0D2E02419600A84424 /* PBXContainerItemProxy */;
-		};
-		9D290E112E0241D900A84424 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9D2D49172DFA4D1D00C5858C /* CalifyWatchApp Watch App */;
-			targetProxy = 9D290E102E0241D900A84424 /* PBXContainerItemProxy */;
-		};
 		9D2D49292DFA4D1E00C5858C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9D2D49172DFA4D1D00C5858C /* CalifyWatchApp Watch App */;
@@ -725,6 +701,7 @@
 				MARKETING_VERSION = 1.2;
 				NSMicrophoneUsageDescription = "Calify uses your microphone to log meals using voice input.";
 				NSSpeechRecognitionUsageDescription = "Calify uses speech recognition to interpret your spoken meal descriptions.";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -763,6 +740,7 @@
 				MARKETING_VERSION = 1.2;
 				NSMicrophoneUsageDescription = "Calify uses your microphone to log meals using voice input.";
 				NSSpeechRecognitionUsageDescription = "Calify uses speech recognition to interpret your spoken meal descriptions.";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
