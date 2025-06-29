@@ -38,6 +38,8 @@
 		9D219EA12D9FEAF100357A55 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 9D219EA02D9FEAF100357A55 /* Realtime */; };
 		9D219EA32D9FEAF100357A55 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 9D219EA22D9FEAF100357A55 /* Storage */; };
 		9D219EA52D9FEAF100357A55 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9D219EA42D9FEAF100357A55 /* Supabase */; };
+		9D26D7A52E11DD3200CC29A9 /* Untitled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D26D7A42E11DD3200CC29A9 /* Untitled.swift */; };
+		9D26D7A72E11DD3B00CC29A9 /* GoalsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D26D7A62E11DD3700CC29A9 /* GoalsCardView.swift */; };
 		9D290DF62DFF8DB300A84424 /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D290DF52DFF8DA500A84424 /* WatchSessionManager.swift */; };
 		9D290DF82E021D6B00A84424 /* SwiftOpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 9D290DF72E021D6B00A84424 /* SwiftOpenAI */; };
 		9D290DFA2E021D9400A84424 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 9D290DF92E021D9400A84424 /* Auth */; };
@@ -102,10 +104,12 @@
 		9D05E1C82DAADE6500B37E2B /* ScoreGuageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreGuageView.swift; sourceTree = "<group>"; };
 		9D05E1CE2DB4166100B37E2B /* MealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailView.swift; sourceTree = "<group>"; };
 		9D05E1D02DB421E400B37E2B /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
-		9D219E882D9FEA9A00357A55 /* Calify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D219E882D9FEA9A00357A55 /* Calify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Calify.app; path = CalifyWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D219E8B2D9FEA9A00357A55 /* mineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mineApp.swift; sourceTree = "<group>"; };
 		9D219E8F2D9FEA9A00357A55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D219E922D9FEA9A00357A55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9D26D7A42E11DD3200CC29A9 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
+		9D26D7A62E11DD3700CC29A9 /* GoalsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCardView.swift; sourceTree = "<group>"; };
 		9D290DF52DFF8DA500A84424 /* WatchSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
 		9D2D49622DFB941700C5858C /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
 		9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSetupView.swift; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 		9D05E1AC2D9FEBC400B37E2B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9D26D7A62E11DD3700CC29A9 /* GoalsCardView.swift */,
+				9D26D7A42E11DD3200CC29A9 /* Untitled.swift */,
 				9D0263CD2E078B73007644C4 /* WaterView.swift */,
 				9D05E1AF2D9FEBE500B37E2B /* HomeView.swift */,
 				9D05E1AE2D9FEBE500B37E2B /* TodayView.swift */,
@@ -408,9 +414,11 @@
 				9D05E1B12D9FEBE500B37E2B /* TodayView.swift in Sources */,
 				9D05E1B92D9FF76900B37E2B /* OpenAIManager.swift in Sources */,
 				9D0263D02E078C0C007644C4 /* WaterGaugeView.swift in Sources */,
+				9D26D7A72E11DD3B00CC29A9 /* GoalsCardView.swift in Sources */,
 				9D05E1C62DA7A65A00B37E2B /* SpeechRecognizer.swift in Sources */,
 				9D0263CE2E078B73007644C4 /* WaterView.swift in Sources */,
 				9D05E1C92DAADE6500B37E2B /* ScoreGuageView.swift in Sources */,
+				9D26D7A52E11DD3200CC29A9 /* Untitled.swift in Sources */,
 				9D05E1D12DB421E400B37E2B /* TipsView.swift in Sources */,
 				9D05E1B02D9FEBE500B37E2B /* ProfileView.swift in Sources */,
 				9D05E1B42D9FEC3900B37E2B /* SupabaseManager.swift in Sources */,
