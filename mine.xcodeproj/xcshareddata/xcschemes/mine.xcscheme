@@ -41,8 +41,7 @@
       allowLocationSimulation = "YES">
       <PathRunnable
          runnableDebuggingMode = "0"
-         BundleIdentifier = "Calify.mine"
-         FilePath = "/Users/christopher/Library/Developer/Xcode/DerivedData/mine-asekvoblitbdsthjpfvyipkukghs/Build/Products/Debug-iphoneos/Calify.app">
+         FilePath = "/Users/user/Library/Developer/Xcode/DerivedData/mine-covhgmikhxizhkerktlkehpbpghg/Build/Products/Debug-iphoneos/Calify.app">
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference
