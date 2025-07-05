@@ -35,10 +35,11 @@ class SupabaseManager {
                 throw error //Re-throw error for proper upstream handling.
             }
     }
+    
     func getProfilesInfo() async throws -> Profiles? {
         do {
-                let userId = try await SupabaseManager.shared.getUserId()
-                print(userId)
+                let userId = UUID(uuidString: "b7368b4b-dcbf-43c5-9c93-cf0c193f5cc9")
+//                print(userId)
                 let response: [Profiles] = try await SupabaseManager.shared.client
                     .from("Profiles")
                     .select()
@@ -92,6 +93,7 @@ class SupabaseManager {
                 calories: calories,
                 description: description,
                 accuracyScore: accuracyScore,
+                accuracyFeedback: nil,
                 created_at: nil
             )
             
@@ -129,9 +131,10 @@ class SupabaseManager {
             }
 
     }
+    
     func mealLimit() async throws -> Bool {
         do {
-            let userId = try await self.getUserId() // get the user ID
+            let userId = UUID(uuidString: "b7368b4b-dcbf-43c5-9c93-cf0c193f5cc9")// get the user ID
             let mealsArray = try await fetchMeals(for: Date()) // get today’s meals
 
             // Return true if user has exceeded the limit
@@ -154,7 +157,23 @@ class SupabaseManager {
             
     }
     
-    
+    func updateMealFeedback(feedback: String, mealId: Int) async {
+        do {
+            let userId = try await self.getUserId()
+            
+            let response = try await client
+                .from("Meals")
+                .update(["accuracyFeedback": feedback])
+                .eq("id", value: mealId)
+                .eq("user_id", value: userId)
+                .execute()
+            
+            print("feedback updated successfully")
+            
+        } catch {
+           print("Error updating feedback: ", error)
+        }
+    }
     
     
     

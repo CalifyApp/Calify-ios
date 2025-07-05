@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GoalsCardView: View {
+    
     @State private var isEditing = false
     @State private var calGoal: Int
     @State private var proteinGoal: Int
@@ -48,6 +49,7 @@ struct GoalsCardView: View {
                 Text("Today's Progress")
                     .font(.title2)
                     .fontWeight(.semibold)
+                    .foregroundColor(.primary)
                 
                 Spacer()
                 
@@ -69,7 +71,7 @@ struct GoalsCardView: View {
                     label: "Calories",
                     current: currentCal,
                     goal: calGoal,
-                    color: .black,
+                    color: .primary,
                     unit: "cal"
                 )
                 
@@ -101,7 +103,7 @@ struct GoalsCardView: View {
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color(.systemBackground))
+                .fill(Color(.secondarySystemBackground))
                 .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 2)
         )
         .sheet(isPresented: $isEditing) {

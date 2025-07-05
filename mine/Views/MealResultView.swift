@@ -5,6 +5,7 @@ struct MealResultView: View {
     
     @State private var showConfirmation = false
     @State private var isExpanded = false
+    @EnvironmentObject var nutritionManager: DailyNutritionManager
     
     
     var body: some View {
@@ -91,15 +92,21 @@ struct MealResultView: View {
                                     fat: result.fat,
                                     accuracyScore: result.accuracyScore
                                 )
-                                withAnimation {
-                                    showConfirmation = true
+                                await MainActor.run {
+                                    withAnimation {
+                                        showConfirmation = true
+                                    }
+                                    nutritionManager.refresh() // ✅ Refresh after save completes
                                 }
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     withAnimation {
                                         showConfirmation = false
                                     }
+
                                 }
+                                
                             }
+                            nutritionManager.refresh() 
                         }
                         .buttonStyle(.borderedProminent)
                         .scaleEffect(1.2)

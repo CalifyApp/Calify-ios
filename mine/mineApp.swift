@@ -14,9 +14,9 @@ struct CalifyApp: App {
     }
 
     @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
+    @StateObject private var nutritionManager = DailyNutritionManager()
 
     var body: some Scene { //think of body like return, it defines whats displayed
-        
         
         WindowGroup { //represents window for the app, if this was macos, this would be a window. on ios, its main screen.
             if hasLaunchedBefore == true {
@@ -26,11 +26,11 @@ struct CalifyApp: App {
                 NameSetupView()
             }
         }
+        .environmentObject(nutritionManager)
     }
 }
 
 struct ContentView: View {
-    @State private var todaysTotal: NutrientTotals? = nil
 
     var body: some View {
         TabView {
@@ -40,7 +40,7 @@ struct ContentView: View {
                     Text("Home")
                 }
 
-            TodayView(todaysTotal: $todaysTotal)
+            TodayView()
                 .tabItem {
                     Image(systemName: "clock.fill")
                     Text("History")
@@ -51,7 +51,7 @@ struct ContentView: View {
                     Text("Water Intake")
                 }
 
-            ProfileView(todaysTotal: todaysTotal)
+            ProfileView()
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("Profile")
