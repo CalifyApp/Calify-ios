@@ -6,12 +6,9 @@
 //
 
 import SwiftUI
-<<<<<<< HEAD:Calify/mineApp.swift
 import WatchConnectivity
-=======
 import UserNotifications
 
->>>>>>> UI-fixes:mine/mineApp.swift
 @main //this is like the index.js or main file for the entire app. starting point.
 struct CalifyApp: App {
     init() {
@@ -38,11 +35,8 @@ struct CalifyApp: App {
 }
 
 struct ContentView: View {
-<<<<<<< HEAD:Calify/mineApp.swift
     @State private var todaysTotal: NutrientTotals? = nil
-=======
     @EnvironmentObject var streakManager: StreakManager
->>>>>>> UI-fixes:mine/mineApp.swift
 
     var body: some View {
         TabView {
