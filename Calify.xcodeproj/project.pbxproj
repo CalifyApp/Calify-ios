@@ -104,7 +104,7 @@
 		9D05E1C82DAADE6500B37E2B /* ScoreGuageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreGuageView.swift; sourceTree = "<group>"; };
 		9D05E1CE2DB4166100B37E2B /* MealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailView.swift; sourceTree = "<group>"; };
 		9D05E1D02DB421E400B37E2B /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
-		9D219E882D9FEA9A00357A55 /* Calify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Calify.app; path = CalifyWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D219E882D9FEA9A00357A55 /* Calify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D219E8B2D9FEA9A00357A55 /* mineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mineApp.swift; sourceTree = "<group>"; };
 		9D219E8F2D9FEA9A00357A55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D219E922D9FEA9A00357A55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -230,7 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				9DD5E6452DFF6DEF00406FC8 /* Shared */,
-				9D219E8A2D9FEA9A00357A55 /* mine */,
+				9D219E8A2D9FEA9A00357A55 /* Calify */,
 				9D2D49192DFA4D1D00C5858C /* CalifyWatchApp */,
 				9D219E892D9FEA9A00357A55 /* Products */,
 				9D05E1D22DB98EA200B37E2B /* Frameworks */,
@@ -245,7 +245,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9D219E8A2D9FEA9A00357A55 /* mine */ = {
+		9D219E8A2D9FEA9A00357A55 /* Calify */ = {
 			isa = PBXGroup;
 			children = (
 				9D05E1C72DAADE3300B37E2B /* UIComponents */,
@@ -258,7 +258,7 @@
 				9D219E8B2D9FEA9A00357A55 /* mineApp.swift */,
 				9D219E8F2D9FEA9A00357A55 /* Assets.xcassets */,
 			);
-			path = mine;
+			path = Calify;
 			sourceTree = "<group>";
 		};
 		9D219E912D9FEA9A00357A55 /* Preview Content */ = {
@@ -364,7 +364,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9D219E832D9FEA9A00357A55 /* Build configuration list for PBXProject "mine" */;
+			buildConfigurationList = 9D219E832D9FEA9A00357A55 /* Build configuration list for PBXProject "Calify" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -587,11 +587,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 9;
-				DEVELOPMENT_ASSET_PATHS = "\"mine/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Calify/Preview Content\"";
 				DEVELOPMENT_TEAM = HYU3B9NY64;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = mine/Info.plist;
+				INFOPLIST_FILE = Calify/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
@@ -608,7 +608,7 @@
 				MARKETING_VERSION = 1.0;
 				NSMicrophoneUsageDescription = "Calify uses your microphone to log meals using voice input.";
 				NSSpeechRecognitionUsageDescription = "Calify uses speech recognition to interpret your spoken meal descriptions.";
-				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine;
+				PRODUCT_BUNDLE_IDENTIFIER = Calify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -624,11 +624,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 9;
-				DEVELOPMENT_ASSET_PATHS = "\"mine/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Calify/Preview Content\"";
 				DEVELOPMENT_TEAM = HYU3B9NY64;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = mine/Info.plist;
+				INFOPLIST_FILE = Calify/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
@@ -645,7 +645,7 @@
 				MARKETING_VERSION = 1.0;
 				NSMicrophoneUsageDescription = "Calify uses your microphone to log meals using voice input.";
 				NSSpeechRecognitionUsageDescription = "Calify uses speech recognition to interpret your spoken meal descriptions.";
-				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine;
+				PRODUCT_BUNDLE_IDENTIFIER = Calify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -717,7 +717,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9D219E832D9FEA9A00357A55 /* Build configuration list for PBXProject "mine" */ = {
+		9D219E832D9FEA9A00357A55 /* Build configuration list for PBXProject "Calify" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9D219E942D9FEA9A00357A55 /* Debug */,
