@@ -61,6 +61,7 @@
 		CEE460432E14B21200987ACD /* MealCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4603D2E14B21200987ACD /* MealCard.swift */; };
 		CEE460442E14B21200987ACD /* NutritionPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4603E2E14B21200987ACD /* NutritionPill.swift */; };
 		CEE460462E190A2F00987ACD /* FeedbackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE460452E190A2A00987ACD /* FeedbackCard.swift */; };
+		CEE4605D2E1E4A7200987ACD /* CheckMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4605C2E1E4A5D00987ACD /* CheckMarkView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 		CEE4603D2E14B21200987ACD /* MealCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCard.swift; sourceTree = "<group>"; };
 		CEE4603E2E14B21200987ACD /* NutritionPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionPill.swift; sourceTree = "<group>"; };
 		CEE460452E190A2A00987ACD /* FeedbackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackCard.swift; sourceTree = "<group>"; };
+		CEE4605C2E1E4A5D00987ACD /* CheckMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -227,6 +229,7 @@
 		9D05E1C72DAADE3300B37E2B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				CEE4605C2E1E4A5D00987ACD /* CheckMarkView.swift */,
 				CEE460452E190A2A00987ACD /* FeedbackCard.swift */,
 				CEE4603F2E14B21200987ACD /* TodayViewHelpers */,
 				9D0263CF2E078C09007644C4 /* WaterGaugeView.swift */,
@@ -440,6 +443,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEE4605D2E1E4A7200987ACD /* CheckMarkView.swift in Sources */,
 				9D05E1B12D9FEBE500B37E2B /* TodayView.swift in Sources */,
 				9D05E1B92D9FF76900B37E2B /* OpenAIManager.swift in Sources */,
 				9D0263D02E078C0C007644C4 /* WaterGaugeView.swift in Sources */,

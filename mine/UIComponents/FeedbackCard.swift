@@ -30,38 +30,46 @@ struct FeedbackCard: View {
     }
     
     var body: some View {
-        HStack(spacing: 16) {
-            Button(action: {
-                selected = .thumbsUp
-                Task {
-                    await SupabaseManager.shared.updateMealFeedback(feedback: "good", mealId: mealId)
-                }
-            }) {
-                Image(systemName: "hand.thumbsup.fill")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(selected == .thumbsUp ? Color.green : Color.green.opacity(0.4))
-                    .clipShape(Circle())
-                    .scaleEffect(selected == .thumbsUp ? 1.15 : 1.0)
-                    .shadow(color: selected == .thumbsUp ? Color.green.opacity(0.5) : .clear, radius: 6)
-                    .animation(.easeInOut(duration: 0.2), value: selected)
-            }
+        VStack(alignment: .leading, spacing: 8) {
 
-            Button(action: {
-                selected = .thumbsDown
-                Task {
-                    await SupabaseManager.shared.updateMealFeedback(feedback: "bad", mealId: mealId)
+            HStack(spacing: 24) {
+                Button(action: {
+                    selected = .thumbsUp
+                    Task {
+                        await SupabaseManager.shared.updateMealFeedback(feedback: "good", mealId: mealId)
+                    }
+                }) {
+                    Image(systemName: "hand.thumbsup.fill")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(selected == .thumbsUp ? Color.green : Color.green.opacity(0.4))
+                        .clipShape(Circle())
+                        .scaleEffect(selected == .thumbsUp ? 1.15 : 1.0)
+                        .shadow(color: selected == .thumbsUp ? Color.green.opacity(0.5) : .clear, radius: 6)
+                        .animation(.easeInOut(duration: 0.2), value: selected)
                 }
-            }) {
-                Image(systemName: "hand.thumbsdown.fill")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(selected == .thumbsDown ? Color.red : Color.red.opacity(0.4))
-                    .clipShape(Circle())
-                    .scaleEffect(selected == .thumbsDown ? 1.15 : 1.0)
-                    .shadow(color: selected == .thumbsDown ? Color.red.opacity(0.5) : .clear, radius: 6)
-                    .animation(.easeInOut(duration: 0.2), value: selected)
+
+                Button(action: {
+                    selected = .thumbsDown
+                    Task {
+                        await SupabaseManager.shared.updateMealFeedback(feedback: "bad", mealId: mealId)
+                    }
+                }) {
+                    Image(systemName: "hand.thumbsdown.fill")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(selected == .thumbsDown ? Color.red : Color.red.opacity(0.4))
+                        .clipShape(Circle())
+                        .scaleEffect(selected == .thumbsDown ? 1.15 : 1.0)
+                        .shadow(color: selected == .thumbsDown ? Color.red.opacity(0.5) : .clear, radius: 6)
+                        .animation(.easeInOut(duration: 0.2), value: selected)
+                }
             }
+            
+            Text("Was this meal accurate?")
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .lineLimit(1)
         }
         .padding(.vertical, 4)
     }
