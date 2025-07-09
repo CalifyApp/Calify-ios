@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct MealResultView: View {
+    @EnvironmentObject var streakManager: StreakManager
+    
     let result: MealEstimate
     
     @State private var showConfirmation = false
@@ -99,6 +101,7 @@ struct MealResultView: View {
                                         showConfirmation = false
                                     }
                                 }
+                                streakManager.updateStreakOnMealAdded()
                             }
                         }
                         .buttonStyle(.borderedProminent)

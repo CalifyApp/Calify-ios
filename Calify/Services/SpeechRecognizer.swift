@@ -10,32 +10,32 @@ class SpeechRecognizer: NSObject, ObservableObject, SFSpeechRecognizerDelegate {
     override init() {
         super.init()
         recognizer?.delegate = self
-        requestSpeechAuth()
+//        requestSpeechAuth()
     }
 
-    private func requestSpeechAuth() {
-        SFSpeechRecognizer.requestAuthorization { status in
-            if status != .authorized {
-                print("Speech recognition not authorized")
-            }
-        }
-
-        if #available(iOS 17.0, *) {
-            // No alternative yet on iOS; AVAudioApplication is not available
-            print("Using deprecated mic permission — no replacement yet on iOS 17")
-            AVAudioSession.sharedInstance().requestRecordPermission { allowed in
-                if !allowed {
-                    print("Microphone access denied (fallback for iOS 17+)")
-                }
-            }
-        } else {
-            AVAudioSession.sharedInstance().requestRecordPermission { allowed in
-                if !allowed {
-                    print("Microphone access denied (< iOS 17)")
-                }
-            }
-        }
-    }
+//    private func requestSpeechAuth() {
+//        SFSpeechRecognizer.requestAuthorization { status in
+//            if status != .authorized {
+//                print("Speech recognition not authorized")
+//            }
+//        }
+//
+//        if #available(iOS 17.0, *) {
+//            // No alternative yet on iOS; AVAudioApplication is not available
+//            print("Using deprecated mic permission — no replacement yet on iOS 17")
+//            AVAudioSession.sharedInstance().requestRecordPermission { allowed in
+//                if !allowed {
+//                    print("Microphone access denied (fallback for iOS 17+)")
+//                }
+//            }
+//        } else {
+//            AVAudioSession.sharedInstance().requestRecordPermission { allowed in
+//                if !allowed {
+//                    print("Microphone access denied (< iOS 17)")
+//                }
+//            }
+//        }
+//    }
 
 
 

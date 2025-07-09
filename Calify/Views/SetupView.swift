@@ -1,0 +1,89 @@
+//
+//  NameSetupView.swift
+//  mine
+//
+//  Created by christopher on 5/18/25.
+//
+
+import Foundation
+import SwiftUI
+
+struct SetupView: View {
+    @State private var name: String = ""
+    @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
+    @AppStorage("didPromptForNotifications") var didPromptForNotifications: Bool = false
+    @AppStorage("userName") var userName: String = ""
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Welcome!")
+                .font(.largeTitle)
+
+            TextField("Please enter your name", text: $name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            
+            Button("Continue") {
+                userName = name
+                
+                Task {
+                    await permissions()
+                    if !didPromptForNotifications {
+                        await withCheckedContinuation { continuation in
+                            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                                DispatchQueue.main.async {
+                                    print("Notification permission granted: \(granted)")
+                                    if granted {
+                                        NotificationManager.scheduleMealReminders()
+                                    }
+                                    if let error = error {
+                                        print("Notification error: \(error)")
+                                    }
+                                    didPromptForNotifications = true
+                                    continuation.resume()
+                                }
+                            }
+                        }
+                    }
+                    do {
+                        var userID: UUID?
+                        if let session = try? await SupabaseManager.shared.client.auth.session {
+                            userID = session.user.id
+                            print("Existing session: \(userID!)")
+                        }
+                        if userID == nil {
+                            if let newSession = try? await SupabaseManager.shared.client.auth.signInAnonymously() {
+                                userID = newSession.user.id
+                                print("Signed in anonymously: \(userID!)")
+                            }
+                        }
+                        guard let finalUserID = userID else {
+                            print("Failed to get a user ID")
+                            return
+                        }
+                        
+                        let userProfile = Profiles(
+                            id: finalUserID,
+                            created_at: nil,
+                            name: name,
+                            cal_goal: nil,
+                            protein_goal: nil,
+                            fat_goal: nil,
+                            carb_goal: nil 
+                        )
+                        try await SupabaseManager.shared.client.from("Profiles").insert(userProfile).execute()
+                        
+                        hasLaunchedBefore = true
+                    }
+                    catch {
+                        print("Error inserting profile: ", error)
+                    }
+                    
+                }
+            }
+        }
+        .padding()
+    }
+}
+
+

@@ -6,7 +6,12 @@
 //
 
 import SwiftUI
+<<<<<<< HEAD:Calify/mineApp.swift
 import WatchConnectivity
+=======
+import UserNotifications
+
+>>>>>>> UI-fixes:mine/mineApp.swift
 @main //this is like the index.js or main file for the entire app. starting point.
 struct CalifyApp: App {
     init() {
@@ -14,7 +19,9 @@ struct CalifyApp: App {
     }
 
     @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
+    @StateObject var streakManager = StreakManager()
 
+    
     var body: some Scene { //think of body like return, it defines whats displayed
         
         
@@ -23,14 +30,19 @@ struct CalifyApp: App {
                 ContentView()
             }
             else {
-                NameSetupView()
+                SetupView()
             }
         }
+        .environmentObject(streakManager)
     }
 }
 
 struct ContentView: View {
+<<<<<<< HEAD:Calify/mineApp.swift
     @State private var todaysTotal: NutrientTotals? = nil
+=======
+    @EnvironmentObject var streakManager: StreakManager
+>>>>>>> UI-fixes:mine/mineApp.swift
 
     var body: some View {
         TabView {
@@ -62,6 +74,32 @@ struct ContentView: View {
                 await sendTokensToWatch()
             }
         }
+        .overlay(
+                    VStack {
+                        if streakManager.showStreakBanner {
+                            Text(streakManager.streakEmojiString)
+                                .font(.title)
+                                .padding(12)
+                                .background(.ultraThinMaterial)
+                                .cornerRadius(12)
+                                .shadow(radius: 8)
+                                .transition(.move(edge: .top).combined(with: .opacity))
+                                .padding(.top, 40)
+                                .gesture(
+                                    DragGesture(minimumDistance: 10, coordinateSpace: .local)
+                                        .onEnded { value in
+                                            if value.translation.height < -10 {
+                                                withAnimation {
+                                                    streakManager.showStreakBanner = false
+                                                }
+                                            }
+                                        }
+                                )
+                        }
+                        Spacer()
+                    }
+                    .animation(.easeInOut, value: streakManager.showStreakBanner)
+                )
     }
 }
 

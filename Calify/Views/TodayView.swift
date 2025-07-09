@@ -1,5 +1,44 @@
 import SwiftUI
 
+/**
+ struct PressableCardLink: View {
+     var item: Item
+
+     @State private var isPressed = false
+
+     var body: some View {
+         NavigationLink(destination: DetailView(item: item)) {
+             VStack(alignment: .leading) {
+                 Text(item.title)
+                     .font(.headline)
+                 Text(item.subtitle)
+                     .font(.subheadline)
+             }
+             .padding()
+             .background(isPressed ? Color.gray.opacity(0.2) : Color.white)
+             .cornerRadius(8)
+             .shadow(radius: 1)
+             .scaleEffect(isPressed ? 0.98 : 1.0)
+         }
+         .simultaneousGesture(
+             DragGesture(minimumDistance: 0)
+                 .onChanged { _ in isPressed = true }
+                 .onEnded { _ in
+                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                         isPressed = false
+                     }
+                 }
+         )
+     }
+ }
+ 
+ 
+ 
+ 
+ 
+ */
+
+
 struct TodayView: View {
     @State private var todaysMeals: [MealEstimate] = []
     @Binding var todaysTotal: NutrientTotals?
@@ -41,23 +80,21 @@ struct TodayView: View {
                 } else if todaysMeals.isEmpty {
                     ContentUnavailableView("No Meals Today", systemImage: "fork.knife", description: Text("Meals you add will appear here"))
                 } else {
+                    
                     List {
-                       
+                        
                         if let summary = todaysTotal {
-                            ZStack {
-                                DailySummaryCard(summary: summary)
-                            }
-
+                            DailySummaryCard(summary: summary)
+                                .listRowSeparator(.hidden)
+                                .listRowInsets(EdgeInsets())
+                                .listRowBackground(Color.clear)
                         }
-
-
                     
                         Text(isToday ? "Today's Meals" : "\(formattedDate)'s Meals")
                             .font(.headline)
                             .padding(.horizontal, 4)
                             .padding(.top, 12)
-                            .padding(.bottom, 4)
-                            .listRowInsets(EdgeInsets()) // Remove system padding
+                            .listRowInsets(EdgeInsets())
                             .listRowBackground(Color.clear)
                         
                         
@@ -66,6 +103,9 @@ struct TodayView: View {
                                 MealCard(meal: meal, onDelete: {
                                     refreshData()
                                 })
+//                                .onTapGesture {
+//                                    didTap = !didTap
+//                                }
                                 .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                                     Button(role: .none) {
                                         mealToDelete = meal
@@ -85,15 +125,14 @@ struct TodayView: View {
                                 NavigationLink(destination: MealDetailView(meal: meal)) {
                                     EmptyView()
                                 }
-                                
                                 .buttonStyle(.plain)
                                 .opacity(0)
                             }
+                            .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                             .listRowInsets(EdgeInsets())
-                            .padding(.vertical, 4) // spacing between cards
+                            .padding(.vertical, 4)
                         }
-//                        .onDelete(perform: deleteMeals)
                         
                     }
                     .listStyle(InsetGroupedListStyle())
@@ -236,10 +275,11 @@ struct DailySummaryCard: View {
                 MacroItem(value: summary.totalFat, label: "Fat", color: .orange)
             }
         }
-        .padding(.top, 4)
-        .padding(.bottom, 4)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal)
+        .padding(.vertical, 22)
+        .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color(.secondarySystemGroupedBackground))
+        )
     }
 }
 
@@ -263,6 +303,7 @@ struct MacroItem: View {
 
 struct MealCard: View {
     @State private var showDeleteConfirmation = false
+    
     var meal: MealEstimate
     var onDelete: () -> Void
     
@@ -280,7 +321,6 @@ struct MealCard: View {
                     .foregroundColor(.gray)
                     .font(.system(size: 16))
                     .padding(8)
-//                    .background(Circle().fill(Color.gray.opacity(0.2)))
             }
             
             // Nutrition section
