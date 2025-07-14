@@ -15,7 +15,7 @@ struct CalifyApp: App {
         _ = WatchSessionManager.shared  // ensures WCSession is activated
     }
     @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
-    
+    @StateObject private var nutritionManager = DailyNutritionManager()
     @AppStorage("userName") var userName: String = ""
     @StateObject var streakManager = StreakManager()
     
@@ -27,6 +27,7 @@ struct CalifyApp: App {
             ContentView()
         }
         .environmentObject(streakManager)
+        .environmentObject(nutritionManager)
     }
 }
 
@@ -42,7 +43,7 @@ struct ContentView: View {
                     Text("Home")
                 }
 
-            TodayView(todaysTotal: $todaysTotal)
+            TodayView()
                 .tabItem {
                     Image(systemName: "clock.fill")
                     Text("History")
@@ -53,11 +54,11 @@ struct ContentView: View {
                     Text("Water Intake")
                 }
 
-            ProfileView(todaysTotal: todaysTotal)
-                .tabItem {
-                    Image(systemName: "person.fill")
-                    Text("Profile")
-                }
+            ProfileView()
+            .tabItem {
+                Image(systemName: "person.fill")
+                Text("Profile")
+            }
         }
         .onAppear {
             Task {
