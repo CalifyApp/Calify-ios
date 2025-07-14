@@ -71,6 +71,8 @@ Assign a confidence score (accuracyScore) from 0-100 based on:
 - Comprehensive listing of components
 - Overall descriptiveness
 
+🔹 If the meal is simple, and does not require much detail (e.g a banana, or egg) because it does not vary in calories a lot, give a High accuracy score above 70. 
+
 Higher scores mean more confident estimates. Lower scores indicate more assumptions were needed. For less descriptive, but branded meals, provide higher accuracy score for the user, since you know brand estimates.
 
 Return only this in JSON Format, with NO BACKTICKS:
@@ -136,7 +138,7 @@ Return only this in JSON Format, with NO BACKTICKS:
         ["Looks great! No tips needed."]
 
         🔹 If the meal is vague or missing important details, return **2–3 concise suggestions** in a JSON array.
-
+        
         Focus only on:
         - Portion clarity
         - Ingredient specificity (type/brand)

@@ -17,7 +17,9 @@ class StreakManager: ObservableObject {
     init() {
         loadStreak()
     }
-
+    func printStreak() {
+        print(currentStreak)
+    }
     func loadStreak() {
         let defaults = UserDefaults.standard
         currentStreak = defaults.integer(forKey: streakKey)

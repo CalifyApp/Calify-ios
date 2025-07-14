@@ -102,6 +102,14 @@ struct HomeView: View {
                         .padding(.trailing)
                         .disabled(isMealLimitReached || userMeal.isEmpty)
                     }
+                    if isMealLimitReached {
+                        Text("Meal limit of 15 reached! Please delete a meal if you'd like to add a new one.")
+                            .foregroundColor(.red)
+                            .padding()
+                            .background(Color(.systemGray6))
+                            .cornerRadius(10)
+                            .padding(.top)
+                    }
                     
                     if isLoading {
                         LoadingView()
@@ -139,7 +147,7 @@ struct HomeView: View {
                     if let result = result {
                         MealResultView(result: result)
                     } else {
-                        MealResultView(result: MealEstimate(id: nil, user_id: nil, protein: 0, carbs: 0, fat: 0, calories: 0, description: "", accuracyScore: 0, created_at: nil))
+                        MealResultView(result: MealEstimate(id: nil, user_id: nil, protein: 0, carbs: 0, fat: 0, calories: 0, description: "", accuracyScore: 0, created_at: nil, tips: []))
                     }
                 }
             }
@@ -188,12 +196,14 @@ struct HomeView: View {
         
         
         Task {
-            let jsonMealEstimatesResult = await OpenAIManager.shared.rawResponse(meal: userMeal) //actual meal estimates
+            let jsonMealEstimatesResult = await SupabaseManager.shared.callOpenAI(meal: userMeal)
+            print("Raw JSON: \(jsonMealEstimatesResult)")
 
             switch jsonMealEstimatesResult {
             case .success(let jsonMealEstimatesString):
                 if let data = jsonMealEstimatesString.data(using: .utf8) {
                     do {
+
                         let decoded = try JSONDecoder().decode(MealEstimate.self, from: data)
                         result = decoded
                         showResult = true

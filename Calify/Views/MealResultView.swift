@@ -2,12 +2,13 @@ import SwiftUI
 
 struct MealResultView: View {
     @EnvironmentObject var streakManager: StreakManager
-    
+    @AppStorage("didPromptForNotifications") var didPromptForNotifications: Bool = false
     let result: MealEstimate
     
     @State private var showConfirmation = false
     @State private var isExpanded = false
-    
+
+
     
     var body: some View {
         ZStack(alignment: .bottom){
@@ -35,8 +36,7 @@ struct MealResultView: View {
                     }
                     .padding(.top, 10)
                     
-                    let tips = formattedTips(from: OpenAIManager.shared.getRawAccuracyTips())
-
+                    let tips = result.tips
                     if !tips.isEmpty {
                         DisclosureGroup(
                             isExpanded: $isExpanded.animation(.easeInOut),
@@ -91,7 +91,8 @@ struct MealResultView: View {
                                     protein: result.protein,
                                     carbs: result.carbs,
                                     fat: result.fat,
-                                    accuracyScore: result.accuracyScore
+                                    accuracyScore: result.accuracyScore,
+                                    tips: result.tips ?? [""]
                                 )
                                 withAnimation {
                                     showConfirmation = true
@@ -102,6 +103,27 @@ struct MealResultView: View {
                                     }
                                 }
                                 streakManager.updateStreakOnMealAdded()
+                                if !didPromptForNotifications {
+                                    Task {
+                                        try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+                                        await withCheckedContinuation { continuation in
+                                            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                                                DispatchQueue.main.async {
+                                                    print("Notification permission granted: \(granted)")
+                                                    if granted {
+                                                        NotificationManager.scheduleMealReminders()
+                                                    }
+                                                    if let error = error {
+                                                        print("Notification error: \(error)")
+                                                    }
+                                                    didPromptForNotifications = true
+                                                    continuation.resume()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
                             }
                         }
                         .buttonStyle(.borderedProminent)

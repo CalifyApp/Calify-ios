@@ -44,7 +44,7 @@ struct LogMealView: View {
         
         
         Task {
-            let jsonMealEstimatesResult = await OpenAIManager.shared.rawResponse(meal: userMeal) //actual meal estimates
+            let jsonMealEstimatesResult = await SupabaseManager.shared.callOpenAI(meal: userMeal) //actual meal estimates
             
             switch jsonMealEstimatesResult {
             case .success(let jsonMealEstimatesString):
@@ -70,7 +70,8 @@ struct LogMealView: View {
                 protein: result?.protein ?? 0,
                 carbs: result?.carbs ?? 0,
                 fat: result?.fat ?? 0,
-                accuracyScore: result?.accuracyScore ?? 0
+                accuracyScore: result?.accuracyScore ?? 0,
+                tips: result?.tips ?? [""]
                 )
         }
     }

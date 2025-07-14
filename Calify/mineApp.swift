@@ -12,23 +12,19 @@ import UserNotifications
 @main //this is like the index.js or main file for the entire app. starting point.
 struct CalifyApp: App {
     init() {
-            _ = WatchSessionManager.shared  // ensures WCSession is activated
+        _ = WatchSessionManager.shared  // ensures WCSession is activated
     }
-
     @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
+    
+    @AppStorage("userName") var userName: String = ""
     @StateObject var streakManager = StreakManager()
-
+    
     
     var body: some Scene { //think of body like return, it defines whats displayed
         
         
         WindowGroup { //represents window for the app, if this was macos, this would be a window. on ios, its main screen.
-            if hasLaunchedBefore == true {
-                ContentView()
-            }
-            else {
-                SetupView()
-            }
+            ContentView()
         }
         .environmentObject(streakManager)
     }
@@ -66,6 +62,34 @@ struct ContentView: View {
         .onAppear {
             Task {
                 await sendTokensToWatch()
+                do {
+                    var userID: UUID?
+                    if let session = try? await SupabaseManager.shared.client.auth.session {
+                        userID = session.user.id
+                        print("Existing session: \(userID!)")
+                    }
+                    if userID == nil {
+                        if let newSession = try? await SupabaseManager.shared.client.auth.signInAnonymously() {
+                            userID = newSession.user.id
+                            print("Signed in anonymously: \(userID!)")
+                            let userProfile = Profiles(
+                                id: userID,
+                                created_at: nil,
+                                name: nil,
+                                cal_goal: nil,
+                                protein_goal: nil,
+                                fat_goal: nil,
+                                carb_goal: nil
+                            )
+                            try await SupabaseManager.shared.client.from("Profiles").insert(userProfile).execute()
+                        }
+                    }
+                    guard let finalUserID = userID else {
+                        print("Failed to get a user ID")
+                        return
+                    }
+                    
+                }
             }
         }
         .overlay(

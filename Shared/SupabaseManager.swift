@@ -1,12 +1,15 @@
 import Supabase
+import SwiftOpenAI
 import Foundation
 
 class SupabaseManager {
     static let shared = SupabaseManager() //Singleton instance of SupabaseManager for global access
     
     let client: SupabaseClient
+    struct Response: Decodable {
+        
+    }
     
-
     private init() {
         
         let url = URL(string: "https://ypzdjlfgckfyqqhyhgjc.supabase.co")!
@@ -15,62 +18,62 @@ class SupabaseManager {
         self.client = SupabaseClient(
             supabaseURL: url,
             supabaseKey: key
-)
+        )
     }
     
     func getUserId()async throws -> UUID {
         let auth = client.auth //user signed in. grab it
         
         do {
-                if let currentSession = try? await auth.session {
-                    print("We are anonymously logged in")
-                    return currentSession.user.id
-                } else {
-                    let newSession = try await auth.signInAnonymously()
-                    print("For some reason, we arent signed in.... signing in now.")
-                    return newSession.user.id
-                }
-            } catch {
-                print("Failed to get session: \(error)")
-                throw error //Re-throw error for proper upstream handling.
+            if let currentSession = try? await auth.session {
+                print("We are anonymously logged in")
+                return currentSession.user.id
+            } else {
+                let newSession = try await auth.signInAnonymously()
+                print("For some reason, we arent signed in.... signing in now.")
+                return newSession.user.id
             }
+        } catch {
+            print("Failed to get session: \(error)")
+            throw error //Re-throw error for proper upstream handling.
+        }
     }
     func getProfilesInfo() async throws -> Profiles? {
         do {
-                let userId = try await SupabaseManager.shared.getUserId()
-                print(userId)
-                let response: [Profiles] = try await SupabaseManager.shared.client
-                    .from("Profiles")
-                    .select()
-                    .eq("id", value: userId)
-                    .limit(1)
-                    .execute()
-                    .value
+            let userId = try await SupabaseManager.shared.getUserId()
+            print(userId)
+            let response: [Profiles] = try await SupabaseManager.shared.client
+                .from("Profiles")
+                .select()
+                .eq("id", value: userId)
+                .limit(1)
+                .execute()
+                .value
             if let profile = response.first {
                 print("Profile found!")
                 return profile
             } else {
                 print("No profile found - creating new one...")
                 let newProfile = Profiles(
-                            id: nil,
-                            created_at: nil, // DB will auto-timestamp if configured correctly
-                            name: "Bob",     // or "New Profile" etc
-                            cal_goal: 2000,
-                            protein_goal: 150,
-                            fat_goal: 70,
-                            carb_goal: 250
-                        )
-
-                        // 3. Insert into Supabase
-                        _ = try await SupabaseManager.shared.client
-                            .from("Profiles")
-                            .insert([newProfile])
-                            .execute()
-
-                        print("✅ New profile inserted")
-
-                        // 4. Return the profile (assume insert worked) TODO: NEVER ASSUME
-                        return newProfile
+                    id: nil,
+                    created_at: nil, // DB will auto-timestamp if configured correctly
+                    name: "Bob",     // or "New Profile" etc
+                    cal_goal: 2000,
+                    protein_goal: 150,
+                    fat_goal: 70,
+                    carb_goal: 250
+                )
+                
+                // 3. Insert into Supabase
+                _ = try await SupabaseManager.shared.client
+                    .from("Profiles")
+                    .insert([newProfile])
+                    .execute()
+                
+                print("✅ New profile inserted")
+                
+                // 4. Return the profile (assume insert worked) TODO: NEVER ASSUME
+                return newProfile
             }
             
         } catch {
@@ -79,7 +82,7 @@ class SupabaseManager {
         }
     }
     
-    func insertMeal(description: String, calories: Int, protein: Int, carbs: Int, fat: Int, accuracyScore: Int) async { //This will insert a new meal into the database.
+    func insertMeal(description: String, calories: Int, protein: Int, carbs: Int, fat: Int, accuracyScore: Int, tips: [String]) async { //This will insert a new meal into the database.
         do {
             let userId = try await self.getUserId()
             
@@ -92,7 +95,8 @@ class SupabaseManager {
                 calories: calories,
                 description: description,
                 accuracyScore: accuracyScore,
-                created_at: nil
+                created_at: nil,
+                tips: tips
             )
             
             try await client.from("Meals").insert(meal).execute()
@@ -100,7 +104,7 @@ class SupabaseManager {
         } catch {
             print("Error inserting meals into database: ", error)
         }
-            
+        
     }
     
     func fetchMeals(for date: Date = Date()) async throws -> [MealEstimate] {
@@ -111,30 +115,30 @@ class SupabaseManager {
             let startOfDay = calendar.startOfDay(for: date)
             let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
             
-                
+            
             let meals: [MealEstimate] = try await client
-                    .from("Meals") //1. display meals
-                    .select()
-                    .eq("user_id", value: userId)
-                    .gte("created_at", value: startOfDay.ISO8601Format()) //2. starting from this day
-                    .lt("created_at", value: endOfDay.ISO8601Format()) //3. limit to this day
-                    .order("created_at", ascending: false)
-                    .execute()
-                    .value //generic property returning decoded type that was declared (here, its meal estimate.)
+                .from("Meals") //1. display meals
+                .select()
+                .eq("user_id", value: userId)
+                .gte("created_at", value: startOfDay.ISO8601Format()) //2. starting from this day
+                .lt("created_at", value: endOfDay.ISO8601Format()) //3. limit to this day
+                .order("created_at", ascending: false)
+                .execute()
+                .value //generic property returning decoded type that was declared (here, its meal estimate.)
             
             return meals
             
-            } catch {
-                print("Error fetching today's meals: \(error)")
-                throw error
-            }
-
+        } catch {
+            print("Error fetching today's meals: \(error)")
+            throw error
+        }
+        
     }
     func mealLimit() async throws -> Bool {
         do {
             let userId = try await self.getUserId() // get the user ID
             let mealsArray = try await fetchMeals(for: Date()) // get today’s meals
-
+            
             // Return true if user has exceeded the limit
             return mealsArray.count >= 15
         } catch {
@@ -142,21 +146,38 @@ class SupabaseManager {
             throw error
         }
     }
-
+    
     func deleteMeal(id: Int) async { //This will delete a meal from the database.
         do {
             
             try await client.from("Meals").delete().eq("id", value: id).execute()
-                
+            
             print("deletion successful")
         } catch {
             print("Error deleting meal from database: ", error)
         }
-            
     }
-    
-    
-    
-    
-    
+    enum APIError: Error { //enum lets you define a group of related values (in this case, errors!)
+        case emptyResponse(String) // these cases are custom labels. if i have to throw this error, itll include a string.
+        case apiFailure(Error)
+        case jsonParsingError(Error)
+    }
+    func callOpenAI(meal: String) async -> Result<String, APIError> {
+        do {
+            let response = try await client.functions.invoke(
+                "OpenAIManager",
+                options: FunctionInvokeOptions(
+                    body: ["meal": meal]
+                )
+            ) { data, response in
+                //This decode closure tells it how to handle res
+                //Return data as string.
+                String(data: data, encoding: .utf8) ?? "{}"
+            }
+            return .success(response)
+                        
+        } catch {
+            return .failure(.apiFailure(error))
+        }
+    }
 }
