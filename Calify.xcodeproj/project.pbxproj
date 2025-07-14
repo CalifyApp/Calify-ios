@@ -55,6 +55,17 @@
 		CEE45F9D2E09509700987ACD /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE45F9C2E09509200987ACD /* Permissions.swift */; };
 		CEE45F9F2E0A4E6000987ACD /* StreakManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE45F9E2E0A4E5A00987ACD /* StreakManager.swift */; };
 		CEFD793A2E05B10B00BD4B66 /* WaterStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFD79392E05B0F600BD4B66 /* WaterStorage.swift */; };
+		9DD5E6462DFF6EF900406FC8 /* OpenAIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1B82D9FF76900B37E2B /* OpenAIManager.swift */; };
+		9DD5E6472DFF6F0E00406FC8 /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1B32D9FEC3900B37E2B /* SupabaseManager.swift */; };
+		9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */; };
+		CEE460212E14A41600987ACD /* DailyNutritionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE460202E14A40C00987ACD /* DailyNutritionManager.swift */; };
+		CEE460402E14B21200987ACD /* DailySummaryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4603A2E14B21200987ACD /* DailySummaryCard.swift */; };
+		CEE460412E14B21200987ACD /* MacroItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4603B2E14B21200987ACD /* MacroItem.swift */; };
+		CEE460422E14B21200987ACD /* MacroNutrient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4603C2E14B21200987ACD /* MacroNutrient.swift */; };
+		CEE460432E14B21200987ACD /* MealCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4603D2E14B21200987ACD /* MealCard.swift */; };
+		CEE460442E14B21200987ACD /* NutritionPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4603E2E14B21200987ACD /* NutritionPill.swift */; };
+		CEE460462E190A2F00987ACD /* FeedbackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE460452E190A2A00987ACD /* FeedbackCard.swift */; };
+		CEE4605D2E1E4A7200987ACD /* CheckMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4605C2E1E4A5D00987ACD /* CheckMarkView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +115,7 @@
 		9D05E1CE2DB4166100B37E2B /* MealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailView.swift; sourceTree = "<group>"; };
 		9D05E1D02DB421E400B37E2B /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
 		9D219E882D9FEA9A00357A55 /* Calify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D219E882D9FEA9A00357A55 /* CalifyWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalifyWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D219E8B2D9FEA9A00357A55 /* mineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mineApp.swift; sourceTree = "<group>"; };
 		9D219E8F2D9FEA9A00357A55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D219E922D9FEA9A00357A55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -118,6 +130,15 @@
 		CEFD79352E0389A300BD4B66 /* WaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterView.swift; sourceTree = "<group>"; };
 		CEFD79372E058B2100BD4B66 /* WaterGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterGaugeView.swift; sourceTree = "<group>"; };
 		CEFD79392E05B0F600BD4B66 /* WaterStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterStorage.swift; sourceTree = "<group>"; };
+		9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSetupView.swift; sourceTree = "<group>"; };
+		CEE460202E14A40C00987ACD /* DailyNutritionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNutritionManager.swift; sourceTree = "<group>"; };
+		CEE4603A2E14B21200987ACD /* DailySummaryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySummaryCard.swift; sourceTree = "<group>"; };
+		CEE4603B2E14B21200987ACD /* MacroItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroItem.swift; sourceTree = "<group>"; };
+		CEE4603C2E14B21200987ACD /* MacroNutrient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroNutrient.swift; sourceTree = "<group>"; };
+		CEE4603D2E14B21200987ACD /* MealCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCard.swift; sourceTree = "<group>"; };
+		CEE4603E2E14B21200987ACD /* NutritionPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionPill.swift; sourceTree = "<group>"; };
+		CEE460452E190A2A00987ACD /* FeedbackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackCard.swift; sourceTree = "<group>"; };
+		CEE4605C2E1E4A5D00987ACD /* CheckMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -173,6 +194,7 @@
 		9D05E1AB2D9FEBB600B37E2B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				CEE460202E14A40C00987ACD /* DailyNutritionManager.swift */,
 				9D290DF52DFF8DA500A84424 /* WatchSessionManager.swift */,
 				CEE45F9E2E0A4E5A00987ACD /* StreakManager.swift */,
 				CEE45F9A2E093C1900987ACD /* NotificationManager.swift */,
@@ -220,6 +242,9 @@
 		9D05E1C72DAADE3300B37E2B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				CEE4605C2E1E4A5D00987ACD /* CheckMarkView.swift */,
+				CEE460452E190A2A00987ACD /* FeedbackCard.swift */,
+				CEE4603F2E14B21200987ACD /* TodayViewHelpers */,
 				9D0263CF2E078C09007644C4 /* WaterGaugeView.swift */,
 				9D05E1C82DAADE6500B37E2B /* ScoreGuageView.swift */,
 			);
@@ -249,7 +274,7 @@
 		9D219E892D9FEA9A00357A55 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9D219E882D9FEA9A00357A55 /* Calify.app */,
+				9D219E882D9FEA9A00357A55 /* CalifyWatchApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -296,6 +321,18 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		CEE4603F2E14B21200987ACD /* TodayViewHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				CEE4603A2E14B21200987ACD /* DailySummaryCard.swift */,
+				CEE4603B2E14B21200987ACD /* MacroItem.swift */,
+				CEE4603C2E14B21200987ACD /* MacroNutrient.swift */,
+				CEE4603D2E14B21200987ACD /* MealCard.swift */,
+				CEE4603E2E14B21200987ACD /* NutritionPill.swift */,
+			);
+			path = TodayViewHelpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -331,7 +368,7 @@
 				9D05E1DD2DB993C500B37E2B /* Supabase */,
 			);
 			productName = mine;
-			productReference = 9D219E882D9FEA9A00357A55 /* Calify.app */;
+			productReference = 9D219E882D9FEA9A00357A55 /* CalifyWatchApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9D2D49172DFA4D1D00C5858C /* CalifyWatchApp */ = {
@@ -360,7 +397,7 @@
 				9D290E032E021D9400A84424 /* Supabase */,
 			);
 			productName = "CalifyWatchApp Watch App";
-			productReference = 9D219E882D9FEA9A00357A55 /* Calify.app */;
+			productReference = 9D219E882D9FEA9A00357A55 /* CalifyWatchApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -429,10 +466,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEE45F9D2E09509700987ACD /* Permissions.swift in Sources */,
+				CEE4605D2E1E4A7200987ACD /* CheckMarkView.swift in Sources */,
 				9D05E1B12D9FEBE500B37E2B /* TodayView.swift in Sources */,
 				9D0263D02E078C0C007644C4 /* WaterGaugeView.swift in Sources */,
 				9D26D7A72E11DD3B00CC29A9 /* GoalsCardView.swift in Sources */,
 				9D05E1C62DA7A65A00B37E2B /* SpeechRecognizer.swift in Sources */,
+				CEE460402E14B21200987ACD /* DailySummaryCard.swift in Sources */,
+				CEE460412E14B21200987ACD /* MacroItem.swift in Sources */,
+				CEE460422E14B21200987ACD /* MacroNutrient.swift in Sources */,
+				CEE460462E190A2F00987ACD /* FeedbackCard.swift in Sources */,
+				CEE460432E14B21200987ACD /* MealCard.swift in Sources */,
+				CEE460442E14B21200987ACD /* NutritionPill.swift in Sources */,
 				9D0263CE2E078B73007644C4 /* WaterView.swift in Sources */,
 				9D05E1C92DAADE6500B37E2B /* ScoreGuageView.swift in Sources */,
 				9D05E1D12DB421E400B37E2B /* TipsView.swift in Sources */,
@@ -440,6 +484,7 @@
 				9D05E1BB2DA0EE5B00B37E2B /* MealResultView.swift in Sources */,
 				CEFD793A2E05B10B00BD4B66 /* WaterStorage.swift in Sources */,
 				CEE45F9F2E0A4E6000987ACD /* StreakManager.swift in Sources */,
+				CEE460212E14A41600987ACD /* DailyNutritionManager.swift in Sources */,
 				9D05E1BD2DA0EE7500B37E2B /* LoadingView.swift in Sources */,
 				9D05E1C32DA66F0B00B37E2B /* AggregateMeals.swift in Sources */,
 				9D290DF62DFF8DB300A84424 /* WatchSessionManager.swift in Sources */,
@@ -607,6 +652,8 @@
 				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"Calify/Preview Content\"";
 				DEVELOPMENT_TEAM = HYU3B9NY64;
+				DEVELOPMENT_ASSET_PATHS = "\"mine/Preview Content\"";
+				DEVELOPMENT_TEAM = Y863KF9K87;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = NO;
@@ -629,6 +676,7 @@
 				NSSpeechRecognitionUsageDescription = "Calify uses speech recognition to interpret your spoken meal descriptions.";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.christopher.calify;
+				PRODUCT_BUNDLE_IDENTIFIER = justin.Calify.mine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -646,6 +694,8 @@
 				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"Calify/Preview Content\"";
 				DEVELOPMENT_TEAM = HYU3B9NY64;
+				DEVELOPMENT_ASSET_PATHS = "\"mine/Preview Content\"";
+				DEVELOPMENT_TEAM = Y863KF9K87;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = NO;
@@ -667,6 +717,7 @@
 				NSMicrophoneUsageDescription = "Calify uses your microphone to log meals using voice input.";
 				NSSpeechRecognitionUsageDescription = "Calify uses speech recognition to interpret your spoken meal descriptions.";
 				PRODUCT_BUNDLE_IDENTIFIER = com.christopher.calify;
+				PRODUCT_BUNDLE_IDENTIFIER = justin.Calify.mine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -682,7 +733,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = HYU3B9NY64;
+				DEVELOPMENT_TEAM = Y863KF9K87;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = CalifyWatchApp;
@@ -696,6 +747,7 @@
 				MARKETING_VERSION = 1.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = justin.Calify.mine.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -713,7 +765,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = HYU3B9NY64;
+				DEVELOPMENT_TEAM = Y863KF9K87;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = CalifyWatchApp;
@@ -725,7 +777,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = justin.Calify.mine.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;

@@ -7,8 +7,9 @@ struct MealResultView: View {
     
     @State private var showConfirmation = false
     @State private var isExpanded = false
-
-
+    @State private var checkmarkBounce = false
+    @EnvironmentObject var nutritionManager: DailyNutritionManager
+    
     
     var body: some View {
         ZStack(alignment: .bottom){
@@ -61,6 +62,7 @@ struct MealResultView: View {
                                 }
                             }
                         )
+                        .zIndex(1)
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 10)
@@ -78,9 +80,13 @@ struct MealResultView: View {
             }
             VStack {
                         if showConfirmation {
-                            Text("Meal saved!")
-                                .foregroundColor(.green)
-                                .transition(.opacity)
+                            VStack(spacing: 8) {
+                                CheckMarkView(animate: checkmarkBounce)
+                                    .zIndex(0)
+                                Text("Meal saved!")
+                                    .foregroundColor(.green)
+                                    .transition(.opacity)
+                            }
                         }
 
                         Button("Save Meal") {
@@ -94,13 +100,22 @@ struct MealResultView: View {
                                     accuracyScore: result.accuracyScore,
                                     tips: result.tips ?? [""]
                                 )
-                                withAnimation {
-                                    showConfirmation = true
+                                await MainActor.run {
+                                    withAnimation {
+                                        showConfirmation = true
+                                    }
+                                    checkmarkBounce = false
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                        checkmarkBounce = true
+                                    }
+                                    nutritionManager.refresh() // ✅ Refresh after save completes
                                 }
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     withAnimation {
                                         showConfirmation = false
+                                        checkmarkBounce = false
                                     }
+
                                 }
                                 streakManager.updateStreakOnMealAdded()
                                 if !didPromptForNotifications {
@@ -125,11 +140,12 @@ struct MealResultView: View {
                                 }
 
                             }
+                            nutritionManager.refresh() 
                         }
                         .buttonStyle(.borderedProminent)
                         .scaleEffect(1.2)
                     }
-                    .padding()
+            .padding()
 //                    .background(.thinMaterial)
         }
         .navigationTitle("Meal Breakdown")

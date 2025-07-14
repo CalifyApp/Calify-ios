@@ -40,10 +40,8 @@ import SwiftUI
 
 
 struct TodayView: View {
-    @State private var todaysMeals: [MealEstimate] = []
-    @Binding var todaysTotal: NutrientTotals?
-    @State private var isLoading = true
-    @State private var errorMessage: String? = nil
+    
+    @EnvironmentObject var nutritionManager: DailyNutritionManager
     @State private var mealToDelete: MealEstimate? = nil
     @State private var showingDeleteAlert = false
     @State private var currentDate = Date() //Track current displayed date. what current date are we on/displaying?
@@ -72,22 +70,22 @@ struct TodayView: View {
                 Color(.systemGroupedBackground)
                     .ignoresSafeArea()
 
-                if isLoading {
+                if nutritionManager.isLoading {
                     ProgressView("Loading your meals...")
-                } else if let error = errorMessage {
+                } else if let error = nutritionManager.errorMessage {
                     ContentUnavailableView("Couldn't Load Meals", systemImage: "exclamationmark.triangle", description: Text(error))
                         .padding()
-                } else if todaysMeals.isEmpty {
+                } else if nutritionManager.todaysMeals.isEmpty {
                     ContentUnavailableView("No Meals Today", systemImage: "fork.knife", description: Text("Meals you add will appear here"))
                 } else {
                     
                     List {
-                        
-                        if let summary = todaysTotal {
-                            DailySummaryCard(summary: summary)
-                                .listRowSeparator(.hidden)
-                                .listRowInsets(EdgeInsets())
-                                .listRowBackground(Color.clear)
+                       
+                        if let summary = nutritionManager.todaysTotal {
+                            ZStack {
+                                DailySummaryCard(summary: summary)
+                            }
+
                         }
                     
                         Text(isToday ? "Today's Meals" : "\(formattedDate)'s Meals")
@@ -98,10 +96,10 @@ struct TodayView: View {
                             .listRowBackground(Color.clear)
                         
                         
-                        ForEach(todaysMeals, id: \.description) { meal in
+                        ForEach(nutritionManager.todaysMeals, id: \.description) { meal in
                             ZStack {
                                 MealCard(meal: meal, onDelete: {
-                                    refreshData()
+                                    nutritionManager.refresh(for: currentDate)
                                 })
 //                                .onTapGesture {
 //                                    didTap = !didTap
@@ -147,8 +145,7 @@ struct TodayView: View {
                         Task {
                             await SupabaseManager.shared.deleteMeal(id: id)
                             await MainActor.run {
-                                todaysMeals.removeAll { $0.id == id }
-                                refreshData()
+                                nutritionManager.refresh(for: currentDate) // Remove manual removal from array
                             }
                             mealToDelete = nil
                         }
@@ -184,14 +181,14 @@ struct TodayView: View {
                         }
                     }
                     Button {
-                        refreshData()
+                        nutritionManager.refresh(for: currentDate)
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
                 }
             }
             .onAppear {
-                refreshData()
+                nutritionManager.refresh(for: currentDate)
             }
         }
     }
@@ -203,7 +200,7 @@ struct TodayView: View {
         
         if let newDate = Calendar.current.date(byAdding: .day, value: -1, to: currentDate) { //newDate = calendars cur date - 1. if this is true...
             currentDate = newDate //then currentDate = new Date
-            refreshData() //refresh the data, this time, it will display current days meals, because we refresh data with current date state, getting new meal data
+            nutritionManager.refresh(for: currentDate) //refresh the data, this time, it will display current days meals, because we refresh data with current date state, getting new meal data
         }
     }
     
@@ -215,202 +212,15 @@ struct TodayView: View {
             let today = Calendar.current.startOfDay(for: Date())
             if newDate <= today {
                 currentDate = newDate
-                refreshData()
+                nutritionManager.refresh(for: currentDate)
             } else {
                 currentDate = today
-                refreshData()
-            }
-        }
-    }
-
-    
-    func refreshData() {
-        isLoading = true
-        errorMessage = nil
-        
-        Task {
-            do {
-                let meals = try await SupabaseManager.shared.fetchMeals(for: currentDate)
-                await MainActor.run { //main actor forces main thread. without this, it will run on any thread, which isnt allowed (need immediate state/UI updates)
-                    todaysMeals = meals
-                    todaysTotal = aggregateMeals(meals: meals)
-                    isLoading = false
-                }
-            } catch {
-                await MainActor.run {
-                    errorMessage = "Error loading meals: \(error.localizedDescription)"
-                    isLoading = false
-                }
+                nutritionManager.refresh(for: currentDate)
             }
         }
     }
 }
 
-// MARK: - Supporting Views
-//TODO: Move to UI components folder.
-struct DailySummaryCard: View {
-    var summary: NutrientTotals
-    
-    var body: some View {
-        VStack(spacing: 16) {
-            // Calories
-            VStack(spacing: 4) {
-                Text("\(summary.totalCalories)")
-                    .font(.system(size: 36, weight: .bold))
-                Text("Calories")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-            
-            // Divider
-            Rectangle()
-                .frame(height: 1)
-                .foregroundColor(Color(.systemGray5))
-                .padding(.horizontal)
-            
-            // Macros
-            HStack(spacing: 24) {
-                MacroItem(value: summary.totalProtein, label: "Protein", color: .blue)
-                MacroItem(value: summary.totalCarbs, label: "Carbs", color: .green)
-                MacroItem(value: summary.totalFat, label: "Fat", color: .orange)
-            }
-        }
-        .padding(.vertical, 22)
-        .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color(.secondarySystemGroupedBackground))
-        )
-    }
-}
-
-struct MacroItem: View {
-    var value: Int
-    var label: String
-    var color: Color
-    
-    var body: some View {
-        VStack(spacing: 4) {
-            Text("\(value)g")
-                .font(.headline)
-                .foregroundColor(color)
-            Text(label)
-                .font(.caption)
-                .foregroundColor(.secondary)
-        }
-        .frame(minWidth: 60)
-    }
-}
-
-struct MealCard: View {
-    @State private var showDeleteConfirmation = false
-    
-    var meal: MealEstimate
-    var onDelete: () -> Void
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            // Header with meal description and delete button
-            HStack {
-                Text(meal.description)
-                    .font(.headline)
-                    .lineLimit(1)
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.gray)
-                    .font(.system(size: 16))
-                    .padding(8)
-            }
-            
-            // Nutrition section
-            HStack(alignment: .center, spacing: 16) {
-                // Calories display
-                VStack(spacing: 0) {
-                    Text("\(meal.calories)")
-                        .font(.system(size: 24, weight: .bold))
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.8)
-
-                    Text("calories")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.8)
-                }
-
-                Divider()
-                    .frame(height: 40)
-
-                // Equal-width macros
-                HStack(spacing: 12) {
-                    MacroNutrient(value: meal.protein, label: "protein", color: .blue)
-                    MacroNutrient(value: meal.carbs, label: "carbs", color: .green)
-                    MacroNutrient(value: meal.fat, label: "fat", color: .orange)
-                }
-
-                // Limit the size of the accuracy gauge
-                ScoreGaugeView(
-                    score: meal.accuracyScore,
-                    title: "accuracy"
-                )
-                .frame(maxWidth: 80) // limit how wide it can go
-            }
-            
-        }
-
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
-}
-
-// Simplified macro nutrient display
-struct MacroNutrient: View {
-    var value: Int
-    var label: String
-    var color: Color
-    
-    var body: some View {
-           VStack(spacing: 2) {
-               Text("\(value)g")
-                   .font(.system(size: 16, weight: .semibold))
-                   .foregroundColor(color)
-                   .lineLimit(1)
-                   .minimumScaleFactor(0.75)
-
-               Text(label)
-                   .font(.caption2)
-                   .foregroundColor(.secondary)
-                   .lineLimit(1)
-                   .minimumScaleFactor(0.75)
-           }
-           .frame(maxWidth: .infinity) // Makes all macros equal width
-       }
-}
-
-
-struct NutritionPill: View {
-    var value: Int
-    var unit: String
-    var color: Color
-    
-    var body: some View {
-        HStack(spacing: 4) {
-            Text("\(value)")
-                .font(.subheadline)
-                .fontWeight(.semibold)
-            Text(unit)
-                .font(.caption2)
-                .fontWeight(.medium)
-        }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 4)
-        .background(
-            Capsule()
-                .fill(color.opacity(0.1))
-        )
-        .foregroundColor(color)
-    }
-}
 
 //#Preview {
 //    TodayView()

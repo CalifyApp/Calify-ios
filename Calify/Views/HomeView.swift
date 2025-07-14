@@ -147,7 +147,7 @@ struct HomeView: View {
                     if let result = result {
                         MealResultView(result: result)
                     } else {
-                        MealResultView(result: MealEstimate(id: nil, user_id: nil, protein: 0, carbs: 0, fat: 0, calories: 0, description: "", accuracyScore: 0, created_at: nil, tips: []))
+                        MealResultView(result: MealEstimate(id: nil, user_id: nil, protein: 0, carbs: 0, fat: 0, calories: 0, description: "", accuracyScore: 0, accuracyFeedback: nil, created_at: nil, tips: []))
                     }
                 }
             }

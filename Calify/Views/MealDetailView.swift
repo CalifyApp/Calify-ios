@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct MealDetailView: View {
+    @State private var profile: Profiles? = nil
+
     let meal: MealEstimate
     
     var body: some View {
@@ -32,11 +34,19 @@ struct MealDetailView: View {
                         .font(.headline)
                         .padding(.bottom, 4)
                     
-                    ScoreGaugeView(
-                        score: meal.accuracyScore,
-                        title: "accuracy",
-                        description: "How certain we are about these values"
-                    )
+                    HStack(alignment: .top, spacing: 24) {
+                        ScoreGaugeView(
+                            score: meal.accuracyScore,
+                            title: "accuracy",
+                            description: "How certain we are about these values"
+                        )
+                        
+                        Spacer()
+                        
+                        if let mealId = meal.id {
+                            FeedbackCard(mealId: mealId, accuracyFeedback: meal.accuracyFeedback)
+                        }
+                    }
                     
                     if meal.accuracyScore < 70 {
                         HStack {
@@ -61,7 +71,7 @@ struct MealDetailView: View {
                         .font(.headline)
                         .padding(.bottom, 4)
                     
-                    Text(meal.description ?? "No detailed description available for this meal.")
+                    Text(meal.description)
                         .font(.body)
                         .lineSpacing(5)
                 }
@@ -98,6 +108,7 @@ struct MealDetailView: View {
         .navigationTitle("Meal Details")
         .navigationBarTitleDisplayMode(.inline)
     }
+
     
     private func formattedDate(from timestamp: Date) -> String {
         let formatter = DateFormatter()
@@ -113,5 +124,4 @@ struct MealDetailView: View {
         return formatter.string(from: timestamp)
     }
 }
-
 
