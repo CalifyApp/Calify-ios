@@ -15,9 +15,9 @@ struct CalifyApp: App {
         _ = WatchSessionManager.shared  // ensures WCSession is activated
     }
     @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
-    @StateObject private var nutritionManager = DailyNutritionManager()
     @AppStorage("userName") var userName: String = ""
     @StateObject var streakManager = StreakManager()
+    @StateObject private var nutritionManager = DailyNutritionManager()
     
     
     var body: some Scene { //think of body like return, it defines whats displayed
@@ -96,16 +96,9 @@ struct ContentView: View {
         .overlay(
                     VStack {
                         if streakManager.showStreakBanner {
-                            Text(streakManager.streakEmojiString)
-                                .font(.title)
-                                .padding(12)
-                                .background(.ultraThinMaterial)
-                                .cornerRadius(12)
-                                .shadow(radius: 8)
-                                .transition(.move(edge: .top).combined(with: .opacity))
-                                .padding(.top, 40)
+                            StreakBannerView(currentStreak: streakManager.currentStreak)
                                 .gesture(
-                                    DragGesture(minimumDistance: 10, coordinateSpace: .local)
+                                    DragGesture(minimumDistance: 10)
                                         .onEnded { value in
                                             if value.translation.height < -10 {
                                                 withAnimation {

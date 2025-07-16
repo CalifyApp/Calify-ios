@@ -1,0 +1,10 @@
+# Ignore user-specific workspace state
+Calify.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Ignore user interface state
+Calify.xcodeproj/project.xcworkspace/xcuserdata/**/UserInterfaceState.xcuserstate
+
+# Optionally ignore the project scheme if it's not shared or version-controlled
+Calify.xcodeproj/xcshareddata/xcschemes/Calify.xcscheme
+
+

@@ -33,9 +33,8 @@ struct DailySummaryCard: View {
                 MacroItem(value: summary.totalFat, label: "Fat", color: .orange)
             }
         }
-        .padding(.top, 4)
-        .padding(.bottom, 4)
+        .padding(.top, 15)
+        .padding(.bottom, 15)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal)
     }
 }

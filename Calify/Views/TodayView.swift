@@ -85,7 +85,11 @@ struct TodayView: View {
                             ZStack {
                                 DailySummaryCard(summary: summary)
                             }
-
+                            .listRowInsets(EdgeInsets())
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                            .background(Color(.secondarySystemBackground)
+                                .cornerRadius(12))
                         }
                     
                         Text(isToday ? "Today's Meals" : "\(formattedDate)'s Meals")
@@ -101,9 +105,6 @@ struct TodayView: View {
                                 MealCard(meal: meal, onDelete: {
                                     nutritionManager.refresh(for: currentDate)
                                 })
-//                                .onTapGesture {
-//                                    didTap = !didTap
-//                                }
                                 .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                                     Button(role: .none) {
                                         mealToDelete = meal
@@ -129,11 +130,8 @@ struct TodayView: View {
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                             .listRowInsets(EdgeInsets())
-                            .padding(.vertical, 4)
                         }
-                        
                     }
-                    .listStyle(InsetGroupedListStyle())
                 }
             }
             .alert("Are you sure you want to delete?", isPresented: $showingDeleteAlert) {

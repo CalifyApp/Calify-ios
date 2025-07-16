@@ -88,6 +88,9 @@ struct MealResultView: View {
                                     .transition(.opacity)
                             }
                         }
+//                Button("reset"){
+//                    streakManager.resetStreakForTesting()
+//                }
 
                         Button("Save Meal") {
                             Task {
