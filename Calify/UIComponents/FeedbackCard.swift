@@ -29,6 +29,7 @@ struct FeedbackCard: View {
         }
     }
     
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
 
@@ -37,6 +38,7 @@ struct FeedbackCard: View {
                     selected = .thumbsUp
                     Task {
                         await SupabaseManager.shared.updateMealFeedback(feedback: "good", mealId: mealId)
+                        MealCacheManager.shared.updateFeedback(for: mealId, with: "good")
                     }
                 }) {
                     Image(systemName: "hand.thumbsup.fill")
@@ -53,6 +55,7 @@ struct FeedbackCard: View {
                     selected = .thumbsDown
                     Task {
                         await SupabaseManager.shared.updateMealFeedback(feedback: "bad", mealId: mealId)
+                        MealCacheManager.shared.updateFeedback(for: mealId, with: "bad")
                     }
                 }) {
                     Image(systemName: "hand.thumbsdown.fill")

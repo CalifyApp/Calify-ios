@@ -53,6 +53,10 @@ struct WaterView: View {
                     .padding(.top, 16)
                     .animation(.easeInOut(duration: 0.3), value: confirmationMessage)
 
+//                Button("testing"){
+//                    MealCacheManager.shared.clearCache()
+//                }
+                
                 VStack {
                         HStack(spacing: 12) {
                             TextField("Enter oz", text: $customAmount)

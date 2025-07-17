@@ -17,6 +17,17 @@ class DailyNutritionManager: ObservableObject {
     func refresh(for date: Date = Date()) {
         isLoading = true
         errorMessage = nil
+        
+        if Calendar.current.isDateInToday(date) {
+            let cachedMeals = MealCacheManager.shared.getRecentMeals()
+            if !cachedMeals.isEmpty {
+                // Use cache and skip fetch for now
+                self.todaysMeals = cachedMeals
+                self.todaysTotal = aggregateMeals(meals: cachedMeals)
+                self.isLoading = false
+                return
+            }
+        }
 
         Task {
             do {
@@ -24,6 +35,9 @@ class DailyNutritionManager: ObservableObject {
                 todaysMeals = meals
                 todaysTotal = aggregateMeals(meals: meals)
                 isLoading = false
+                if Calendar.current.isDateInToday(date) {
+                    MealCacheManager.shared.setMeals(meals)
+                }
             } catch {
                 errorMessage = "Error loading meals: \(error.localizedDescription)"
                 isLoading = false

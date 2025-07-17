@@ -111,7 +111,7 @@ struct MealResultView: View {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                         checkmarkBounce = true
                                     }
-                                    nutritionManager.refresh() // ✅ Refresh after save completes
+                                    nutritionManager.refresh() 
                                 }
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     withAnimation {
@@ -143,7 +143,6 @@ struct MealResultView: View {
                                 }
 
                             }
-                            nutritionManager.refresh() 
                         }
                         .buttonStyle(.borderedProminent)
                         .scaleEffect(1.2)

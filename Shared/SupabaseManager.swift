@@ -101,8 +101,20 @@ class SupabaseManager {
                 tips: tips
             )
             
-            try await client.from("Meals").insert(meal).execute()
-            print("insertion successful")
+//            try await client.from("Meals").insert(meal).execute()
+            let insertedMeal: MealEstimate = try await client
+                .from("Meals")
+                .insert(meal)
+                .select()
+                .single()
+                .execute()
+                .value
+            
+            await MainActor.run {
+                MealCacheManager.shared.addMeal(insertedMeal)
+            }
+            
+            
         } catch {
             print("Error inserting meals into database: ", error)
         }
@@ -139,7 +151,7 @@ class SupabaseManager {
     
     func mealLimit() async throws -> Bool {
         do {
-            let userId = UUID(uuidString: "b7368b4b-dcbf-43c5-9c93-cf0c193f5cc9")// get the user ID
+            let userId = try await self.getUserId()// get the user ID
             let mealsArray = try await fetchMeals(for: Date()) // get today’s meals
             
             // Return true if user has exceeded the limit

@@ -53,6 +53,8 @@
 		9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */; };
 		CE2509E32E27B26500089A77 /* StreakBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2509E22E27B25E00089A77 /* StreakBannerView.swift */; };
 		CE2509E52E27DE4C00089A77 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = CE2509E42E27DE4200089A77 /* .gitignore */; };
+		CE250A132E28D6E300089A77 /* MealCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE250A122E28D6C300089A77 /* MealCacheManager.swift */; };
+		CE250A142E28D6E300089A77 /* MealCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE250A122E28D6C300089A77 /* MealCacheManager.swift */; };
 		CEE45F9B2E093C1E00987ACD /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE45F9A2E093C1900987ACD /* NotificationManager.swift */; };
 		CEE45F9D2E09509700987ACD /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE45F9C2E09509200987ACD /* Permissions.swift */; };
 		CEE45F9F2E0A4E6000987ACD /* StreakManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE45F9E2E0A4E5A00987ACD /* StreakManager.swift */; };
@@ -113,7 +115,7 @@
 		9D05E1C82DAADE6500B37E2B /* ScoreGuageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreGuageView.swift; sourceTree = "<group>"; };
 		9D05E1CE2DB4166100B37E2B /* MealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailView.swift; sourceTree = "<group>"; };
 		9D05E1D02DB421E400B37E2B /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
-		9D219E882D9FEA9A00357A55 /* Calify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D219E882D9FEA9A00357A55 /* Calify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Calify.app; path = CalifyWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D219E8B2D9FEA9A00357A55 /* mineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mineApp.swift; sourceTree = "<group>"; };
 		9D219E8F2D9FEA9A00357A55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D219E922D9FEA9A00357A55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSetupView.swift; sourceTree = "<group>"; };
 		CE2509E22E27B25E00089A77 /* StreakBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakBannerView.swift; sourceTree = "<group>"; };
 		CE2509E42E27DE4200089A77 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		CE250A122E28D6C300089A77 /* MealCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCacheManager.swift; sourceTree = "<group>"; };
 		CEE45F9A2E093C1900987ACD /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		CEE45F9C2E09509200987ACD /* Permissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
 		CEE45F9E2E0A4E5A00987ACD /* StreakManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakManager.swift; sourceTree = "<group>"; };
@@ -316,6 +319,7 @@
 		9DD5E6452DFF6DEF00406FC8 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				CE250A122E28D6C300089A77 /* MealCacheManager.swift */,
 				9D05E1BE2DA0EF7600B37E2B /* Models */,
 				9D9ABE352E1E1EDE00272C37 /* SupabaseManager.swift */,
 			);
@@ -481,6 +485,7 @@
 				CEE460442E14B21200987ACD /* NutritionPill.swift in Sources */,
 				9D0263CE2E078B73007644C4 /* WaterView.swift in Sources */,
 				9D05E1C92DAADE6500B37E2B /* ScoreGuageView.swift in Sources */,
+				CE250A142E28D6E300089A77 /* MealCacheManager.swift in Sources */,
 				9D05E1D12DB421E400B37E2B /* TipsView.swift in Sources */,
 				9D05E1B02D9FEBE500B37E2B /* ProfileView.swift in Sources */,
 				CE2509E32E27B26500089A77 /* StreakBannerView.swift in Sources */,
@@ -508,6 +513,7 @@
 			files = (
 				9D9ABE362E1E1EDE00272C37 /* SupabaseManager.swift in Sources */,
 				9D290E052E021EAD00A84424 /* Models.swift in Sources */,
+				CE250A132E28D6E300089A77 /* MealCacheManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

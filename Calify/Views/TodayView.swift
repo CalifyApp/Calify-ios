@@ -130,8 +130,10 @@ struct TodayView: View {
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                             .listRowInsets(EdgeInsets())
+                            .padding(.vertical, 4)
                         }
                     }
+                    .listStyle(InsetGroupedListStyle())
                 }
             }
             .alert("Are you sure you want to delete?", isPresented: $showingDeleteAlert) {
@@ -143,7 +145,9 @@ struct TodayView: View {
                         Task {
                             await SupabaseManager.shared.deleteMeal(id: id)
                             await MainActor.run {
-                                nutritionManager.refresh(for: currentDate) // Remove manual removal from array
+                                MealCacheManager.shared.removeMeal(withId: id)
+                                nutritionManager.todaysMeals = MealCacheManager.shared.getRecentMeals()
+                                nutritionManager.todaysTotal = aggregateMeals(meals: nutritionManager.todaysMeals)
                             }
                             mealToDelete = nil
                         }

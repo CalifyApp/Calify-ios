@@ -94,24 +94,24 @@ struct ContentView: View {
             }
         }
         .overlay(
-                    VStack {
-                        if streakManager.showStreakBanner {
-                            StreakBannerView(currentStreak: streakManager.currentStreak)
-                                .gesture(
-                                    DragGesture(minimumDistance: 10)
-                                        .onEnded { value in
-                                            if value.translation.height < -10 {
-                                                withAnimation {
-                                                    streakManager.showStreakBanner = false
-                                                }
-                                            }
+            VStack {
+                if streakManager.showStreakBanner {
+                    StreakBannerView(currentStreak: streakManager.currentStreak)
+                        .gesture(
+                            DragGesture(minimumDistance: 10)
+                                .onEnded { value in
+                                    if value.translation.height < -10 {
+                                        withAnimation {
+                                            streakManager.showStreakBanner = false
                                         }
-                                )
-                        }
-                        Spacer()
-                    }
-                    .animation(.easeInOut, value: streakManager.showStreakBanner)
-                )
+                                    }
+                                }
+                        )
+                }
+                Spacer()
+            }
+            .animation(.easeInOut, value: streakManager.showStreakBanner)
+        )
     }
 }
 
