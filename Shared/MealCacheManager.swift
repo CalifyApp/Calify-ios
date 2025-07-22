@@ -54,35 +54,76 @@ import Combine
 //}
 final class MealCacheManager {
     static let shared = MealCacheManager()
-    
-    private init() {}
-    
+
+    private init() {
+        loadCache()
+    }
+
     private var mealCache: [MealEstimate] = []
+
+    private let fileName = "meal_cache.json"
 
     func addMeal(_ meal: MealEstimate) {
         mealCache.insert(meal, at: 0)
+        saveCache()
     }
 
     func getRecentMeals() -> [MealEstimate] {
         return mealCache
     }
-    
+
     func setMeals(_ meals: [MealEstimate]) {
         mealCache = meals
+        saveCache()
     }
-    
+
     func removeMeal(withId id: Int) {
         mealCache.removeAll { $0.id == id }
+        saveCache()
     }
-    
+
     func updateFeedback(for mealId: Int, with feedback: String) {
         guard let index = mealCache.firstIndex(where: { $0.id == mealId }) else { return }
         var updatedMeal = mealCache[index]
         updatedMeal.accuracyFeedback = feedback
         mealCache[index] = updatedMeal
+        saveCache()
     }
 
     func clearCache() {
         mealCache.removeAll()
+        deleteCacheFile()
+    }
+
+    private func saveCache() {
+        let url = getFileURL()
+        do {
+            let data = try JSONEncoder().encode(mealCache)
+            try data.write(to: url, options: .atomic)
+        } catch {
+            print("❌ Failed to save meal cache:", error)
+        }
+    }
+
+    private func loadCache() {
+        let url = getFileURL()
+        do {
+            let data = try Data(contentsOf: url)
+            mealCache = try JSONDecoder().decode([MealEstimate].self, from: data)
+        } catch {
+            print("⚠️ No previous cache found or failed to load:", error)
+            mealCache = []
+        }
+    }
+
+    private func deleteCacheFile() {
+        let url = getFileURL()
+        try? FileManager.default.removeItem(at: url)
+    }
+
+    private func getFileURL() -> URL {
+        let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return directory.appendingPathComponent(fileName)
     }
 }
+

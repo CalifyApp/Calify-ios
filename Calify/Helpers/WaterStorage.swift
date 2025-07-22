@@ -7,32 +7,84 @@
 //
 import SwiftUI
 
-struct WaterTrackerStorage {
-    private static let intakeKey = "currentIntake"
-    private static let dateKey = "lastUpdatedDate"
-    private static let goalKey = "dailyGoal"
+struct WaterEntry: Codable, Identifiable {
+    let id: UUID
+    let amount: Int      // in oz
+    let timestamp: Date
+}
 
-    static func save(intake: Int) {
-        UserDefaults.standard.set(intake, forKey: intakeKey)
-        UserDefaults.standard.set(Date(), forKey: dateKey)
-    }
 
-    static func loadIntake() -> Int {
-        let savedDate = UserDefaults.standard.object(forKey: dateKey) as? Date ?? Date.distantPast
-
-        if !Calendar.current.isDateInToday(savedDate) {
-            return 0
+class WaterManager: ObservableObject {
+    @Published private var midnightTimer: Timer?
+    @Published var goal: Int
+    @Published var entries: [WaterEntry] = [] {
+        didSet {
+            saveEntries()
         }
-
-        return UserDefaults.standard.integer(forKey: intakeKey)
     }
     
-    static func saveGoal(_ goal: Int) {
-        UserDefaults.standard.set(goal, forKey: goalKey)
+    private let storageKey = "WaterEntries"
+    
+    init() {
+        self.goal = UserDefaults.standard.integer(forKey: "dailyGoal")
+        loadEntries()
+    }
+    
+    func add(amount: Int) {
+        if (amount <= 0) { return }
+        let entry = WaterEntry(id: UUID(), amount: amount, timestamp: Date())
+        entries.append(entry)
+    }
+    
+    func delete(at offsets: IndexSet) {
+        entries.remove(atOffsets: offsets)
+    }
+    
+    func scheduleMidnightReset() {
+        midnightTimer?.invalidate()
+        
+        let calendar = Calendar.current
+        let now = Date()
+        let nextMidnight = calendar.nextDate(after: now, matching: DateComponents(hour: 0, minute: 0), matchingPolicy: .nextTime)!
+        let interval = nextMidnight.timeIntervalSince(now)
+        
+        midnightTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { _ in
+            self.entries.removeAll()
+            self.scheduleMidnightReset()
+        }
+    }
+    
+    func saveGoal(_ newGoal: Int) {
+        guard newGoal > 0 && newGoal <= 1000 else { return }
+        goal = newGoal
+        UserDefaults.standard.set(newGoal, forKey: "dailyGoal")
     }
 
-    static func loadGoal() -> Int {
-        let value = UserDefaults.standard.integer(forKey: goalKey)
+    func loadGoal() -> Int {
+        let value = UserDefaults.standard.integer(forKey: "dailyGoal")
         return value > 0 ? value : 100
     }
+
+    var totalToday: Int {
+        let calendar = Calendar.current
+        return entries
+            .filter { calendar.isDateInToday($0.timestamp) }
+            .map { $0.amount }
+            .reduce(0, +)
+    }
+
+    private func saveEntries() {
+        if let data = try? JSONEncoder().encode(entries) {
+            UserDefaults.standard.set(data, forKey: storageKey)
+        }
+    }
+
+    private func loadEntries() {
+        if let data = UserDefaults.standard.data(forKey: storageKey),
+        let decoded = try? JSONDecoder().decode([WaterEntry].self, from: data) {
+        let calendar = Calendar.current
+            entries = decoded.filter { calendar.isDateInToday($0.timestamp) }
+        }
+    }
 }
+

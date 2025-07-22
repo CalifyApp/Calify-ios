@@ -55,6 +55,7 @@
 		CE2509E52E27DE4C00089A77 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = CE2509E42E27DE4200089A77 /* .gitignore */; };
 		CE250A132E28D6E300089A77 /* MealCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE250A122E28D6C300089A77 /* MealCacheManager.swift */; };
 		CE250A142E28D6E300089A77 /* MealCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE250A122E28D6C300089A77 /* MealCacheManager.swift */; };
+		CE250A2B2E2FAEC100089A77 /* TimelineBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE250A2A2E2FAEB900089A77 /* TimelineBar.swift */; };
 		CEE45F9B2E093C1E00987ACD /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE45F9A2E093C1900987ACD /* NotificationManager.swift */; };
 		CEE45F9D2E09509700987ACD /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE45F9C2E09509200987ACD /* Permissions.swift */; };
 		CEE45F9F2E0A4E6000987ACD /* StreakManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE45F9E2E0A4E5A00987ACD /* StreakManager.swift */; };
@@ -127,6 +128,7 @@
 		CE2509E22E27B25E00089A77 /* StreakBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakBannerView.swift; sourceTree = "<group>"; };
 		CE2509E42E27DE4200089A77 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		CE250A122E28D6C300089A77 /* MealCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCacheManager.swift; sourceTree = "<group>"; };
+		CE250A2A2E2FAEB900089A77 /* TimelineBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBar.swift; sourceTree = "<group>"; };
 		CEE45F9A2E093C1900987ACD /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		CEE45F9C2E09509200987ACD /* Permissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
 		CEE45F9E2E0A4E5A00987ACD /* StreakManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakManager.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 		9D05E1C72DAADE3300B37E2B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				CE250A2A2E2FAEB900089A77 /* TimelineBar.swift */,
 				CEE4605C2E1E4A5D00987ACD /* CheckMarkView.swift */,
 				CEE460452E190A2A00987ACD /* FeedbackCard.swift */,
 				CEE4603F2E14B21200987ACD /* TodayViewHelpers */,
@@ -503,6 +506,7 @@
 				9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */,
 				9D05E1B22D9FEBE500B37E2B /* HomeView.swift in Sources */,
 				9D219E8C2D9FEA9A00357A55 /* mineApp.swift in Sources */,
+				CE250A2B2E2FAEC100089A77 /* TimelineBar.swift in Sources */,
 				9D9ABE372E1E1EDE00272C37 /* SupabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

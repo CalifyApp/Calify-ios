@@ -7,17 +7,20 @@
 import SwiftUI
 
 struct WaterGaugeView: View {
+    
+    
     let currentIntake: Int
-    @State private var goal: Int = WaterTrackerStorage.loadGoal()
+    @EnvironmentObject var waterManager: WaterManager
     @State private var showingGoalSheet = false
     @State private var newGoalInput = ""
 
     var progress: Double {
-        min(Double(currentIntake) / Double(goal), 1.0)
+        min(Double(currentIntake) / Double(waterManager.goal), 1.0)
     }
 
     var body: some View {
         ZStack {
+            
             // Background arc
             Circle()
                 .trim(from: 0.15, to: 0.85)
@@ -50,13 +53,13 @@ struct WaterGaugeView: View {
                 (
                     Text("Goal: ")
                         .foregroundColor(.gray)
-                    + Text("\(goal) oz")
+                    + Text("\(waterManager.goal) oz")
                         .foregroundColor(.blue)
                 )
                 .font(.system(size: 16, weight: .medium))
                 .padding(.bottom, 24)
                 .onTapGesture {
-                    newGoalInput = "\(goal)"
+                    newGoalInput = "\(waterManager.goal)"
                     showingGoalSheet = true
                 }
             }
@@ -77,8 +80,9 @@ struct WaterGaugeView: View {
 
                 Button("Set Goal") {
                     if let newGoal = Int(newGoalInput), newGoal > 0 {
-                        goal = newGoal
-                        WaterTrackerStorage.saveGoal(newGoal)
+//                        goal = newGoal
+//                        WaterTrackerStorage.saveGoal(newGoal)
+                        waterManager.saveGoal(newGoal)
                         showingGoalSheet = false
                     }
                 }

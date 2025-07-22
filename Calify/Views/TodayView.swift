@@ -81,7 +81,7 @@ struct TodayView: View {
                     
                     List {
                        
-                        if let summary = nutritionManager.todaysTotal {
+                        if let summary = nutritionManager.totals(for: currentDate) {
                             ZStack {
                                 DailySummaryCard(summary: summary)
                             }
@@ -146,8 +146,10 @@ struct TodayView: View {
                             await SupabaseManager.shared.deleteMeal(id: id)
                             await MainActor.run {
                                 MealCacheManager.shared.removeMeal(withId: id)
-                                nutritionManager.todaysMeals = MealCacheManager.shared.getRecentMeals()
-                                nutritionManager.todaysTotal = aggregateMeals(meals: nutritionManager.todaysMeals)
+                                nutritionManager.todaysMeals.removeAll { $0.id == id }
+                                let newTotal = aggregateMeals(meals: nutritionManager.todaysMeals)
+                                let key = nutritionManager.dateKey(for: currentDate)
+                                nutritionManager.dailyTotals[key] = newTotal
                             }
                             mealToDelete = nil
                         }

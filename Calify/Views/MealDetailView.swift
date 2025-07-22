@@ -1,3 +1,17 @@
+/**
+ 
+ struct NutrientTotals { //struct, better for type safety.
+     let totalCalories: Int
+     let totalProtein: Int
+     let totalCarbs: Int
+     let totalFat: Int
+ }
+ 
+ 
+ */
+
+
+
 import SwiftUI
 
 struct MealDetailView: View {
@@ -7,26 +21,17 @@ struct MealDetailView: View {
     
     var body: some View {
         ScrollView {
+            
             VStack(alignment: .leading, spacing: 20) {
                 // Calorie and Macros Summary Card
-                VStack(spacing: 16) {
-                    // Calories
-                    Text("\(meal.calories) Calories")
-                        .font(.system(size: 36, weight: .bold))
-                    
-                    // Macros Pills
-                    HStack(spacing: 8) {
-                        NutritionPill(value: meal.protein, unit: "Protein", color: Color.blue)
-                        NutritionPill(value: meal.carbs, unit: "Carbs", color: Color.green)
-                        NutritionPill(value: meal.fat, unit: "Fat", color: Color.orange)
-                    }
-                    .font(.title3)
-                    .scaleEffect(1.1)
-                }
-                .padding()
-                .background(Color(UIColor.systemBackground))
-                .cornerRadius(12)
-                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+                
+                
+                DailySummaryCard(summary: NutrientTotals(totalCalories: meal.calories, totalProtein: meal.protein, totalCarbs: meal.carbs, totalFat: meal.fat))
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .background(Color(.secondarySystemBackground)
+                    .cornerRadius(12))
                 
                 // Accuracy Information
                 VStack(alignment: .leading, spacing: 12) {

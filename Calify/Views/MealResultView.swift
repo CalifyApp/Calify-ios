@@ -111,7 +111,7 @@ struct MealResultView: View {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                         checkmarkBounce = true
                                     }
-                                    nutritionManager.refresh() 
+                                    nutritionManager.refresh(for: Date())
                                 }
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     withAnimation {

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProfileView: View {
     @State private var profile: Profiles? = nil
-    @EnvironmentObject var nutritionManager: DailyNutritionManager
     
     var body: some View {
         VStack(spacing: 16) {
@@ -21,10 +20,6 @@ struct ProfileView: View {
                     protein: profile.protein_goal ?? 50,
                     carbs: profile.carb_goal ?? 250,
                     fat: profile.fat_goal ?? 70,
-                    currentCal: nutritionManager.todaysTotal?.totalCalories ?? 0,
-                    currentProtein: nutritionManager.todaysTotal?.totalProtein ?? 0,
-                    currentCarbs: nutritionManager.todaysTotal?.totalCarbs ?? 0,
-                    currentFat: nutritionManager.todaysTotal?.totalFat ?? 0
                 )
             } else{
                 ProgressView("Loading...")

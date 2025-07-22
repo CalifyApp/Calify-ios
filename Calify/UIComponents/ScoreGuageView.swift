@@ -46,7 +46,7 @@ struct ScoreGaugeView: View {
     }
 
     var body: some View {
-        VStack(spacing: 6) {
+        VStack(spacing: 0) {
             ZStack {
                 // Circle display (centered like old gauge)
                 HStack(spacing: 8) {
@@ -56,27 +56,14 @@ struct ScoreGaugeView: View {
                             .frame(width: 18, height: 18)
                     }
                 }
-                .frame(width: 100, height: 100, alignment: .center)
+                .frame(width: 100, height: 50, alignment: .center)
             }
 
             Text(tierLabel.uppercased())
                 .font(.caption2)
                 .fontWeight(.semibold)
                 .foregroundColor(color)
-
-            Text(title)
-                .font(.caption)
-                .foregroundColor(.gray)
-
-            if let description = description {
-                Text(description)
-                    .font(.caption2)
-                    .foregroundColor(.gray)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.7)
-            }
         }
-        .frame(width: 100, height: 130) // similar footprint to old view
+        .frame(width: 100, height: 50) // similar footprint to old view
     }
 }

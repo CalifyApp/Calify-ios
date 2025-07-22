@@ -9,6 +9,8 @@ import SwiftUI
 
 struct GoalsCardView: View {
     
+    @EnvironmentObject var nutritionManager: DailyNutritionManager
+    
     @State private var isEditing = false
     @State private var calGoal: Int
     @State private var proteinGoal: Int
@@ -22,25 +24,24 @@ struct GoalsCardView: View {
 
     @State private var isSaving = false
     @State private var errorMessage: String?
-
-    let userId: String
     
-    // Current values for progress calculation
-    let currentCal: Int
-    let currentProtein: Int
-    let currentCarbs: Int
-    let currentFat: Int
+    var currentTotals: NutrientTotals {
+        nutritionManager.totals(for: Date()) ?? .init(totalCalories: 0, totalProtein: 0, totalCarbs: 0, totalFat: 0)
+    }
 
-    init(userId: String, cal: Int, protein: Int, carbs: Int, fat: Int, currentCal: Int, currentProtein: Int, currentCarbs: Int, currentFat: Int) {
+    var currentCal: Int { currentTotals.totalCalories }
+    var currentProtein: Int { currentTotals.totalProtein }
+    var currentCarbs: Int { currentTotals.totalCarbs }
+    var currentFat: Int { currentTotals.totalFat }
+    
+    let userId: String
+
+    init(userId: String, cal: Int, protein: Int, carbs: Int, fat: Int) {
         self.userId = userId
         self._calGoal = State(initialValue: cal)
         self._proteinGoal = State(initialValue: protein)
         self._carbGoal = State(initialValue: carbs)
         self._fatGoal = State(initialValue: fat)
-        self.currentCal = currentCal
-        self.currentProtein = currentProtein
-        self.currentCarbs = currentCarbs
-        self.currentFat = currentFat
     }
 
     var body: some View {
@@ -99,6 +100,9 @@ struct GoalsCardView: View {
                     unit: "g"
                 )
             }
+        }
+        .onAppear {
+            nutritionManager.refresh()
         }
         .padding(20)
         .background(
@@ -192,6 +196,7 @@ struct GoalsCardView: View {
             .presentationDetents([.medium])
         }
     }
+    
 
     func saveGoals() {
         guard let newCal = Int(tempCal),

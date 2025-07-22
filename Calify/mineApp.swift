@@ -17,6 +17,7 @@ struct CalifyApp: App {
     @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
     @AppStorage("userName") var userName: String = ""
     @StateObject var streakManager = StreakManager()
+    @StateObject var waterManager = WaterManager()
     @StateObject private var nutritionManager = DailyNutritionManager()
     
     
@@ -28,6 +29,7 @@ struct CalifyApp: App {
         }
         .environmentObject(streakManager)
         .environmentObject(nutritionManager)
+        .environmentObject(waterManager)
     }
 }
 
