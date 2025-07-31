@@ -1,44 +1,5 @@
 import SwiftUI
 
-/**
- struct PressableCardLink: View {
-     var item: Item
-
-     @State private var isPressed = false
-
-     var body: some View {
-         NavigationLink(destination: DetailView(item: item)) {
-             VStack(alignment: .leading) {
-                 Text(item.title)
-                     .font(.headline)
-                 Text(item.subtitle)
-                     .font(.subheadline)
-             }
-             .padding()
-             .background(isPressed ? Color.gray.opacity(0.2) : Color.white)
-             .cornerRadius(8)
-             .shadow(radius: 1)
-             .scaleEffect(isPressed ? 0.98 : 1.0)
-         }
-         .simultaneousGesture(
-             DragGesture(minimumDistance: 0)
-                 .onChanged { _ in isPressed = true }
-                 .onEnded { _ in
-                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                         isPressed = false
-                     }
-                 }
-         )
-     }
- }
- 
- 
- 
- 
- 
- */
-
-
 struct TodayView: View {
     
     @EnvironmentObject var nutritionManager: DailyNutritionManager
@@ -100,7 +61,7 @@ struct TodayView: View {
                             .listRowBackground(Color.clear)
                         
                         
-                        ForEach(nutritionManager.todaysMeals, id: \.description) { meal in
+                        ForEach(nutritionManager.getMeals(for: currentDate), id: \.description) { meal in
                             ZStack {
                                 MealCard(meal: meal, onDelete: {
                                     nutritionManager.refresh(for: currentDate)
@@ -141,15 +102,15 @@ struct TodayView: View {
                     mealToDelete = nil
                 }
                 Button("Delete", role: .none) {
-                    if let meal = mealToDelete, let id = meal.id {
+                    if let meal = mealToDelete, let id = meal.id, let created_at = meal.created_at {
                         Task {
                             await SupabaseManager.shared.deleteMeal(id: id)
                             await MainActor.run {
-                                MealCacheManager.shared.removeMeal(withId: id)
-                                nutritionManager.todaysMeals.removeAll { $0.id == id }
-                                let newTotal = aggregateMeals(meals: nutritionManager.todaysMeals)
+                                MealCacheManager.shared.removeMeal(withId: id, on: created_at)
+
+                                let currentMeals = nutritionManager.getMeals(for: currentDate).filter { $0.id != id }
                                 let key = nutritionManager.dateKey(for: currentDate)
-                                nutritionManager.dailyTotals[key] = newTotal
+                                nutritionManager.dailyTotals[key] = aggregateMeals(meals: currentMeals)
                             }
                             mealToDelete = nil
                         }

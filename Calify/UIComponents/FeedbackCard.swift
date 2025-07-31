@@ -9,6 +9,7 @@ import SwiftUI
 struct FeedbackCard: View {
     let mealId: Int
     let accuracyFeedback: String?
+    let date: Date?
     
     @State private var selected: FeedbackType? = nil
 
@@ -16,9 +17,11 @@ struct FeedbackCard: View {
         case thumbsUp, thumbsDown
     }
     
-    init(mealId: Int, accuracyFeedback: String?) {
+    init(mealId: Int, accuracyFeedback: String?, date: Date?) {
         self.mealId = mealId
         self.accuracyFeedback = accuracyFeedback
+        self.date = date
+        
         
         if accuracyFeedback == "good" {
             _selected = State(initialValue: .thumbsUp)
@@ -38,7 +41,10 @@ struct FeedbackCard: View {
                     selected = .thumbsUp
                     Task {
                         await SupabaseManager.shared.updateMealFeedback(feedback: "good", mealId: mealId)
-                        MealCacheManager.shared.updateFeedback(for: mealId, with: "good")
+                        if let date = date {
+                            MealCacheManager.shared.updateFeedback(for: mealId, with: "good", on: date)
+                        }
+//                        MealCacheManager.shared.updateFeedback(for: mealId, with: "good", on: date)
                     }
                 }) {
                     Image(systemName: "hand.thumbsup.fill")
@@ -55,7 +61,10 @@ struct FeedbackCard: View {
                     selected = .thumbsDown
                     Task {
                         await SupabaseManager.shared.updateMealFeedback(feedback: "bad", mealId: mealId)
-                        MealCacheManager.shared.updateFeedback(for: mealId, with: "bad")
+                        if let date = date {
+                            MealCacheManager.shared.updateFeedback(for: mealId, with: "bad", on: date)
+                        }
+//                        MealCacheManager.shared.updateFeedback(for: mealId, with: "bad", on: date)
                     }
                 }) {
                     Image(systemName: "hand.thumbsdown.fill")

@@ -15,6 +15,8 @@ struct HomeView: View {
     @State private var result: MealEstimate? = nil
     @State private var showResult = false
     @State private var isMealLimitReached = false
+    @State private var showError = false
+    @State private var errorMessage: String? = nil
 
     @FocusState private var isTextFieldFocused: Bool
     
@@ -150,6 +152,31 @@ struct HomeView: View {
                         MealResultView(result: MealEstimate(id: nil, user_id: nil, protein: 0, carbs: 0, fat: 0, calories: 0, description: "", accuracyScore: 0, accuracyFeedback: nil, created_at: nil, tips: []))
                     }
                 }
+                
+                if showError, let errorMessage = errorMessage {
+                    VStack(spacing: 12) {
+                        FailureMarkView(animate: showError)
+                        
+                        Text(errorMessage)
+                            .font(.body)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                    }
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(12)
+                    .shadow(radius: 10)
+                    .transition(.opacity)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            withAnimation {
+                                showError = false
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }
@@ -213,8 +240,11 @@ struct HomeView: View {
                     }
                 }
             case .failure(let error):
-                print("API Error: \(error)")
-            
+                print("API Error: \(error.localizedDescription)")
+                    withAnimation {
+                        errorMessage = "Meal upload failed. Please try again."
+                        showError = true
+                    }
             }
             userMeal = ""
             isLoading = false

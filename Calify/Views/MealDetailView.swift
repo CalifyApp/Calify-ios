@@ -49,7 +49,7 @@ struct MealDetailView: View {
                         Spacer()
                         
                         if let mealId = meal.id {
-                            FeedbackCard(mealId: mealId, accuracyFeedback: meal.accuracyFeedback)
+                            FeedbackCard(mealId: mealId, accuracyFeedback: meal.accuracyFeedback, date: meal.created_at)
                         }
                     }
                     

@@ -15,29 +15,47 @@ class SupabaseManager {
         let url = URL(string: "https://ypzdjlfgckfyqqhyhgjc.supabase.co")!
         let key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwemRqbGZnY2tmeXFxaHloZ2pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM0NzM5MTYsImV4cCI6MjA1OTA0OTkxNn0.hv8kcWuQJsRXCswZFad2YAONTouzUat6rlwpU0CEX_s"
         
+        let options = SupabaseClientOptions(
+            auth: SupabaseClientOptions.AuthOptions(
+                storage: AuthClient.Configuration.defaultLocalStorage,
+                autoRefreshToken: true
+            )
+        )
+        
         self.client = SupabaseClient(
             supabaseURL: url,
-            supabaseKey: key
+            supabaseKey: key,
+            options: options
         )
     }
     
-    func getUserId()async throws -> UUID {
-        let auth = client.auth //user signed in. grab it
-        
+    
+    func getUserId() async throws -> UUID {
+        let auth = client.auth
+        try await print(auth.session)
+
         do {
             if let currentSession = try? await auth.session {
-                print("We are anonymously logged in")
                 return currentSession.user.id
             } else {
-                let newSession = try await auth.signInAnonymously()
-                print("For some reason, we arent signed in.... signing in now.")
-                return newSession.user.id
+                // Try to refresh session
+                try await auth.refreshSession()
+                if let refreshedSession = try? await auth.session {
+                    print("🔄 Refreshed session")
+                    return refreshedSession.user.id
+                } else {
+                    // Still no session? Then sign in again
+                    let newSession = try await auth.signInAnonymously()
+                    print("🆕 Signed in anonymously after refresh failed")
+                    return newSession.user.id
+                }
             }
         } catch {
-            print("Failed to get session: \(error)")
-            throw error //Re-throw error for proper upstream handling.
+            print("❌ Failed to get or refresh session: \(error)")
+            throw error
         }
     }
+
     
     func getProfilesInfo() async throws -> Profiles? {
         do {
@@ -83,7 +101,7 @@ class SupabaseManager {
         }
     }
     
-    func insertMeal(description: String, calories: Int, protein: Int, carbs: Int, fat: Int, accuracyScore: Int, tips: [String]) async { //This will insert a new meal into the database.
+    func insertMeal(description: String, calories: Int, protein: Int, carbs: Int, fat: Int, accuracyScore: Int, tips: [String])  async throws { //This will insert a new meal into the database.
         do {
             let userId = try await self.getUserId()
             
@@ -117,6 +135,7 @@ class SupabaseManager {
             
         } catch {
             print("Error inserting meals into database: ", error)
+            throw error
         }
         
     }

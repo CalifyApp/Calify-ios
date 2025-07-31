@@ -8,6 +8,9 @@ struct MealResultView: View {
     @State private var showConfirmation = false
     @State private var isExpanded = false
     @State private var checkmarkBounce = false
+    @State private var showError = false
+    @State private var errorMessage = ""
+    
     @EnvironmentObject var nutritionManager: DailyNutritionManager
     
     
@@ -88,60 +91,70 @@ struct MealResultView: View {
                                     .transition(.opacity)
                             }
                         }
-//                Button("reset"){
-//                    streakManager.resetStreakForTesting()
-//                }
 
                         Button("Save Meal") {
                             Task {
-                                await SupabaseManager.shared.insertMeal(
-                                    description: result.description,
-                                    calories: result.calories,
-                                    protein: result.protein,
-                                    carbs: result.carbs,
-                                    fat: result.fat,
-                                    accuracyScore: result.accuracyScore,
-                                    tips: result.tips ?? [""]
-                                )
-                                await MainActor.run {
-                                    withAnimation {
-                                        showConfirmation = true
-                                    }
-                                    checkmarkBounce = false
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                        checkmarkBounce = true
-                                    }
-                                    nutritionManager.refresh(for: Date())
-                                }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                    withAnimation {
-                                        showConfirmation = false
+                                do {
+                                    try await SupabaseManager.shared.insertMeal(
+                                        description: result.description,
+                                        calories: result.calories,
+                                        protein: result.protein,
+                                        carbs: result.carbs,
+                                        fat: result.fat,
+                                        accuracyScore: result.accuracyScore,
+                                        tips: result.tips ?? [""]
+                                    )
+                                    await MainActor.run {
+                                        withAnimation {
+                                            showConfirmation = true
+                                        }
                                         checkmarkBounce = false
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                            checkmarkBounce = true
+                                        }
+                                        nutritionManager.refresh(for: Date())
                                     }
-
-                                }
-                                streakManager.updateStreakOnMealAdded()
-                                if !didPromptForNotifications {
-                                    Task {
-                                        try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
-                                        await withCheckedContinuation { continuation in
-                                            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-                                                DispatchQueue.main.async {
-                                                    print("Notification permission granted: \(granted)")
-                                                    if granted {
-                                                        NotificationManager.scheduleMealReminders()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                        withAnimation {
+                                            showConfirmation = false
+                                            checkmarkBounce = false
+                                        }
+                                    }
+                                    streakManager.updateStreakOnMealAdded()
+                                    if !didPromptForNotifications {
+                                        Task {
+                                            try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+                                            await withCheckedContinuation { continuation in
+                                                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                                                    DispatchQueue.main.async {
+                                                        print("Notification permission granted: \(granted)")
+                                                        if granted {
+                                                            NotificationManager.scheduleMealReminders()
+                                                        }
+                                                        if let error = error {
+                                                            print("Notification error: \(error)")
+                                                        }
+                                                        didPromptForNotifications = true
+                                                        continuation.resume()
                                                     }
-                                                    if let error = error {
-                                                        print("Notification error: \(error)")
-                                                    }
-                                                    didPromptForNotifications = true
-                                                    continuation.resume()
                                                 }
                                             }
                                         }
                                     }
                                 }
-
+                                catch {
+                                    await MainActor.run {
+                                        errorMessage = "⚠️ Failed to save meal: \(error.localizedDescription)"
+                                        withAnimation {
+                                            showError = true
+                                        }
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                                            withAnimation {
+                                                showError = false
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                         .buttonStyle(.borderedProminent)
