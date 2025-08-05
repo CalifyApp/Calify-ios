@@ -120,6 +120,9 @@ struct TodayView: View {
                 Text("This action cannot be undone.")
             }
             .navigationTitle(isToday ? "Today's Nutrition" : formattedDate)
+            .onAppear {
+                nutritionManager.refresh(for: currentDate)
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
@@ -151,9 +154,6 @@ struct TodayView: View {
                         Image(systemName: "arrow.clockwise")
                     }
                 }
-            }
-            .onAppear {
-                nutritionManager.refresh(for: currentDate)
             }
         }
     }

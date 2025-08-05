@@ -64,7 +64,7 @@ struct LogMealView: View {
             }
             userMeal = ""
             isLoading = false
-            await SupabaseManager.shared.insertMeal(
+            try await SupabaseManager.shared.insertMeal(
                 description: result?.description ?? "",
                 calories: result?.calories ?? 0,
                 protein: result?.protein ?? 0,

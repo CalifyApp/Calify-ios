@@ -63,7 +63,7 @@ struct MealCard: View {
             }
             
         }
-
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+//        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

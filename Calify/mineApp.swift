@@ -13,6 +13,12 @@ import UserNotifications
 struct CalifyApp: App {
     init() {
         _ = WatchSessionManager.shared  // ensures WCSession is activated
+        
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.white
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
     }
     @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
     @AppStorage("userName") var userName: String = ""
@@ -45,11 +51,11 @@ struct ContentView: View {
                     Text("Home")
                 }
 
-            TodayView()
-                .tabItem {
-                    Image(systemName: "clock.fill")
-                    Text("History")
-                }
+//            TodayView()
+//                .tabItem {
+//                    Image(systemName: "clock.fill")
+//                    Text("History")
+//                }
             WaterView()
                 .tabItem{
                     Image(systemName: "drop.fill")

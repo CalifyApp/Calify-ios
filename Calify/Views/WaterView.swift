@@ -153,6 +153,7 @@ struct WaterView: View {
                 Spacer()
             }
         }
+        .gradientBackground()
         .onAppear {
             waterManager.scheduleMidnightReset()
         }
