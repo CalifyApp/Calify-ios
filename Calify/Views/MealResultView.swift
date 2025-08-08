@@ -90,8 +90,11 @@ struct MealResultView: View {
                         }
 
                         Button("Save Meal") {
+                            
                             Task {
-                                await SupabaseManager.shared.insertMeal(
+                                await SupabaseManager.shared.manualTokenRefreshUponExpiration()
+                                try? await SupabaseManager.shared.insertMeal(
+                                    accessToken: UserDefaults.standard.string(forKey: "accessToken") ?? "",
                                     description: result.description,
                                     calories: result.calories,
                                     protein: result.protein,
