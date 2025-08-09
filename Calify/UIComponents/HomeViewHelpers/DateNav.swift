@@ -20,11 +20,12 @@ struct DateNav: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color(hex: "#E9DFDF"), Color(hex: "#D3CACA"), Color(hex: "#837D7D")]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
+//                        LinearGradient(
+//                            gradient: Gradient(colors: [Color(hex: "#E9DFDF"), Color(hex: "#D3CACA"), Color(hex: "#837D7D")]),
+//                            startPoint: .topLeading,
+//                            endPoint: .bottomTrailing
+//                        )
+                        Color.white
                     )
                     .frame(height: 75)
 

@@ -15,7 +15,7 @@ struct MealLogs: View {
     let isToday: Bool
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 0) {
             if nutritionManager.isLoading {
                 ProgressView("Loading your meals...")
                     .padding(.top)
@@ -26,35 +26,50 @@ struct MealLogs: View {
                 ContentUnavailableView("No Meals", systemImage: "fork.knife", description: Text("Meals you add will appear here."))
                     .padding(.top)
             } else {
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 0) {
                     Text("Logs")
                         .font(.headline)
                         .padding(.horizontal)
 
-                    LazyVStack(spacing: 8) {
+                    List {
                         ForEach(nutritionManager.getMeals(for: currentDate), id: \.id) { meal in
-                            SwipeableRow(
-                                meal: meal,
-                                onDelete: {
+                            MealCard(meal: meal, onDelete: {
+                                nutritionManager.refresh(for: currentDate)
+                            })
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(.white)
+                                    .shadow(radius: 1)
+                            )
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .none) {
                                     mealToDelete = meal
                                     showingDeleteAlert = true
-                                },
-                                currentDate: $currentDate
-                            )
-                            .padding(.bottom, 30)
-                            
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                                .tint(.red)
+                            }
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets())
                         }
+                        .padding(.vertical, 4)
                     }
-                    .padding()
+                    .scrollContentBackground(.hidden)
+                    .background(Color.clear)
+                    .listStyle(InsetGroupedListStyle())
+                    .frame(height: CGFloat(nutritionManager.getMeals(for: currentDate).count) * 150) // change this
+                    .scrollDisabled(true)
+                    .padding(.top, -30)
                 }
-                
             }
         }
         .alert("Are you sure you want to delete?", isPresented: $showingDeleteAlert) {
             Button("Cancel", role: .cancel) {
                 mealToDelete = nil
             }
-            Button("Delete", role: .none) {
+            Button("Delete", role: .destructive) {
                 if let meal = mealToDelete, let id = meal.id, let created_at = meal.created_at {
                     Task {
                         await SupabaseManager.shared.deleteMeal(id: id)
@@ -75,85 +90,5 @@ struct MealLogs: View {
         .onAppear {
             nutritionManager.refresh(for: currentDate)
         }
-    }
-}
-struct SwipeableRow: View {
-    let meal: MealEstimate
-    let onDelete: () -> Void
-
-    @Binding var currentDate: Date
-    @EnvironmentObject var nutritionManager: DailyNutritionManager
-    @State private var offset: CGFloat = 0
-    @State private var isDragging = false
-
-    private let deleteButtonWidth: CGFloat = 80
-    private let hapticFeedback = UIImpactFeedbackGenerator(style: .medium)
-
-    var body: some View {
-        ZStack(alignment: .trailing) {
-            // Background Delete Button (always aligned to trailing)
-            HStack {
-                Spacer()
-                Button(action: {
-                    hapticFeedback.impactOccurred()
-                    onDelete()
-                }) {
-                    Image(systemName: "trash.fill")
-                        .foregroundColor(.white)
-                        .frame(width: deleteButtonWidth, height: 80)
-                        .background(Color.red)
-                        .cornerRadius(12)
-                }
-                
-            }
-
-            // Foreground swipeable card
-            MealCard(meal: meal, onDelete: {
-                nutritionManager.refresh(for: currentDate)
-            })
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(.secondarySystemGroupedBackground))
-            )
-            .offset(x: offset)
-            .gesture(
-                DragGesture()
-                    .onChanged { value in
-                        if value.translation.width < 0 {
-                            let dragAmount = value.translation.width
-                            if abs(dragAmount) > deleteButtonWidth {
-                                let resistance = (abs(dragAmount) - deleteButtonWidth) * 0.5
-                                offset = -(deleteButtonWidth + resistance)
-                            } else {
-                                offset = dragAmount
-                            }
-                            isDragging = true
-                        }
-                    }
-                    .onEnded { value in
-                        isDragging = false
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                            if value.translation.width < -50 {
-                                offset = -deleteButtonWidth
-                                hapticFeedback.impactOccurred()
-                            } else {
-                                offset = 0
-                            }
-                        }
-                    }
-            )
-            .simultaneousGesture(
-                TapGesture()
-                    .onEnded {
-                        if offset < 0 {
-                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                                offset = 0
-                            }
-                        }
-                    }
-            )
-        }
-        .frame(height: 80)
-        
     }
 }

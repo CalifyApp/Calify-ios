@@ -39,8 +39,8 @@ struct HomeView: View {
         }
         .gradientBackground()
         .sheet(isPresented: $showMealSheet) {
-            AddMeal(showSheet: $showMealSheet)
-                .presentationDetents([.medium]) 
+            OldHomeView()
+                .presentationDetents([.large])
                 .presentationCornerRadius(24)
         }
         .task {
