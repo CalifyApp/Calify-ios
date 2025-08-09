@@ -50,6 +50,11 @@ struct ContentView: View {
                     Image(systemName: "house.fill")
                     Text("Home")
                 }
+            GraphView()
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Progress")
+                }
 
 //            TodayView()
 //                .tabItem {

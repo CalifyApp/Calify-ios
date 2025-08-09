@@ -9,9 +9,11 @@ class SupabaseManager {
     struct Response: Decodable {
         
     }
+    struct DayTotal { let day: Date; let total: Int }
+
     
     private init() {
-        
+    
         let url = URL(string: "https://ypzdjlfgckfyqqhyhgjc.supabase.co")!
         let key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwemRqbGZnY2tmeXFxaHloZ2pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM0NzM5MTYsImV4cCI6MjA1OTA0OTkxNn0.hv8kcWuQJsRXCswZFad2YAONTouzUat6rlwpU0CEX_s"
         
@@ -165,8 +167,71 @@ class SupabaseManager {
             print("Error fetching today's meals: \(error)")
             throw error
         }
-        
     }
+    func fetchMealsForWeek(for frame: TimeFrame) async throws -> [DayTotal] {
+        let userId = try await self.getUserId()
+        
+        var cal = Calendar.current //make sure we respect user timeozone.
+        cal.firstWeekday = 2
+        cal.timeZone = .current
+        
+        //Go back N weeks from today
+        let base = cal.date(byAdding: .weekOfYear, value: -frame.weeksAgo, to: Date())!
+        
+        // Step 2: Snap to Monday 00:00 of that week
+        let weekComps = cal.dateComponents([.yearForWeekOfYear, .weekOfYear], from: base)
+        let startOfWeek = cal.date(from: weekComps)!
+           
+        // Step 3: End of week = next Monday 00:00 (exclusive upper bound)
+        let endOfWeek = cal.date(byAdding: .day, value: 7, to: startOfWeek)!
+        
+        // Local JSONDecoder that handles Supabase ISO8601 with fractional seconds (UTC)
+        let decoder: JSONDecoder = {
+            let d = JSONDecoder()
+
+            let isoFrac = ISO8601DateFormatter()
+            isoFrac.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            isoFrac.timeZone = TimeZone(secondsFromGMT: 0)
+
+            let isoPlain = ISO8601DateFormatter()
+            isoPlain.formatOptions = [.withInternetDateTime]
+            isoPlain.timeZone = TimeZone(secondsFromGMT: 0)
+
+            d.dateDecodingStrategy = .custom { dec in
+                let c = try dec.singleValueContainer()
+                let s = try c.decode(String.self)
+                if let dt = isoFrac.date(from: s) { return dt }    // e.g. ...56.123456Z
+                if let dt = isoPlain.date(from: s) { return dt }   // e.g. ...56+00:00
+                throw DecodingError.dataCorruptedError(in: c, debugDescription: "Bad date: \(s)")
+            }
+            return d
+        }()
+
+        
+        let response = try await client
+            .from("Meals")
+            .select("created_at, calories")
+            .eq("user_id", value: userId)
+            .gte("created_at", value: startOfWeek.ISO8601Format())
+            .lt("created_at", value: endOfWeek.ISO8601Format())
+            .order("created_at", ascending: true)
+            .execute()
+        
+        let meals = try decoder.decode([ChartMeal].self, from: response.data)
+
+        
+        var totals: [Date: Int] = [:]
+        for m in meals {
+            let day = cal.startOfDay(for: m.created_at) //day is, the day that that meal was created. and for every meal...
+            totals[day, default: 0] += m.calories
+        }
+        
+        return (0..<7).map { i in
+            let d = cal.date(byAdding: .day, value: i, to: startOfWeek)!
+            return DayTotal(day: d, total: totals[d] ?? 0)
+        }
+    }
+    
     
     func mealLimit() async throws -> Bool {
         do {
@@ -235,4 +300,16 @@ class SupabaseManager {
     
     
     
+}
+extension TimeFrame {
+    var weeksAgo: Int {
+        switch self {
+            
+        case .thisWeek: return 0
+        case .lastWeek: return 1
+        case .twoWeeksAgo: return 2
+        case .threeWeeksAgo: return 3
+            
+        }
+    }
 }
