@@ -1,5 +1,4 @@
 import Supabase
-import SwiftOpenAI
 import Foundation
 
 class SupabaseManager {
@@ -76,7 +75,7 @@ class SupabaseManager {
             } else {
                 print("No profile found - creating new one...")
                 let newProfile = Profiles(
-                    id: nil,
+                    id: userId,
                     created_at: nil, // DB will auto-timestamp if configured correctly
                     name: "Bob",     // or "New Profile" etc
                     cal_goal: 2000,
@@ -103,13 +102,14 @@ class SupabaseManager {
         }
     }
     
-    func insertMeal(description: String, calories: Int, protein: Int, carbs: Int, fat: Int, accuracyScore: Int, tips: [String])  async throws { //This will insert a new meal into the database.
+    func insertMeal(accessToken: String, description: String, calories: Int, protein: Int, carbs: Int, fat: Int, accuracyScore: Int, tips: [String]) async throws { //This will insert a new meal into the database.
         do {
-            let userId = try await self.getUserId()
-            
+        //TODO. Handle watch/iphone access token more gracefully.
+            let user = try await client.auth.user(jwt: accessToken)
+            print("Insert meal function shows userid", user.id)
             let meal = MealEstimate(
-                id: nil,
-                user_id: userId,
+                id: nil, //auto generated, can be nil.
+                user_id: user.id,
                 protein: protein,
                 carbs: carbs,
                 fat: fat,
@@ -235,7 +235,6 @@ class SupabaseManager {
     
     func mealLimit() async throws -> Bool {
         do {
-            let userId = try await self.getUserId()// get the user ID
             let mealsArray = try await fetchMeals(for: Date()) // get today’s meals
             
             // Return true if user has exceeded the limit
@@ -296,6 +295,42 @@ class SupabaseManager {
         } catch {
            print("Error updating feedback: ", error)
         }
+    }
+    func manualTokenRefreshUponExpiration() async {
+            do {
+                //see if jwt is valid.
+
+                print("lets see if our token is still valid. Checking session...")
+                _ = try await SupabaseManager.shared.client.auth.user() //if jwt is invalid, itll jump to the catch block. TODO: Test this.
+                print("if we make it here, our tokens still valid, lets reset all tokens anyways. and store in user defaults.")
+                let session = try await SupabaseManager.shared.client.auth.session
+                let accessToken = session.accessToken
+                let refreshToken = session.refreshToken
+                print("session: ", session)
+                //Save to userdefaults for watch to read
+                UserDefaults.standard.set(accessToken, forKey: "accessToken")
+                UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
+                print("Token still valid, restored tokens in userDefaults ")
+                
+                        
+            } catch {
+                //JWT wasnt valid, or other issue with getting cur session.
+                do {
+                        print("our tokens were NOT valid... lets try refreshing the session. ")
+                        try await SupabaseManager.shared.client.auth.refreshSession()
+
+                        let session = try await SupabaseManager.shared.client.auth.session
+                        let accessToken = session.accessToken
+                        let refreshToken = session.refreshToken
+
+                        UserDefaults.standard.set(accessToken, forKey: "accessToken")
+                        UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
+                        print("session refresh successful! Successfully stored new access tokens bc of invalid session.")
+                    } catch {
+                        print("❌ Failed to refresh session. Critical Error: \(error)")
+                    }
+            }
+        
     }
     
     

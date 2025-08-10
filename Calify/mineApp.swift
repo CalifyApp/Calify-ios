@@ -23,15 +23,56 @@ struct CalifyApp: App {
     @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
     @AppStorage("userName") var userName: String = ""
     @StateObject var streakManager = StreakManager()
+    @Environment(\.scenePhase) var scenePhase
     @StateObject var waterManager = WaterManager()
     @StateObject private var nutritionManager = DailyNutritionManager()
+
     
-    
-    var body: some Scene { //think of body like return, it defines whats displayed
+    var body: some Scene {
         
         
-        WindowGroup { //represents window for the app, if this was macos, this would be a window. on ios, its main screen.
+        WindowGroup {
             ContentView()
+                .onChange(of: scenePhase) {
+                    //I think that autorefresh supabase is doing its job, BUT, I am going to keep this code here, that refetches tokens, just in case...
+                    if scenePhase == .active {
+                        Task {
+                            do {
+                                //see if jwt is valid.
+
+                                print("lets see if our token is still valid. Checking session...")
+                                _ = try await SupabaseManager.shared.client.auth.user() //if jwt is invalid, itll jump to the catch block. TODO: Test this.
+                                print("if we make it here, our tokens still valid, lets reset all tokens anyways. and store in user defaults.")
+                                let session = try await SupabaseManager.shared.client.auth.session
+                                let accessToken = session.accessToken
+                                let refreshToken = session.refreshToken
+                                print("session: ", session)
+                                //Save to userdefaults for watch to read
+                                UserDefaults.standard.set(accessToken, forKey: "accessToken")
+                                UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
+                                print("Token still valid, restored tokens in userDefaults ")
+                                
+                                        
+                            } catch {
+                                //JWT wasnt valid, or other issue with getting cur session.
+                                do {
+                                        print("our tokens were NOT valid... lets try refreshing the session. ")
+                                        try await SupabaseManager.shared.client.auth.refreshSession()
+
+                                        let session = try await SupabaseManager.shared.client.auth.session
+                                        let accessToken = session.accessToken
+                                        let refreshToken = session.refreshToken
+
+                                        UserDefaults.standard.set(accessToken, forKey: "accessToken")
+                                        UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
+                                        print("session refresh successful! Successfully stored new access tokens bc of invalid session.")
+                                    } catch {
+                                        print("❌ Failed to refresh session. Critical Error: \(error)")
+                                    }
+                            }
+                        }
+                    }
+                }
         }
         .environmentObject(streakManager)
         .environmentObject(nutritionManager)
@@ -75,7 +116,6 @@ struct ContentView: View {
         }
         .onAppear {
             Task {
-                await sendTokensToWatch()
                 do {
                     var userID: UUID?
                     if let session = try? await SupabaseManager.shared.client.auth.session {
@@ -98,12 +138,15 @@ struct ContentView: View {
                             try await SupabaseManager.shared.client.from("Profiles").insert(userProfile).execute()
                         }
                     }
+                    await sendTokensToWatch()
+
                     guard let finalUserID = userID else {
                         print("Failed to get a user ID")
                         return
                     }
                     
                 }
+                
             }
         }
         .overlay(

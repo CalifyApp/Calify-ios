@@ -93,28 +93,32 @@ struct MealResultView: View {
                         }
 
                         Button("Save Meal") {
+                            
                             Task {
                                 do {
-                                    try await SupabaseManager.shared.insertMeal(
-                                        description: result.description,
-                                        calories: result.calories,
-                                        protein: result.protein,
-                                        carbs: result.carbs,
-                                        fat: result.fat,
-                                        accuracyScore: result.accuracyScore,
-                                        tips: result.tips ?? [""]
-                                    )
-                                    await MainActor.run {
-                                        withAnimation {
-                                            showConfirmation = true
-                                        }
-                                        checkmarkBounce = false
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                            checkmarkBounce = true
-                                        }
-                                        nutritionManager.refresh(for: Date())
+                                    
+                                await SupabaseManager.shared.manualTokenRefreshUponExpiration()
+                                try? await SupabaseManager.shared.insertMeal(
+                                    accessToken: UserDefaults.standard.string(forKey: "accessToken") ?? "",
+                                    description: result.description,
+                                    calories: result.calories,
+                                    protein: result.protein,
+                                    carbs: result.carbs,
+                                    fat: result.fat,
+                                    accuracyScore: result.accuracyScore,
+                                    tips: result.tips ?? [""]
+                                )
+                                await MainActor.run {
+                                    withAnimation {
+                                        showConfirmation = true
                                     }
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    checkmarkBounce = false
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                        checkmarkBounce = true
+                                    }
+                                    nutritionManager.refresh(for: Date())
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                         withAnimation {
                                             showConfirmation = false
                                             checkmarkBounce = false
