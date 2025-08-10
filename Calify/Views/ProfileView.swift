@@ -19,7 +19,7 @@ struct ProfileView: View {
                     cal: profile.cal_goal ?? 2000,
                     protein: profile.protein_goal ?? 50,
                     carbs: profile.carb_goal ?? 250,
-                    fat: profile.fat_goal ?? 70,
+                    fat: profile.fat_goal ?? 70
                 )
             } else{
                 ProgressView("Loading...")

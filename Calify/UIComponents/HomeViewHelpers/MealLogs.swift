@@ -12,6 +12,8 @@ struct MealLogs: View {
     @State private var showingDeleteAlert = false
     @State private var mealToDelete: MealEstimate? = nil
     @Binding var currentDate: Date
+    @State private var selectedMeal: MealEstimate?
+
     let isToday: Bool
 
     var body: some View {
@@ -36,6 +38,9 @@ struct MealLogs: View {
                             MealCard(meal: meal, onDelete: {
                                 nutritionManager.refresh(for: currentDate)
                             })
+                            .onTapGesture {
+                                        selectedMeal = meal
+                                    }
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(.white)
@@ -56,6 +61,10 @@ struct MealLogs: View {
                         }
                         .padding(.vertical, 4)
                     }
+                    .sheet(item: $selectedMeal) { meal in
+                        MealDetailView(meal: meal)
+                    }
+
                     .scrollContentBackground(.hidden)
                     .background(Color.clear)
                     .listStyle(InsetGroupedListStyle())
