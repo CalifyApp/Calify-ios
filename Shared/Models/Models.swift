@@ -21,3 +21,16 @@ struct Profiles: Codable {
     let fat_goal: Int?
     let carb_goal: Int?
 }
+
+struct ChartMeal: Decodable {
+    let created_at: Date
+    let calories: Int
+    //this will potenitally grow as we adjust for macro display on chart.
+    enum CodingKeys: String, CodingKey {
+            case created_at = "created_at"
+            case calories
+        }
+
+}
+struct DayTotal { let day: Date; let total: Int }
+
