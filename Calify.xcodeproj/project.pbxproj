@@ -48,6 +48,8 @@
 		9D290E052E021EAD00A84424 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D05E1BF2DA0EF8400B37E2B /* Models.swift */; };
 		9D290E092E02418400A84424 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D2D49622DFB941700C5858C /* Speech.framework */; };
 		9D2B13B62E078CE500D369C8 /* WaterStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0263D12E078C1D007644C4 /* WaterStorage.swift */; };
+		9D6977DC2E4907DA005E0BFD /* GoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6977DB2E4907D7005E0BFD /* GoalsView.swift */; };
+		9D6977DD2E490B40005E0BFD /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9ABE352E1E1EDE00272C37 /* SupabaseManager.swift */; };
 		9D98C91B2E46936200C64531 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D98C91A2E46935E00C64531 /* GraphView.swift */; };
 		9D9ABE372E1E1EDE00272C37 /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9ABE352E1E1EDE00272C37 /* SupabaseManager.swift */; };
 		9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */; };
@@ -109,13 +111,14 @@
 		9D05E1C82DAADE6500B37E2B /* ScoreGuageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreGuageView.swift; sourceTree = "<group>"; };
 		9D05E1CE2DB4166100B37E2B /* MealDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailView.swift; sourceTree = "<group>"; };
 		9D05E1D02DB421E400B37E2B /* TipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
-		9D219E882D9FEA9A00357A55 /* Calify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D219E882D9FEA9A00357A55 /* Calify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Calify.app; path = CalifyWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D219E8B2D9FEA9A00357A55 /* mineApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mineApp.swift; sourceTree = "<group>"; };
 		9D219E8F2D9FEA9A00357A55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D219E922D9FEA9A00357A55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9D26D7A62E11DD3700CC29A9 /* GoalsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsCardView.swift; sourceTree = "<group>"; };
 		9D290DF52DFF8DA500A84424 /* WatchSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
 		9D2D49622DFB941700C5858C /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
+		9D6977DB2E4907D7005E0BFD /* GoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsView.swift; sourceTree = "<group>"; };
 		9D98C91A2E46935E00C64531 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		9D9ABE352E1E1EDE00272C37 /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
 		9DE72EE22DDADEB400468CD1 /* NameSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSetupView.swift; sourceTree = "<group>"; };
@@ -202,12 +205,12 @@
 		9D05E1AB2D9FEBB600B37E2B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				9D9ABE352E1E1EDE00272C37 /* SupabaseManager.swift */,
 				CEE460202E14A40C00987ACD /* DailyNutritionManager.swift */,
 				9D290DF52DFF8DA500A84424 /* WatchSessionManager.swift */,
 				CEE45F9E2E0A4E5A00987ACD /* StreakManager.swift */,
 				CEE45F9A2E093C1900987ACD /* NotificationManager.swift */,
 				9D05E1C52DA7A65A00B37E2B /* SpeechRecognizer.swift */,
-				9D9ABE352E1E1EDE00272C37 /* SupabaseManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 		9D05E1AC2D9FEBC400B37E2B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9D6977DB2E4907D7005E0BFD /* GoalsView.swift */,
 				9D98C91A2E46935E00C64531 /* GraphView.swift */,
 				CEEC51EF2E406AD1004027FC /* HomeView.swift */,
 				CE2509E22E27B25E00089A77 /* StreakBannerView.swift */,
@@ -524,6 +528,7 @@
 				9D05E1BB2DA0EE5B00B37E2B /* MealResultView.swift in Sources */,
 				CEFD793A2E05B10B00BD4B66 /* WaterStorage.swift in Sources */,
 				CEE45F9F2E0A4E6000987ACD /* StreakManager.swift in Sources */,
+				9D6977DC2E4907DA005E0BFD /* GoalsView.swift in Sources */,
 				CEEC51EC2E4066E2004027FC /* MacroOverview.swift in Sources */,
 				CEEC51F82E40BB5B004027FC /* GradientBackground.swift in Sources */,
 				CEE460212E14A41600987ACD /* DailyNutritionManager.swift in Sources */,
@@ -549,6 +554,7 @@
 			files = (
 				9D290E052E021EAD00A84424 /* Models.swift in Sources */,
 				CE250A132E28D6E300089A77 /* MealCacheManager.swift in Sources */,
+				9D6977DD2E490B40005E0BFD /* SupabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

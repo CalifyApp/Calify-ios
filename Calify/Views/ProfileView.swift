@@ -14,71 +14,75 @@ struct ProfileView: View {
     ]
     
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 16) {
+        NavigationView {
+            ScrollView {
+                LazyVStack(spacing: 16) {
                 // Personal Details Card (always at top)
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("Personal Details")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .padding(.horizontal, 20)
-                        .padding(.top, 20)
-                        .padding(.bottom, 16)
-                    
-                    // Stats Grid
-                    HStack(spacing: 0) {
-                        // Left Column
-                        VStack(spacing: 20) {
-                            StatItemView(
-                                icon: "ruler",
-                                iconColor: .blue,
-                                title: "Height",
-                                value: "5'10\""
-                            )
-                            
-                            StatItemView(
-                                icon: "calendar",
-                                iconColor: .orange,
-                                title: "Age",
-                                value: "28"
-                            )
-                        }
-                        .frame(maxWidth: .infinity)
-                        
-                        // Right Column
-                        VStack(spacing: 20) {
-                            StatItemView(
-                                icon: "scalemass",
-                                iconColor: .green,
-                                title: "Weight",
-                                value: "170 lbs"
-                            )
-                            
-                            StatItemView(
-                                icon: "person",
-                                iconColor: .purple,
-                                title: "Gender",
-                                value: "Male"
-                            )
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 20)
-                }
-                .background(Color.white)
-                .cornerRadius(16)
-                .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+//                VStack(alignment: .leading, spacing: 0) {
+//                    Text("Personal Details")
+//                        .font(.title2)
+//                        .fontWeight(.semibold)
+//                        .padding(.horizontal, 20)
+//                        .padding(.top, 20)
+//                        .padding(.bottom, 16)
+//                    
+//                    // Stats Grid
+//                    HStack(spacing: 0) {
+//                        // Left Column
+//                        VStack(spacing: 20) {
+//                            StatItemView(
+//                                icon: "ruler",
+//                                iconColor: .blue,
+//                                title: "Height",
+//                                value: "5'10\""
+//                            )
+//                            
+//                            StatItemView(
+//                                icon: "calendar",
+//                                iconColor: .orange,
+//                                title: "Age",
+//                                value: "28"
+//                            )
+//                        }
+//                        .frame(maxWidth: .infinity)
+//                        
+//                        // Right Column
+//                        VStack(spacing: 20) {
+//                            StatItemView(
+//                                icon: "scalemass",
+//                                iconColor: .green,
+//                                title: "Weight",
+//                                value: "170 lbs"
+//                            )
+//                            
+//                            StatItemView(
+//                                icon: "person",
+//                                iconColor: .purple,
+//                                title: "Gender",
+//                                value: "Male"
+//                            )
+//                        }
+//                        .frame(maxWidth: .infinity)
+//                    }
+//                    .padding(.horizontal, 20)
+//                    .padding(.bottom, 20)
+//                }
+//                .background(Color.white)
+//                .cornerRadius(16)
+//                .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
                 
                 // Dynamic Navigation Cards
                 ForEach(navigationCards) { card in
-                    NavigationCardView(title: card.title)
+                    NavigationCardView(title: card.title, destination: card.title == "Nutrient Goals" ? AnyView(GoalsView()) : nil)
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 20)
-            
-        } .gradientBackground()
+                .padding(.horizontal, 16)
+                .padding(.vertical, 20)
+                
+            } .gradientBackground()
+            .navigationTitle("Profile")
+            .navigationBarTitleDisplayMode(.large)
+        }
     }
     
 }
@@ -125,8 +129,27 @@ struct StatItemView: View {
 
 struct NavigationCardView: View {
     let title: String
+    let destination: AnyView?
+    
+    init(title: String, destination: AnyView? = nil) {
+        self.title = title
+        self.destination = destination
+    }
     
     var body: some View {
+        Group {
+            if let destination = destination {
+                NavigationLink(destination: destination) {
+                    cardContent
+                }
+                .buttonStyle(PlainButtonStyle())
+            } else {
+                cardContent
+            }
+        }
+    }
+    
+    private var cardContent: some View {
         HStack {
             Text(title)
                 .font(.headline)
