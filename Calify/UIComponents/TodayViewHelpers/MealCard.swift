@@ -12,6 +12,7 @@ struct MealCard: View {
     var onDelete: () -> Void
     
     var body: some View {
+        
         VStack(alignment: .leading, spacing: 0) {
             // Header with meal description and delete button
             HStack {

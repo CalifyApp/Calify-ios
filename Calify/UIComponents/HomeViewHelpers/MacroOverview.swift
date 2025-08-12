@@ -12,28 +12,15 @@ struct MacroOverview: View {
     let profile: Profiles
     @EnvironmentObject var nutritionManager: DailyNutritionManager
     @Binding var selectedDate: Date
-    
-    
-    private var totals: NutrientTotals {
-        nutritionManager.totals(for: selectedDate) ?? .init(
-            totalCalories: 0,
-            totalProtein: 0,
-            totalCarbs: 0,
-            totalFat: 0
-        )
-    }
-    
-    private var calGoal: Int { profile.cal_goal ?? 2000 }
 
-    private var macros: [MacroData] {
-        [
+    var body: some View {
+        let totals = nutritionManager.totals(for: selectedDate) ?? .init(totalCalories: 0, totalProtein: 0, totalCarbs: 0, totalFat: 0)
+        let calGoal = profile.cal_goal ?? 2000
+        let macros = [
             MacroData(label: "Protein", current: totals.totalProtein, goal: profile.protein_goal ?? 50, color: .red),
             MacroData(label: "Carbs", current: totals.totalCarbs, goal: profile.carb_goal ?? 200, color: .blue),
             MacroData(label: "Fat", current: totals.totalFat, goal: profile.fat_goal ?? 70, color: .orange)
         ]
-    }
-
-    var body: some View {
     
         HStack(alignment: .top, spacing: 16) {
             // Left: Calories Card
@@ -48,7 +35,7 @@ struct MacroOverview: View {
                     )
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("\(calGoal - totals.totalCalories)")
+                    Text("\( (calGoal - totals.totalCalories) <= 0 ? 0 : calGoal - totals.totalCalories )")
                         .font(.system(size: 48, weight: .bold))
                         .foregroundColor(.black)
 

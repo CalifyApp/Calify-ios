@@ -7,56 +7,94 @@
 
 import SwiftUI
 
+//enum ViewState {
+//    case home
+//    case mealDetail(MealEstimate)
+//}
+
+enum ActiveSheet: Identifiable {
+    case addMeal
+    case mealDetail(MealEstimate)
+    
+    var id: Int {
+        switch self {
+        case .addMeal: return 0
+        case .mealDetail: return 1
+        }
+    }
+}
+
 struct HomeView: View {
     @State private var currentDate: Date = Date()
     @EnvironmentObject var nutritionManager: DailyNutritionManager
     @State private var profile: Profiles? = nil
     @State private var showMealSheet = false
+    @State private var activeSheet: ActiveSheet?
 
     var body: some View {
         
-        ZStack {
-            ScrollView {
-                VStack(spacing: 24) {
-                    DateNav(selectedDate: $currentDate, nutritionManager: nutritionManager)
-
-                    if let profile = profile {
-                        MacroOverview(profile: profile, selectedDate: $currentDate)
-                            .environmentObject(nutritionManager)
+//        switch currentView {
+//        case .home:
+            ZStack {
+                ScrollView {
+                    VStack(spacing: 24) {
+                        DateNav(selectedDate: $currentDate, nutritionManager: nutritionManager)
+                        
+                        if let profile = profile {
+                            MacroOverview(profile: profile, selectedDate: $currentDate)
+                                .environmentObject(nutritionManager)
+                        }
+                        
+                        MealLogs(
+                            onMealSelected: { meal in
+                                activeSheet = .mealDetail(meal)
+                            },
+                            currentDate: $currentDate,
+                            isToday: Calendar.current.isDateInToday(currentDate)
+                        )
                     }
-
-                    MealLogs(currentDate: $currentDate, isToday: Calendar.current.isDateInToday(currentDate))
+                    .padding(.vertical)
                 }
-                .padding(.vertical)
-            }
-            
-            VStack {
-                Spacer()
-                AddMealButton {
-                    showMealSheet = true
-                }
-            }
-        }
-        .gradientBackground()
-        .sheet(isPresented: $showMealSheet) {
-            OldHomeView()
-                .presentationDetents([.large])
-                .presentationCornerRadius(24)
-        }
-        .task {
-            if profile == nil {
-                do {
-                    let result = try await SupabaseManager.shared.getProfilesInfo()
-                    if let loadedProfile = result {
-                        profile = loadedProfile
-                    } else {
-                        print("⚠️ Supabase returned nil profile")
+                
+                VStack {
+                    Spacer()
+                    AddMealButton {
+                        activeSheet = .addMeal
                     }
-                } catch {
-                    print("❌ Failed to fetch profile: \(error)")
                 }
             }
-        }
+            .gradientBackground()
+            .sheet(item: $activeSheet) { item in
+                switch item {
+                case .addMeal:
+                    AddMeal(selectedDate: $currentDate)
+                        .presentationDetents([.large])
+                        .presentationCornerRadius(24)
+                case .mealDetail(let meal):
+                    MealDetailView(meal: meal)
+            }
+            }
+            .task {
+                if profile == nil {
+                    do {
+                        let result = try await SupabaseManager.shared.getProfilesInfo()
+                        if let loadedProfile = result {
+                            profile = loadedProfile
+                        } else {
+                            print("⚠️ Supabase returned nil profile")
+                        }
+                    } catch {
+                        print("❌ Failed to fetch profile: \(error)")
+                    }
+                }
+            }
+//        case .mealDetail(let meal):
+//            MealDetailView(meal: meal)
+//                .transition(.move(edge: .trailing))
+//                .onDisappear {
+//                    currentView = .home
+//            }
+//        }
     }
     
 }
