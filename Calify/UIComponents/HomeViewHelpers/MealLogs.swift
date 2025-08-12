@@ -40,7 +40,7 @@ struct MealLogs: View {
                             MealLoading()
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(.white)
+                                        .fill(Color(uiColor: .secondarySystemBackground))
                                         .shadow(radius: 1)
                                 )
                                 .listRowBackground(Color.clear)
@@ -56,7 +56,7 @@ struct MealLogs: View {
                             })
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
-                                    .fill(.white)
+                                    .fill(Color(uiColor: .secondarySystemBackground))
                                     .shadow(radius: 1)
                             )
                             .onTapGesture {

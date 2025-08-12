@@ -19,14 +19,8 @@ struct DateNav: View {
         VStack {
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(
-//                        LinearGradient(
-//                            gradient: Gradient(colors: [Color(hex: "#E9DFDF"), Color(hex: "#D3CACA"), Color(hex: "#837D7D")]),
-//                            startPoint: .topLeading,
-//                            endPoint: .bottomTrailing
-//                        )
-                        Color.white
-                    )
+                    .fill(Color(uiColor: .secondarySystemBackground))
+                    .shadow(color: Color.primary.opacity(0.05), radius: 3, x: 0, y: 2) 
                     .frame(height: 75)
 
                 VStack(spacing: 8) {

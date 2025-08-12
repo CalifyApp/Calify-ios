@@ -26,8 +26,8 @@ struct MacroOverview: View {
             // Left: Calories Card
             ZStack(alignment: .topLeading) {
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.white)
-                    .shadow(radius: 4)
+                    .fill(Color(uiColor: .secondarySystemBackground))
+                    .shadow(color: Color.primary.opacity(0.1), radius: 4)
                     .overlay(
                         CalProgress(calGoal: calGoal, currCal: totals.totalCalories)
                             .padding(.bottom, 20),
@@ -37,7 +37,7 @@ struct MacroOverview: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("\( (calGoal - totals.totalCalories) <= 0 ? 0 : calGoal - totals.totalCalories )")
                         .font(.system(size: 48, weight: .bold))
-                        .foregroundColor(.black)
+                        .foregroundColor(.primary)
 
                     Text("calories remaining")
                         .font(.headline)
@@ -53,8 +53,8 @@ struct MacroOverview: View {
                 ForEach(macros, id: \.self) { macro in
                     ZStack {
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.white)
-                            .shadow(radius: 4)
+                            .fill(Color(uiColor: .secondarySystemBackground))
+                            .shadow(color: Color.primary.opacity(0.1), radius: 4)
                         
                         MacroProgress(
                             label: macro.label,
