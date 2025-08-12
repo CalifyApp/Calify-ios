@@ -79,6 +79,7 @@
 		CEEC51F62E40AD83004027FC /*  CalProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC51F52E40AD7B004027FC /*  CalProgress.swift */; };
 		CEEC51F82E40BB5B004027FC /* GradientBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC51F72E40BB56004027FC /* GradientBackground.swift */; };
 		CEEC51FA2E41C012004027FC /* AddMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC51F92E41C010004027FC /* AddMeal.swift */; };
+		CEEC522A2E4B489E004027FC /* MealLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC52292E4B4894004027FC /* MealLoading.swift */; };
 		CEFD793A2E05B10B00BD4B66 /* WaterStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFD79392E05B0F600BD4B66 /* WaterStorage.swift */; };
 /* End PBXBuildFile section */
 
@@ -176,6 +177,7 @@
 		CEEC51F52E40AD7B004027FC /*  CalProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " CalProgress.swift"; sourceTree = "<group>"; };
 		CEEC51F72E40BB56004027FC /* GradientBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackground.swift; sourceTree = "<group>"; };
 		CEEC51F92E41C010004027FC /* AddMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMeal.swift; sourceTree = "<group>"; };
+		CEEC52292E4B4894004027FC /* MealLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealLoading.swift; sourceTree = "<group>"; };
 		CEFD79352E0389A300BD4B66 /* WaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterView.swift; sourceTree = "<group>"; };
 		CEFD79372E058B2100BD4B66 /* WaterGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterGaugeView.swift; sourceTree = "<group>"; };
 		CEFD79392E05B0F600BD4B66 /* WaterStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterStorage.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 		CEEC51CE2E405921004027FC /* HomeViewHelpers */ = {
 			isa = PBXGroup;
 			children = (
+				CEEC52292E4B4894004027FC /* MealLoading.swift */,
 				CEEC51F92E41C010004027FC /* AddMeal.swift */,
 				CEEC51F52E40AD7B004027FC /*  CalProgress.swift */,
 				CEEC51F32E40A943004027FC /* AddMealButton.swift */,
@@ -676,6 +679,7 @@
 				9D219E8C2D9FEA9A00357A55 /* mineApp.swift in Sources */,
 				CE250A2B2E2FAEC100089A77 /* TimelineBar.swift in Sources */,
 				9D9ABE372E1E1EDE00272C37 /* SupabaseManager.swift in Sources */,
+				CEEC522A2E4B489E004027FC /* MealLoading.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

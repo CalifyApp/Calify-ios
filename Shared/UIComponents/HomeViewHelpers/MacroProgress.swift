@@ -60,7 +60,7 @@ struct MacroProgress: View {
                     .font(.system(size: 11))
                     .foregroundColor(.secondary)
                 
-                Text("\(goal - current)\(unit) left")
+                Text("\( (goal - current) <= 0 ? 0 : (goal - current) )\(unit) left")
                     .font(.system(size: 11, weight: .semibold))
                     .foregroundColor(progress >= 1.0 ? .green : color)
                     .opacity(0.85)

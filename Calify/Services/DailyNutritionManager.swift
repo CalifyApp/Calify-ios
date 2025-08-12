@@ -11,6 +11,7 @@ class DailyNutritionManager: ObservableObject {
     
     @Published var todaysMeals: [MealEstimate] = []
     @Published var dailyTotals: [String: NutrientTotals] = [:]
+    @Published var loadingMeals: [UUID] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
 
