@@ -31,6 +31,7 @@ struct CalifyApp: App {
     var body: some Scene {
         
         
+        
         WindowGroup {
             ContentView()
                 .onChange(of: scenePhase) {

@@ -36,16 +36,18 @@ struct TimelineBar: View {
                 ZStack(alignment: .leading) {
                     // Background bar
                     Capsule()
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(height: 2)
+                        .fill(Color.white.opacity(0.8))
+                        .frame(height: 3)
+                        .shadow(color: .black.opacity(0.3), radius: 1)
                     
                     ForEach(Array(stride(from: 0, through: 24, by: 6)), id: \.self) { hour in
                         let percent = CGFloat(hour - startHour) / CGFloat(totalHours)
                         let xPosition = percent * availableWidth
 
                         Capsule()
-                            .fill(Color.gray)
-                            .frame(width: 2, height: 16)
+                            .fill(Color.white)
+                            .frame(width: 3, height: 18)
+                            .shadow(color: .black.opacity(0.3), radius: 1)
                             .offset(x: xPosition - 1)
                     }
                     
@@ -62,7 +64,9 @@ struct TimelineBar: View {
                     ForEach(Array(stride(from: 0, through: 24, by: 6)), id: \.self) { hour in
                         Text(timeLabel(for: hour))
                             .font(.caption2)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.white)
+                            .fontWeight(.semibold)
+                            .shadow(color: .black.opacity(0.5), radius: 1)
                             .frame(width: spacing, alignment: .center)
                             // position etc.
                     }
@@ -73,7 +77,8 @@ struct TimelineBar: View {
                     showSheet = true
                 }) {
                     Image(systemName: "chevron.down")
-                        .foregroundColor(.gray)
+                        .foregroundColor(.white)
+                        .shadow(color: .black.opacity(0.5), radius: 1)
                         .padding(10) // Adds invisible tappable area around the icon
                         .padding(.bottom, 4)
                         .contentShape(Rectangle()) // Makes the whole padded area tappable
@@ -91,7 +96,7 @@ struct TimelineBar: View {
                                         .fontWeight(.medium)
                                     Spacer()
                                     Text(entry.timestamp, style: .time)
-                                        .foregroundColor(.gray)
+                                        .foregroundColor(.secondary)
                                         .font(.subheadline)
                                 }
                                 .padding(.vertical, 4)

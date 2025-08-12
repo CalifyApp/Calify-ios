@@ -25,7 +25,8 @@ struct WaterGaugeView: View {
             Circle()
                 .trim(from: 0.15, to: 0.85)
                 .stroke(style: StrokeStyle(lineWidth: 14, lineCap: .round))
-                .foregroundColor(Color.gray.opacity(0.3))
+                .foregroundColor(Color.white.opacity(0.7))
+                .shadow(color: .black.opacity(0.2), radius: 2)
                 .frame(width: 240, height: 240)
                 .rotationEffect(.degrees(90))
 
@@ -45,14 +46,15 @@ struct WaterGaugeView: View {
 
                 Text("ounces")
                     .font(.system(size: 18, weight: .medium))
-                    .foregroundColor(.gray)
+                    .foregroundColor(.white)
+                    .shadow(color: .black.opacity(0.5), radius: 1)
             }
 
             VStack {
                 Spacer()
                 (
                     Text("Goal: ")
-                        .foregroundColor(.gray)
+                        .foregroundColor(.white)
                     + Text("\(waterManager.goal) oz")
                         .foregroundColor(.blue)
                 )

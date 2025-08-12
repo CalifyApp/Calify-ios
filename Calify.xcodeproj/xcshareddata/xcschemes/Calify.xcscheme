@@ -15,20 +15,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9DA274E82E25E11100107667"
-               BuildableName = "CalifyWatch Watch App.app"
-               BlueprintName = "CalifyWatch Watch App"
-               ReferencedContainer = "container:Calify.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "9D219E872D9FEA9A00357A55"
                BuildableName = "Calify.app"
                BlueprintName = "Calify"
@@ -54,11 +40,8 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <PathRunnable
-         runnableDebuggingMode = "0"
-         FilePath = "/Users/christopher/Library/Developer/Xcode/DerivedData/Calify-gxlsgassnwfpfbesjpklvbqthndo/Build/Products/Debug-iphoneos/Calify.app">
-      </PathRunnable>
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9D219E872D9FEA9A00357A55"
@@ -66,7 +49,7 @@
             BlueprintName = "Calify"
             ReferencedContainer = "container:Calify.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -77,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9DA274E82E25E11100107667"
-            BuildableName = "CalifyWatch Watch App.app"
-            BlueprintName = "CalifyWatch Watch App"
+            BlueprintIdentifier = "9D219E872D9FEA9A00357A55"
+            BuildableName = "Calify.app"
+            BlueprintName = "Calify"
             ReferencedContainer = "container:Calify.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
