@@ -102,14 +102,13 @@ class SupabaseManager {
         }
     }
     
-    func insertMeal(accessToken: String, description: String, calories: Int, protein: Int, carbs: Int, fat: Int, accuracyScore: Int, tips: [String]) async throws { //This will insert a new meal into the database.
+    func insertMeal(description: String, calories: Int, protein: Int, carbs: Int, fat: Int, accuracyScore: Int, tips: [String]) async throws {
         do {
-        //TODO. Handle watch/iphone access token more gracefully.
-            let user = try await client.auth.user(jwt: accessToken)
-            print("Insert meal function shows userid", user.id)
+            let userId = try await self.getUserId()
+
             let meal = MealEstimate(
                 id: nil, //auto generated, can be nil.
-                user_id: user.id,
+                user_id: userId,
                 protein: protein,
                 carbs: carbs,
                 fat: fat,

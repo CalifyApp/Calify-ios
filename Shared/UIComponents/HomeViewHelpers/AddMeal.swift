@@ -75,6 +75,8 @@ struct AddMeal: View {
             
             do {
                 if let result = result {
+                    await SupabaseManager.shared.manualTokenRefreshUponExpiration()
+
                     try await SupabaseManager.shared.insertMeal(
                         description: result.description,
                         calories: result.calories,
