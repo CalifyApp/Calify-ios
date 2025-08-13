@@ -18,7 +18,9 @@ struct MealLogs: View {
     let isToday: Bool
 
     var body: some View {
-             
+        let key = nutritionManager.dateKey(for: currentDate)
+        let loadingForDate = nutritionManager.loadingMeals[key] ?? []
+        
         VStack(spacing: 0) {
             if nutritionManager.isLoading {
                 ProgressView("Loading your meals...")
@@ -26,7 +28,7 @@ struct MealLogs: View {
             } else if let error = nutritionManager.errorMessage {
                 ContentUnavailableView("Couldn't Load Meals", systemImage: "exclamationmark.triangle", description: Text(error))
                     .padding()
-            } else if nutritionManager.getMeals(for: currentDate).isEmpty {
+            } else if nutritionManager.getMeals(for: currentDate).isEmpty && loadingForDate.isEmpty {
                 ContentUnavailableView("No Meals", systemImage: "fork.knife", description: Text("Meals you add will appear here."))
                     .padding(.top)
             } else {
@@ -36,7 +38,7 @@ struct MealLogs: View {
                         .padding(.horizontal)
                     
                     List {
-                        ForEach(nutritionManager.loadingMeals, id: \.self) { _ in
+                        ForEach(loadingForDate, id: \.self) { _ in
                             MealLoading()
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
@@ -83,7 +85,7 @@ struct MealLogs: View {
                     .background(Color.clear)
                     .listStyle(InsetGroupedListStyle())
                     //.frame(/*CGFloat(nutritionManager.getMeals(for: currentDate).count + nutritionManager.loadingMeals.count) * 155*/) // change
-                    .frame(minHeight: CGFloat(130 * (nutritionManager.getMeals(for: currentDate).count + nutritionManager.loadingMeals.count)) + 25)
+                    .frame(minHeight: CGFloat(130 * (nutritionManager.getMeals(for: currentDate).count + loadingForDate.count)) + 25)
                     .scrollDisabled(true)
                     .padding(.top, -30)
                 }

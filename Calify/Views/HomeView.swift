@@ -72,7 +72,10 @@ struct HomeView: View {
                         .presentationCornerRadius(24)
                 case .mealDetail(let meal):
                     MealDetailView(meal: meal)
+                }
             }
+            .onAppear {
+                print("////////\(currentDate)")
             }
             .task {
                 if profile == nil {

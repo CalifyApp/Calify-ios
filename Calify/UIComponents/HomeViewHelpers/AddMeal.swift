@@ -33,7 +33,8 @@ struct AddMeal: View {
             speechRecognizer.stopRecognition()
             if !userMeal.isEmpty {
                 let tempID = UUID()
-                submitMeal(tempID: tempID)
+                let mealDate = selectedDate
+                submitMeal(tempID: tempID, mealDate: mealDate)
             }
         }
     }
@@ -49,7 +50,7 @@ struct AddMeal: View {
         }
     }
     
-    private func submitMeal(tempID: UUID) {
+    private func submitMeal(tempID: UUID, mealDate: Date) {
         guard !userMeal.isEmpty else { return }
         
         Task {
@@ -82,14 +83,14 @@ struct AddMeal: View {
                         carbs: result.carbs,
                         fat: result.fat,
                         accuracyScore: result.accuracyScore,
-                        tips: result.tips ?? [""]
+                        tips: result.tips,
+                        created_at: mealDate
                     )
-                    if let index = nutritionManager.loadingMeals.firstIndex(of: tempID) {
-                        nutritionManager.loadingMeals.remove(at: index)
-                    }
-                    nutritionManager.todaysMeals.insert(result, at: 0)
+                    nutritionManager.removeLoadingMeal(for: mealDate, id: tempID)
+
+                    
                     DispatchQueue.main.async {
-                        nutritionManager.refresh(for: selectedDate)
+                        nutritionManager.refresh(for: mealDate)
                     }
                 }
             }
@@ -155,9 +156,10 @@ struct AddMeal: View {
                     
                     Button {
                         let tempID = UUID()
-                        nutritionManager.loadingMeals.append(tempID)
+                        let mealDate = selectedDate
+                        nutritionManager.insertPlaceholderMeal(for: mealDate, tempID: tempID)
                         dismiss()
-                        submitMeal(tempID: tempID)
+                        submitMeal(tempID: tempID, mealDate: mealDate)
                         isTextFieldFocused = false
 
                     } label: {
