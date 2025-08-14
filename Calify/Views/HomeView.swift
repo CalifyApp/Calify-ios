@@ -27,7 +27,7 @@ enum ActiveSheet: Identifiable {
 struct HomeView: View {
     @State private var currentDate: Date = Date()
     @EnvironmentObject var nutritionManager: DailyNutritionManager
-    @State private var profile: Profiles? = nil
+    @EnvironmentObject var profileManager: ProfileManager
     @State private var showMealSheet = false
     @State private var activeSheet: ActiveSheet?
 
@@ -40,7 +40,7 @@ struct HomeView: View {
                     VStack(spacing: 24) {
                         DateNav(selectedDate: $currentDate, nutritionManager: nutritionManager)
                         
-                        if let profile = profile {
+                        if let profile = profileManager.profile {
                             MacroOverview(profile: profile, selectedDate: $currentDate)
                                 .environmentObject(nutritionManager)
                         }
@@ -75,18 +75,7 @@ struct HomeView: View {
             }
             }
             .task {
-                if profile == nil {
-                    do {
-                        let result = try await SupabaseManager.shared.getProfilesInfo()
-                        if let loadedProfile = result {
-                            profile = loadedProfile
-                        } else {
-                            print("⚠️ Supabase returned nil profile")
-                        }
-                    } catch {
-                        print("❌ Failed to fetch profile: \(error)")
-                    }
-                }
+                await profileManager.loadProfile()
             }
 //        case .mealDetail(let meal):
 //            MealDetailView(meal: meal)

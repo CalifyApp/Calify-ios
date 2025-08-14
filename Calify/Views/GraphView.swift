@@ -10,8 +10,12 @@ import Charts
 
 struct GraphView: View {
     @State private var selectedTimeFrame: TimeFrame = .thisWeek
-    @State private var dailyLimit: Double = 2500
     @State private var calorieData: [DailyCalories] = []
+    @EnvironmentObject var profileManager: ProfileManager
+    
+    private var dailyLimit: Double {
+        Double(profileManager.profile?.cal_goal ?? 2500)
+    }
     
     //we need this to essentially, convert to chart format.
     func toDailyCalories(_ days: [SupabaseManager.DayTotal]) -> [DailyCalories] {
@@ -63,16 +67,7 @@ struct GraphView: View {
                         isSelected: true
                     ) {
                         // Already selected
-                    }
-                    
-                    ToggleButton(
-                        title: "Protein",
-                        isSelected: false
-                    ) {
-                        // Future feature
-                    }
-                    
-                    Spacer()
+                    }                    
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 20)
@@ -116,7 +111,7 @@ struct GraphView: View {
                             .fill(Color.green)
                             .frame(height: 2)
                             .padding(.leading, 37) // Cuts 40 points from left side
-                            .offset(y: chartYOffset(for: dailyLimit))
+                            .offset(y: chartYOffset(for: dailyLimit) - 9)
                             .opacity(0.8),
                         alignment: .bottom
                     )
@@ -185,6 +180,7 @@ struct GraphView: View {
         }
         .gradientBackground()
         .task {
+            await profileManager.loadProfile()
             await load() // Load initial data when view appears
         }
         .onChange(of: selectedTimeFrame) { _, newTimeFrame in

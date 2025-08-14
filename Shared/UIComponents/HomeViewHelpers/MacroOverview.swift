@@ -17,8 +17,8 @@ struct MacroOverview: View {
         let totals = nutritionManager.totals(for: selectedDate) ?? .init(totalCalories: 0, totalProtein: 0, totalCarbs: 0, totalFat: 0)
         let calGoal = profile.cal_goal ?? 2000
         let macros = [
-            MacroData(label: "Protein", current: totals.totalProtein, goal: profile.protein_goal ?? 50, color: .red),
-            MacroData(label: "Carbs", current: totals.totalCarbs, goal: profile.carb_goal ?? 200, color: .blue),
+            MacroData(label: "Protein", current: totals.totalProtein, goal: profile.protein_goal ?? 50, color: .blue),
+            MacroData(label: "Carbs", current: totals.totalCarbs, goal: profile.carb_goal ?? 200, color: .green),
             MacroData(label: "Fat", current: totals.totalFat, goal: profile.fat_goal ?? 70, color: .orange)
         ]
     

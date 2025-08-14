@@ -26,6 +26,7 @@ struct CalifyApp: App {
     @Environment(\.scenePhase) var scenePhase
     @StateObject var waterManager = WaterManager()
     @StateObject private var nutritionManager = DailyNutritionManager()
+    @StateObject private var profileManager = ProfileManager()
 
     
     var body: some Scene {
@@ -77,6 +78,7 @@ struct CalifyApp: App {
         }
         .environmentObject(streakManager)
         .environmentObject(nutritionManager)
+        .environmentObject(profileManager)
         .environmentObject(waterManager)
     }
 }
@@ -94,7 +96,7 @@ struct ContentView: View {
                 }
             GraphView()
                 .tabItem {
-                    Image(systemName: "house.fill")
+                    Image(systemName: "chart.bar.fill")
                     Text("Progress")
                 }
 

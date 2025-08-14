@@ -10,6 +10,7 @@ import SwiftUI
 struct GoalsCardView: View {
     
     @EnvironmentObject var nutritionManager: DailyNutritionManager
+    @EnvironmentObject var profileManager: ProfileManager
     
     @State private var isEditing = false
     @State private var calGoal: Int
@@ -216,7 +217,7 @@ struct GoalsCardView: View {
         errorMessage = nil
 
         Task {
-            let success = await updateGoalsInSupabase(
+            let success = await profileManager.updateGoals(
                 cal: newCal,
                 protein: newProtein,
                 carbs: newCarb,
@@ -232,31 +233,12 @@ struct GoalsCardView: View {
                     fatGoal = newFat
                     isEditing = false
                 } else {
-                    errorMessage = "Failed to update goals. Please try again."
+                    errorMessage = profileManager.errorMessage ?? "Failed to update goals. Please try again."
                 }
             }
         }
     }
 
-    func updateGoalsInSupabase(cal: Int, protein: Int, carbs: Int, fat: Int) async -> Bool {
-        do {
-            let result = try await SupabaseManager.shared.client
-                .from("Profiles")
-                .update([
-                    "cal_goal": cal,
-                    "protein_goal": protein,
-                    "carb_goal": carbs,
-                    "fat_goal": fat
-                ])
-                .eq("id", value: userId)
-                .execute()
-
-            return result.status == 200
-        } catch {
-            print("Supabase error: \(error)")
-            return false
-        }
-    }
 }
 
 struct CircularProgressGoal: View {

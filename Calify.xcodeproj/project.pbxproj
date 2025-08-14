@@ -41,6 +41,7 @@
 		9D290E092E02418400A84424 /* Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D2D49622DFB941700C5858C /* Speech.framework */; };
 		9D2B13B62E078CE500D369C8 /* WaterStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0263D12E078C1D007644C4 /* WaterStorage.swift */; };
 		9D6977DC2E4907DA005E0BFD /* GoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6977DB2E4907D7005E0BFD /* GoalsView.swift */; };
+		9D6978832E4BF7F3005E0BFD /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6978822E4BF7EF005E0BFD /* ProfileManager.swift */; };
 		9D7B36562E25E57600B89717 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 9D7B36552E25E57600B89717 /* Auth */; };
 		9D7B36582E25E57600B89717 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 9D7B36572E25E57600B89717 /* Functions */; };
 		9D7B365A2E25E57600B89717 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 9D7B36592E25E57600B89717 /* PostgREST */; };
@@ -145,6 +146,7 @@
 		9D290DF52DFF8DA500A84424 /* WatchSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
 		9D2D49622DFB941700C5858C /* Speech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Speech.framework; path = System/Library/Frameworks/Speech.framework; sourceTree = SDKROOT; };
 		9D6977DB2E4907D7005E0BFD /* GoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsView.swift; sourceTree = "<group>"; };
+		9D6978822E4BF7EF005E0BFD /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		9D7B36362E25E4D600B89717 /* Calify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D98C91A2E46935E00C64531 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		9D9ABE352E1E1EDE00272C37 /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 		9D05E1AB2D9FEBB600B37E2B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				9D6978822E4BF7EF005E0BFD /* ProfileManager.swift */,
 				9D9ABE352E1E1EDE00272C37 /* SupabaseManager.swift */,
 				CEE460202E14A40C00987ACD /* DailyNutritionManager.swift */,
 				9D290DF52DFF8DA500A84424 /* WatchSessionManager.swift */,
@@ -656,6 +659,7 @@
 				9D05E1D12DB421E400B37E2B /* TipsView.swift in Sources */,
 				CEEC51D02E405931004027FC /* DateNav.swift in Sources */,
 				9D05E1B02D9FEBE500B37E2B /* ProfileView.swift in Sources */,
+				9D6978832E4BF7F3005E0BFD /* ProfileManager.swift in Sources */,
 				CE2509E32E27B26500089A77 /* StreakBannerView.swift in Sources */,
 				CEEC51F42E40A948004027FC /* AddMealButton.swift in Sources */,
 				9D05E1BB2DA0EE5B00B37E2B /* MealResultView.swift in Sources */,

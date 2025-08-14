@@ -6,12 +6,15 @@
 ////
 ///
 import SwiftUI
+import MessageUI
 
 struct ProfileView: View {
     @State private var navigationCards: [NavigationCardData] = [
-        NavigationCardData(id: UUID(), title: "Contact Us"),
+        NavigationCardData(id: UUID(), title: "Support Email"),
         NavigationCardData(id: UUID(), title: "Nutrient Goals")
     ]
+    @State private var showingMailComposer = false
+    @State private var userId: String = "Loading..."
     
     var body: some View {
         NavigationView {
@@ -73,7 +76,16 @@ struct ProfileView: View {
                 
                 // Dynamic Navigation Cards
                 ForEach(navigationCards) { card in
-                    NavigationCardView(title: card.title, destination: card.title == "Nutrient Goals" ? AnyView(GoalsView()) : nil)
+                    if card.title == "Support Email" {
+                        Button(action: {
+                            showingMailComposer = true
+                        }) {
+                            NavigationCardView(title: card.title)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    } else {
+                        NavigationCardView(title: card.title, destination: card.title == "Nutrient Goals" ? AnyView(GoalsView()) : nil)
+                    }
                 }
             }
                 .padding(.horizontal, 16)
@@ -82,7 +94,37 @@ struct ProfileView: View {
             } .gradientBackground()
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.large)
+            .onAppear {
+                Task {
+                    await loadUserId()
+                }
+            }
+            .sheet(isPresented: $showingMailComposer) {
+                MailComposeView(
+                    recipients: ["chrisnieves60@gmail.com"],
+                    subject: "Calify App Support"
+                )
+            }
         }
+    }
+    
+    private func loadUserId() async {
+        do {
+            let session = try await SupabaseManager.shared.client.auth.session
+            userId = session.user.id.uuidString
+        } catch {
+            userId = "Unable to retrieve user ID"
+        }
+    }
+    
+    private func getEmailBody() -> String {
+        return """
+
+
+Please describe your issue above this line.
+
+User ID: \(userId)
+"""
     }
     
 }
@@ -167,6 +209,67 @@ struct NavigationCardView: View {
         .background(Color.white)
         .cornerRadius(16)
         .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+    }
+}
+
+struct MailComposeView: UIViewControllerRepresentable {
+    let recipients: [String]
+    let subject: String
+    @State private var userId: String = "Loading..."
+    
+    func makeUIViewController(context: Context) -> MFMailComposeViewController {
+        let mailComposer = MFMailComposeViewController()
+        mailComposer.mailComposeDelegate = context.coordinator
+        mailComposer.setToRecipients(recipients)
+        mailComposer.setSubject(subject)
+        
+        Task {
+            do {
+                let session = try await SupabaseManager.shared.client.auth.session
+                let userIdValue = session.user.id.uuidString
+                let body = """
+
+
+Please describe your issue above this line.
+
+User ID: \(userIdValue)
+"""
+                await MainActor.run {
+                    mailComposer.setMessageBody(body, isHTML: false)
+                }
+            } catch {
+                let body = """
+
+
+Please describe your issue above this line.
+
+User ID: Unable to retrieve user ID
+"""
+                await MainActor.run {
+                    mailComposer.setMessageBody(body, isHTML: false)
+                }
+            }
+        }
+        
+        return mailComposer
+    }
+    
+    func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: Context) {}
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
+        let parent: MailComposeView
+        
+        init(_ parent: MailComposeView) {
+            self.parent = parent
+        }
+        
+        func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+            controller.dismiss(animated: true)
+        }
     }
 }
 
