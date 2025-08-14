@@ -161,15 +161,15 @@ struct GraphView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)
                 
-                HStack(spacing: 8) {
-                    Button {
-                        Task {
-                            await load()
-                        }
-                    } label: {
-                        Text("Reload Data")
-                    }
-                }
+//                HStack(spacing: 8) {
+//                    Button {
+//                        Task {
+//                            await load()
+//                        }
+//                    } label: {
+//                        Text("Reload Data")
+//                    }
+//                }
             }
             .background(Color.white)
             .cornerRadius(16)

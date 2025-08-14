@@ -141,6 +141,45 @@ class SupabaseManager {
         
     }
     
+    func insertMeal(description: String, calories: Int, protein: Int, carbs: Int, fat: Int, accuracyScore: Int, tips: [String], created_at: Date)  async throws { //This will insert a new meal into the database.
+        do {
+            let userId = try await self.getUserId()
+            
+            let meal = MealEstimate(
+                id: nil,
+                user_id: userId,
+                protein: protein,
+                carbs: carbs,
+                fat: fat,
+                calories: calories,
+                description: description,
+                accuracyScore: accuracyScore,
+                accuracyFeedback: nil,
+                created_at: created_at,
+                tips: tips
+            )
+            
+//            try await client.from("Meals").insert(meal).execute()
+            let insertedMeal: MealEstimate = try await client
+                .from("Meals")
+                .insert(meal)
+                .select()
+                .single()
+                .execute()
+                .value
+            
+            await MainActor.run {
+                MealCacheManager.shared.addMeal(insertedMeal, for: created_at)
+            }
+            
+            
+        } catch {
+            print("Error inserting meals into database: ", error)
+            throw error
+        }
+        
+    }
+    
     func fetchMeals(for date: Date = Date()) async throws -> [MealEstimate] {
         do {
             let userId = try await self.getUserId()

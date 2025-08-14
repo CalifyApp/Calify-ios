@@ -10,17 +10,19 @@ import SwiftUI
 struct MealLogs: View {
     
     let onMealSelected: (MealEstimate) -> Void
+    
     @EnvironmentObject var nutritionManager: DailyNutritionManager
     @State private var showingDeleteAlert = false
     @State private var mealToDelete: MealEstimate? = nil
     @Binding var currentDate: Date
-    @State private var selectedMeal: MealEstimate?
 
     @State private var viewHeight: CGFloat = 0
     let isToday: Bool
 
     var body: some View {
-             
+        let key = nutritionManager.dateKey(for: currentDate)
+        let loadingForDate = nutritionManager.loadingMeals[key] ?? []
+        
         VStack(spacing: 0) {
             if nutritionManager.isLoading {
                 ProgressView("Loading your meals...")
@@ -28,9 +30,23 @@ struct MealLogs: View {
             } else if let error = nutritionManager.errorMessage {
                 ContentUnavailableView("Couldn't Load Meals", systemImage: "exclamationmark.triangle", description: Text(error))
                     .padding()
-            } else if nutritionManager.getMeals(for: currentDate).isEmpty {
+                Button(action: {
+                        nutritionManager.errorMessage = nil
+                        nutritionManager.refresh(for: currentDate)
+                    }) {
+                        Text("Refresh")
+                            .fontWeight(.bold)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                            .padding(.horizontal)
+                    }
+            } else if nutritionManager.getMeals(for: currentDate).isEmpty && loadingForDate.isEmpty {
                 ContentUnavailableView("No Meals", systemImage: "fork.knife", description: Text("Meals you add will appear here."))
                     .padding(.top)
+
             } else {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Logs")
@@ -38,7 +54,7 @@ struct MealLogs: View {
                         .padding(.horizontal)
                     
                     List {
-                        ForEach(nutritionManager.loadingMeals, id: \.self) { _ in
+                        ForEach(loadingForDate, id: \.self) { _ in
                             MealLoading()
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
@@ -56,9 +72,6 @@ struct MealLogs: View {
                             MealCard(meal: meal, onDelete: {
                                 nutritionManager.refresh(for: currentDate)
                             })
-                            .onTapGesture {
-                                        selectedMeal = meal
-                                    }
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Color(uiColor: .secondarySystemBackground))
@@ -84,15 +97,12 @@ struct MealLogs: View {
                         }
                         .padding(.vertical, 4)
                     }
-                    .sheet(item: $selectedMeal) { meal in
-                        MealDetailView(meal: meal)
-                    }
 
                     .scrollContentBackground(.hidden)
                     .background(Color.clear)
                     .listStyle(InsetGroupedListStyle())
                     //.frame(/*CGFloat(nutritionManager.getMeals(for: currentDate).count + nutritionManager.loadingMeals.count) * 155*/) // change
-                    .frame(minHeight: CGFloat(130 * (nutritionManager.getMeals(for: currentDate).count + nutritionManager.loadingMeals.count)) + 25)
+                    .frame(minHeight: CGFloat(130 * (nutritionManager.getMeals(for: currentDate).count + loadingForDate.count)) + 25)
                     .scrollDisabled(true)
                     .padding(.top, -30)
                 }
@@ -123,6 +133,7 @@ struct MealLogs: View {
         .onAppear {
             nutritionManager.refresh(for: currentDate)
         }
+        
         
     }
 }

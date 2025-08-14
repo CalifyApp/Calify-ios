@@ -154,6 +154,16 @@ final class MealCacheManager {
         
         saveCache()
     }
+    
+    func addMeal(_ meal: MealEstimate, for date: Date) {
+        let dateKey = dateFormatter.string(from: date)
+        if mealCache[dateKey] != nil {
+            mealCache[dateKey]?.insert(meal, at: 0)
+        } else {
+            mealCache[dateKey] = [meal]
+        }
+        saveCache()
+    }
 
 
     func getMeals(for date: Date) -> [MealEstimate] {

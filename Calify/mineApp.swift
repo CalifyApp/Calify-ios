@@ -27,7 +27,7 @@ struct CalifyApp: App {
     @StateObject var waterManager = WaterManager()
     @StateObject private var nutritionManager = DailyNutritionManager()
     @StateObject private var profileManager = ProfileManager()
-
+    
     
     var body: some Scene {
         
@@ -85,20 +85,25 @@ struct CalifyApp: App {
 
 struct ContentView: View {
     @State private var todaysTotal: NutrientTotals? = nil
+    @State private var selectedTab = 0
+    @State private var goToChild = false
     @EnvironmentObject var streakManager: StreakManager
 
     var body: some View {
-        TabView {
-            HomeView()
+        TabView (selection: $selectedTab) {
+            HomeView(selectedTab: $selectedTab, goToChild: $goToChild)
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Home")
                 }
+                .tag(0)
+
             GraphView()
                 .tabItem {
                     Image(systemName: "chart.bar.fill")
                     Text("Progress")
                 }
+                .tag(1)
 
 //            TodayView()
 //                .tabItem {
@@ -110,12 +115,14 @@ struct ContentView: View {
                     Image(systemName: "drop.fill")
                     Text("Water Intake")
                 }
+                .tag(2)
 
-            ProfileView()
+            ProfileView(goToChild: $goToChild)
             .tabItem {
                 Image(systemName: "person.fill")
                 Text("Profile")
             }
+            .tag(3)
         }
         .onAppear {
             Task {

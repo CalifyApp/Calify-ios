@@ -50,8 +50,8 @@ struct MealCard: View {
 
                 // Equal-width macros
                 HStack(spacing: 12) {
-                    MacroNutrient(value: meal.protein, label: "protein", color: .blue)
-                    MacroNutrient(value: meal.carbs, label: "carbs", color: .green)
+                    MacroNutrient(value: meal.protein, label: "protein", color: .red)
+                    MacroNutrient(value: meal.carbs, label: "carbs", color: .blue)
                     MacroNutrient(value: meal.fat, label: "fat", color: .orange)
                 }
 

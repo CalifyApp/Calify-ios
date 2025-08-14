@@ -36,7 +36,7 @@ struct TodayView: View {
                 } else if let error = nutritionManager.errorMessage {
                     ContentUnavailableView("Couldn't Load Meals", systemImage: "exclamationmark.triangle", description: Text(error))
                         .padding()
-                } else if nutritionManager.todaysMeals.isEmpty {
+                } else if nutritionManager.getMeals(for: currentDate).isEmpty {
                     ContentUnavailableView("No Meals Today", systemImage: "fork.knife", description: Text("Meals you add will appear here"))
                 } else {
                     

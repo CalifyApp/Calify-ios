@@ -7,9 +7,12 @@
 
 import SwiftUI
 
+struct TimeoutError: Error {}
+
 struct AddMeal: View {
     
     @Binding var selectedDate: Date
+    @Binding var submissionError: String?
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var nutritionManager: DailyNutritionManager
     @State private var userMeal: String = ""
@@ -17,6 +20,9 @@ struct AddMeal: View {
     @State private var result: MealEstimate? = nil
     @State private var isMealLimitReached = false
     @FocusState private var isTextFieldFocused: Bool
+    @State private var showSubmissionError: Bool = false
+    @State private var submissionErrorMessage: String = ""
+    
     private let speechRecognizer = SpeechRecognizer()
     
     private func handleRecordingToggle() {
@@ -33,8 +39,22 @@ struct AddMeal: View {
             speechRecognizer.stopRecognition()
             if !userMeal.isEmpty {
                 let tempID = UUID()
-                submitMeal(tempID: tempID)
+                let mealDate = selectedDate
+                submitMeal(tempID: tempID, mealDate: mealDate)
             }
+        }
+    }
+    
+    func withThrowingTimeout<T>(seconds: TimeInterval, operation: @escaping () async throws -> T) async throws -> T {
+        try await withThrowingTaskGroup(of: T.self) { group in
+            group.addTask { try await operation() }
+            group.addTask {
+                try await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+                throw TimeoutError()
+            }
+            let result = try await group.next()!
+            group.cancelAll()
+            return result
         }
     }
     
@@ -49,57 +69,63 @@ struct AddMeal: View {
         }
     }
     
-    private func submitMeal(tempID: UUID) {
+    
+    private func submitMeal(tempID: UUID, mealDate: Date) {
         guard !userMeal.isEmpty else { return }
         
         Task {
             do {
-                let jsonMealEstimatesResult = await SupabaseManager.shared.callOpenAI(meal: userMeal)
-                
-                switch jsonMealEstimatesResult {
-                case .success(let jsonMealEstimatesString):
-                    if let data = jsonMealEstimatesString.data(using: .utf8) {
-                        do {
-                            let decoded = try JSONDecoder().decode(MealEstimate.self, from: data)
-                            result = decoded
-                            print(decoded) //print the json received from chatgpt
-                        } catch {
-                            print("Decoding failed: \(error)")
+                try await withThrowingTimeout(seconds: 10) {
+                    let jsonMealEstimatesResult = await SupabaseManager.shared.callOpenAI(meal: userMeal)
+                    
+                    switch jsonMealEstimatesResult {
+                    case .success(let jsonMealEstimatesString):
+                        if let data = jsonMealEstimatesString.data(using: .utf8) {
+                            do {
+                                let decoded = try JSONDecoder().decode(MealEstimate.self, from: data)
+                                result = decoded
+                            } catch {
+                                throw error // decoding failed
+                            }
+                        } else {
+                            throw SupabaseManager.APIError.emptyResponse("No data returned")
                         }
+                        
+                    case .failure(let error):
+                        throw error
                     }
-                case .failure(let error):
-                    print("API Error: \(error.localizedDescription)")
+                    
+                    if let result = result {
+                        try await SupabaseManager.shared.insertMeal(
+                            description: result.description,
+                            calories: result.calories,
+                            protein: result.protein,
+                            carbs: result.carbs,
+                            fat: result.fat,
+                            accuracyScore: result.accuracyScore,
+                            tips: result.tips,
+                            created_at: mealDate
+                        )
+                    }
+                }
+                
+                nutritionManager.removeLoadingMeal(for: mealDate, id: tempID)
+                DispatchQueue.main.async {
+                    nutritionManager.refresh(for: mealDate)
                 }
                 userMeal = ""
-            }
-            
-            do {
-                if let result = result {
-                    await SupabaseManager.shared.manualTokenRefreshUponExpiration()
-
-                    try await SupabaseManager.shared.insertMeal(
-                        description: result.description,
-                        calories: result.calories,
-                        protein: result.protein,
-                        carbs: result.carbs,
-                        fat: result.fat,
-                        accuracyScore: result.accuracyScore,
-                        tips: result.tips ?? [""]
-                    )
-                    if let index = nutritionManager.loadingMeals.firstIndex(of: tempID) {
-                        nutritionManager.loadingMeals.remove(at: index)
-                    }
-                    nutritionManager.todaysMeals.insert(result, at: 0)
-                    DispatchQueue.main.async {
-                        nutritionManager.refresh(for: selectedDate)
-                    }
-                }
-            }
-            catch let error {
-                print("Error Inserting Meal \(error)")
+                
+            } catch is TimeoutError {
+                submissionError = "The request timed out. Please try again."
+                nutritionManager.removeLoadingMeal(for: mealDate, id: tempID)
+                
+            } catch {
+                submissionError = "Something went wrong. Please try again."
+                nutritionManager.removeLoadingMeal(for: mealDate, id: tempID)
             }
         }
     }
+
     
     var body: some View {
         ZStack {
@@ -157,9 +183,10 @@ struct AddMeal: View {
                     
                     Button {
                         let tempID = UUID()
-                        nutritionManager.loadingMeals.append(tempID)
+                        let mealDate = selectedDate
+                        nutritionManager.insertPlaceholderMeal(for: mealDate, tempID: tempID)
                         dismiss()
-                        submitMeal(tempID: tempID)
+                        submitMeal(tempID: tempID, mealDate: mealDate)
                         isTextFieldFocused = false
 
                     } label: {

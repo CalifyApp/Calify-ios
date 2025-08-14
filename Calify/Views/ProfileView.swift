@@ -9,9 +9,11 @@ import SwiftUI
 import MessageUI
 
 struct ProfileView: View {
+    @Binding var goToChild: Bool
     @State private var navigationCards: [NavigationCardData] = [
         NavigationCardData(id: UUID(), title: "Support Email"),
-        NavigationCardData(id: UUID(), title: "Nutrient Goals")
+        NavigationCardData(id: UUID(), title: "Nutrient Goals"),
+        NavigationCardData(id: UUID(), title: "Feedback Form")
     ]
     @State private var showingMailComposer = false
     @State private var userId: String = "Loading..."
@@ -19,6 +21,9 @@ struct ProfileView: View {
     var body: some View {
         NavigationView {
             ScrollView {
+                if(goToChild == true){
+                    GoalsView()
+                }
                 LazyVStack(spacing: 16) {
                 // Personal Details Card (always at top)
 //                VStack(alignment: .leading, spacing: 0) {
@@ -81,6 +86,15 @@ struct ProfileView: View {
                             showingMailComposer = true
                         }) {
                             NavigationCardView(title: card.title)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    } else if card.title == "Feedback Form" {
+                        Button(action: {
+                            if let url = URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSf-GZjCJH9xsdeZajO_Mz-NqtdF5wdpYY8oU8K8zbT1q0gntA/viewform?usp=header") {
+                                UIApplication.shared.open(url)
+                            }
+                        }) {
+                            NavigationCardView(title: card.title, isExternalLink: true)
                         }
                         .buttonStyle(PlainButtonStyle())
                     } else {
@@ -172,10 +186,12 @@ struct StatItemView: View {
 struct NavigationCardView: View {
     let title: String
     let destination: AnyView?
+    let isExternalLink: Bool
     
-    init(title: String, destination: AnyView? = nil) {
+    init(title: String, destination: AnyView? = nil, isExternalLink: Bool = false) {
         self.title = title
         self.destination = destination
+        self.isExternalLink = isExternalLink
     }
     
     var body: some View {
@@ -200,7 +216,7 @@ struct NavigationCardView: View {
             
             Spacer()
             
-            Image(systemName: "chevron.right")
+            Image(systemName: isExternalLink ? "arrow.up.right.square" : "chevron.right")
                 .foregroundColor(.gray)
                 .font(.system(size: 14, weight: .medium))
         }

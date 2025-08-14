@@ -9,6 +9,7 @@ import SwiftUI
 struct MacroProgress: View {
     let label: String
     let current: Int
+    let emoji: String
     let goal: Int
     let color: Color
     let unit: String
@@ -41,12 +42,12 @@ struct MacroProgress: View {
                     .animation(.easeInOut(duration: 0.8), value: progress)
                 
                 VStack(spacing: 0) {
-                    Text("\(current)")
+                    Text("\(emoji)")
                         .font(.system(size: 14, weight: .bold, design: .rounded))
                         .foregroundColor(color)
-                    Text(unit)
-                        .font(.system(size: 10))
-                        .foregroundColor(.secondary)
+//                    Text(unit)
+//                        .font(.system(size: 10))
+//                        .foregroundColor(.secondary)
                 }
             }
             
