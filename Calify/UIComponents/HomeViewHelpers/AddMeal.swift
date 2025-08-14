@@ -7,9 +7,12 @@
 
 import SwiftUI
 
+struct TimeoutError: Error {}
+
 struct AddMeal: View {
     
     @Binding var selectedDate: Date
+    @Binding var submissionError: String?
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var nutritionManager: DailyNutritionManager
     @State private var userMeal: String = ""
@@ -17,6 +20,9 @@ struct AddMeal: View {
     @State private var result: MealEstimate? = nil
     @State private var isMealLimitReached = false
     @FocusState private var isTextFieldFocused: Bool
+    @State private var showSubmissionError: Bool = false
+    @State private var submissionErrorMessage: String = ""
+    
     private let speechRecognizer = SpeechRecognizer()
     
     private func handleRecordingToggle() {
@@ -39,6 +45,19 @@ struct AddMeal: View {
         }
     }
     
+    func withThrowingTimeout<T>(seconds: TimeInterval, operation: @escaping () async throws -> T) async throws -> T {
+        try await withThrowingTaskGroup(of: T.self) { group in
+            group.addTask { try await operation() }
+            group.addTask {
+                try await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+                throw TimeoutError()
+            }
+            let result = try await group.next()!
+            group.cancelAll()
+            return result
+        }
+    }
+    
     private func checkMealLimit() {
         Task {
             do {
@@ -50,26 +69,30 @@ struct AddMeal: View {
         }
     }
     
+    
     private func submitMeal(tempID: UUID, mealDate: Date) {
         guard !userMeal.isEmpty else { return }
         
         Task {
             do {
-                let jsonMealEstimatesResult = await SupabaseManager.shared.callOpenAI(meal: userMeal)
                 
-                switch jsonMealEstimatesResult {
-                case .success(let jsonMealEstimatesString):
-                    if let data = jsonMealEstimatesString.data(using: .utf8) {
-                        do {
-                            let decoded = try JSONDecoder().decode(MealEstimate.self, from: data)
-                            result = decoded
-                            print(decoded) //print the json received from chatgpt
-                        } catch {
-                            print("Decoding failed: \(error)")
+                _ = try await withThrowingTimeout(seconds: 10) {
+                    let jsonMealEstimatesResult = await SupabaseManager.shared.callOpenAI(meal: userMeal)
+                    
+                    switch jsonMealEstimatesResult {
+                    case .success(let jsonMealEstimatesString):
+                        if let data = jsonMealEstimatesString.data(using: .utf8) {
+                            do {
+                                let decoded = try JSONDecoder().decode(MealEstimate.self, from: data)
+                                result = decoded
+                                print(decoded) //print the json received from chatgpt
+                            } catch {
+                                print("Decoding failed: \(error)")
+                            }
                         }
+                    case .failure(let error):
+                        print("API Error: \(error.localizedDescription)")
                     }
-                case .failure(let error):
-                    print("API Error: \(error.localizedDescription)")
                 }
                 userMeal = ""
             }
@@ -94,8 +117,12 @@ struct AddMeal: View {
                     }
                 }
             }
-            catch let error {
-                print("Error Inserting Meal \(error)")
+            catch is TimeoutError {
+                submissionError = "The request timed out. Please try again."
+                nutritionManager.removeLoadingMeal(for: mealDate, id: tempID)
+            } catch {
+                submissionError = "Something went wrong. Please try again."
+                nutritionManager.removeLoadingMeal(for: mealDate, id: tempID)
             }
         }
     }

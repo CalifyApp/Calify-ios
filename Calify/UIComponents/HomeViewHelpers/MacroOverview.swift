@@ -17,9 +17,9 @@ struct MacroOverview: View {
         let totals = nutritionManager.totals(for: selectedDate) ?? .init(totalCalories: 0, totalProtein: 0, totalCarbs: 0, totalFat: 0)
         let calGoal = profile.cal_goal ?? 2000
         let macros = [
-            MacroData(label: "Protein", current: totals.totalProtein, goal: profile.protein_goal ?? 50, color: .red),
-            MacroData(label: "Carbs", current: totals.totalCarbs, goal: profile.carb_goal ?? 200, color: .blue),
-            MacroData(label: "Fat", current: totals.totalFat, goal: profile.fat_goal ?? 70, color: .orange)
+            MacroData(label: "Protein", current: totals.totalProtein, emoji: "🍗", goal: profile.protein_goal ?? 50, color: .red),
+            MacroData(label: "Carbs", current: totals.totalCarbs, emoji: "🍞", goal: profile.carb_goal ?? 200, color: .blue),
+            MacroData(label: "Fat", current: totals.totalFat, emoji: "🧀", goal: profile.fat_goal ?? 70, color: .orange)
         ]
     
         HStack(alignment: .top, spacing: 16) {
@@ -59,6 +59,7 @@ struct MacroOverview: View {
                         MacroProgress(
                             label: macro.label,
                             current: macro.current,
+                            emoji: macro.emoji,
                             goal: macro.goal,
                             color: macro.color,
                             unit: "g"
@@ -76,6 +77,7 @@ struct MacroOverview: View {
 struct MacroData: Hashable {
     let label: String
     let current: Int
+    let emoji: String
     let goal: Int
     let color: Color
 }

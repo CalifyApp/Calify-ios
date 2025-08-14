@@ -30,6 +30,7 @@ struct HomeView: View {
     @State private var profile: Profiles? = nil
     @State private var showMealSheet = false
     @State private var activeSheet: ActiveSheet?
+    @State private var submissionError: String? = nil
 
     var body: some View {
         
@@ -52,6 +53,7 @@ struct HomeView: View {
                             currentDate: $currentDate,
                             isToday: Calendar.current.isDateInToday(currentDate)
                         )
+                        
                     }
                     .padding(.vertical)
                 }
@@ -67,13 +69,46 @@ struct HomeView: View {
             .sheet(item: $activeSheet) { item in
                 switch item {
                 case .addMeal:
-                    AddMeal(selectedDate: $currentDate)
+                    AddMeal(selectedDate: $currentDate, submissionError: $submissionError)
                         .presentationDetents([.large])
                         .presentationCornerRadius(24)
                 case .mealDetail(let meal):
                     MealDetailView(meal: meal)
                 }
             }
+            .overlay(
+                Group {
+                    if let error = submissionError {
+                        VStack {
+                            Spacer()
+                            HStack {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundColor(.white)
+                                Text(error)
+                                    .foregroundColor(.white)
+                                    .multilineTextAlignment(.center)
+                                    .lineLimit(2)
+                                    .padding(.horizontal)
+                            }
+                            .padding()
+                            .background(Color.red.opacity(0.9))
+                            .cornerRadius(12)
+                            .padding(.horizontal)
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                            .onTapGesture { submissionError = nil }
+                        }
+                        .animation(.easeInOut, value: submissionError)
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                withAnimation {
+                                    submissionError = nil
+                                }
+                            }
+                        }
+                    }
+                }
+            )
+
             .onAppear {
                 print("////////\(currentDate)")
             }

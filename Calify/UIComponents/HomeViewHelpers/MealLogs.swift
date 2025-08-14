@@ -10,6 +10,7 @@ import SwiftUI
 struct MealLogs: View {
     
     let onMealSelected: (MealEstimate) -> Void
+    
     @EnvironmentObject var nutritionManager: DailyNutritionManager
     @State private var showingDeleteAlert = false
     @State private var mealToDelete: MealEstimate? = nil
@@ -28,9 +29,23 @@ struct MealLogs: View {
             } else if let error = nutritionManager.errorMessage {
                 ContentUnavailableView("Couldn't Load Meals", systemImage: "exclamationmark.triangle", description: Text(error))
                     .padding()
+                Button(action: {
+                        nutritionManager.errorMessage = nil
+                        nutritionManager.refresh(for: currentDate)
+                    }) {
+                        Text("Refresh")
+                            .fontWeight(.bold)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                            .padding(.horizontal)
+                    }
             } else if nutritionManager.getMeals(for: currentDate).isEmpty && loadingForDate.isEmpty {
                 ContentUnavailableView("No Meals", systemImage: "fork.knife", description: Text("Meals you add will appear here."))
                     .padding(.top)
+
             } else {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Logs")
@@ -116,6 +131,7 @@ struct MealLogs: View {
         .onAppear {
             nutritionManager.refresh(for: currentDate)
         }
+        
         
     }
 }
