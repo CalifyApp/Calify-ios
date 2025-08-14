@@ -41,15 +41,17 @@ struct CalifyApp: App {
 
 struct ContentView: View {
     @State private var todaysTotal: NutrientTotals? = nil
+    @State private var selectedTab = 0
     @EnvironmentObject var streakManager: StreakManager
 
     var body: some View {
-        TabView {
-            HomeView()
+        TabView (selection: $selectedTab) {
+            HomeView(selectedTab: $selectedTab)
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Home")
                 }
+                .tag(0)
 
 //            TodayView()
 //                .tabItem {
@@ -61,12 +63,14 @@ struct ContentView: View {
                     Image(systemName: "drop.fill")
                     Text("Water Intake")
                 }
+                .tag(1)
 
             ProfileView()
             .tabItem {
                 Image(systemName: "person.fill")
                 Text("Profile")
             }
+            .tag(2)
         }
         .onAppear {
             Task {

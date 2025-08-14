@@ -75,8 +75,7 @@ struct AddMeal: View {
         
         Task {
             do {
-                
-                _ = try await withThrowingTimeout(seconds: 10) {
+                try await withThrowingTimeout(seconds: 10) {
                     let jsonMealEstimatesResult = await SupabaseManager.shared.callOpenAI(meal: userMeal)
                     
                     switch jsonMealEstimatesResult {
@@ -85,47 +84,48 @@ struct AddMeal: View {
                             do {
                                 let decoded = try JSONDecoder().decode(MealEstimate.self, from: data)
                                 result = decoded
-                                print(decoded) //print the json received from chatgpt
                             } catch {
-                                print("Decoding failed: \(error)")
+                                throw error // decoding failed
                             }
+                        } else {
+                            throw SupabaseManager.APIError.emptyResponse("No data returned")
                         }
+                        
                     case .failure(let error):
-                        print("API Error: \(error.localizedDescription)")
+                        throw error
                     }
+                    
+                    if let result = result {
+                        try await SupabaseManager.shared.insertMeal(
+                            description: result.description,
+                            calories: result.calories,
+                            protein: result.protein,
+                            carbs: result.carbs,
+                            fat: result.fat,
+                            accuracyScore: result.accuracyScore,
+                            tips: result.tips,
+                            created_at: mealDate
+                        )
+                    }
+                }
+                
+                nutritionManager.removeLoadingMeal(for: mealDate, id: tempID)
+                DispatchQueue.main.async {
+                    nutritionManager.refresh(for: mealDate)
                 }
                 userMeal = ""
-            }
-            
-            do {
-                if let result = result {
-                    try await SupabaseManager.shared.insertMeal(
-                        description: result.description,
-                        calories: result.calories,
-                        protein: result.protein,
-                        carbs: result.carbs,
-                        fat: result.fat,
-                        accuracyScore: result.accuracyScore,
-                        tips: result.tips,
-                        created_at: mealDate
-                    )
-                    nutritionManager.removeLoadingMeal(for: mealDate, id: tempID)
-
-                    
-                    DispatchQueue.main.async {
-                        nutritionManager.refresh(for: mealDate)
-                    }
-                }
-            }
-            catch is TimeoutError {
+                
+            } catch is TimeoutError {
                 submissionError = "The request timed out. Please try again."
                 nutritionManager.removeLoadingMeal(for: mealDate, id: tempID)
+                
             } catch {
                 submissionError = "Something went wrong. Please try again."
                 nutritionManager.removeLoadingMeal(for: mealDate, id: tempID)
             }
         }
     }
+
     
     var body: some View {
         ZStack {

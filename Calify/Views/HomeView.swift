@@ -25,6 +25,8 @@ enum ActiveSheet: Identifiable {
 }
 
 struct HomeView: View {
+    
+    @Binding var selectedTab: Int
     @State private var currentDate: Date = Date()
     @EnvironmentObject var nutritionManager: DailyNutritionManager
     @State private var profile: Profiles? = nil
@@ -42,7 +44,11 @@ struct HomeView: View {
                         DateNav(selectedDate: $currentDate, nutritionManager: nutritionManager)
                         
                         if let profile = profile {
-                            MacroOverview(profile: profile, selectedDate: $currentDate)
+                            MacroOverview(profile: profile, selectedDate: $currentDate) {
+                                if Calendar.current.isDate(currentDate, inSameDayAs: Date()) {
+                                    selectedTab = 2
+                                }
+                            }
                                 .environmentObject(nutritionManager)
                         }
                         
@@ -93,6 +99,7 @@ struct HomeView: View {
                             .padding()
                             .background(Color.red.opacity(0.9))
                             .cornerRadius(12)
+                            .padding(.bottom, 30)
                             .padding(.horizontal)
                             .transition(.move(edge: .bottom).combined(with: .opacity))
                             .onTapGesture { submissionError = nil }

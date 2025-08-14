@@ -9,9 +9,11 @@ import SwiftUI
 import SwiftUI
 
 struct MacroOverview: View {
+
     let profile: Profiles
     @EnvironmentObject var nutritionManager: DailyNutritionManager
     @Binding var selectedDate: Date
+    var onTap: () -> Void
 
     var body: some View {
         let totals = nutritionManager.totals(for: selectedDate) ?? .init(totalCalories: 0, totalProtein: 0, totalCarbs: 0, totalFat: 0)
@@ -33,6 +35,9 @@ struct MacroOverview: View {
                             .padding(.bottom, 20),
                         alignment: .bottom
                     )
+                    .onTapGesture {
+                        onTap()
+                    }
                 
                 VStack(alignment: .leading, spacing: 4) {
                     Text("\( (calGoal - totals.totalCalories) <= 0 ? 0 : calGoal - totals.totalCalories )")
@@ -64,6 +69,9 @@ struct MacroOverview: View {
                             color: macro.color,
                             unit: "g"
                         )
+                        .onTapGesture {
+                            onTap()
+                        }
                     }
                     .frame(height: (350 - 2 * 12) / 3)
                 }
