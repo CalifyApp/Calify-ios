@@ -97,6 +97,8 @@ struct WaterGaugeView: View {
 
                 Spacer()
             }
+            .presentationDetents([.fraction(0.3)])
+            .presentationCornerRadius(24)
             .padding()
         }
     }

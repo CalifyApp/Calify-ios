@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct DonutChartView: View {
-    var values: [Double]
+    @State private var activeIndex: Int? = nil
+    @FocusState private var focusedIndex: Int?
+    @State private var inputValue: String = ""
+    
+    @State private var values: [Double] = [30, 30, 30]
     var colors: [Color]
     var centerCalories: Int = 2000
 
@@ -17,7 +21,6 @@ struct DonutChartView: View {
     var labelPadding: CGFloat = 8
 
     var body: some View {
-        
         let total = values.reduce(0, +)
         let fractions: [Double] = total > 0
             ? values.map { $0 / total }
@@ -56,15 +59,45 @@ struct DonutChartView: View {
                         let labelRadius = radius + (lineWidth / 2) + labelPadding
                         let x = center.x + CGFloat(cos(midAngle.radians)) * labelRadius
                         let y = center.y + CGFloat(sin(midAngle.radians)) * labelRadius
+                        let binding: Binding<Int> = Binding(
+                            get: { Int(values[i]) },
+                            set: { values[i] = Double($0) }
+                        )
 
-                        Text("\(Int(value))g")
-                            .font(.caption2)
-                            .fontWeight(.semibold)
+                        if activeIndex == i {
+                            // In-place editable number
+                            TextField(
+                                "",
+                                value: Binding(
+                                    get: { values[i] },
+                                    set: { values[i] = $0 }
+                                ),
+                                format: .number.precision(.fractionLength(0)) // Treat as whole numbers
+                            )
+                            .focused($focusedIndex, equals: i)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.center)
+                            .font(.caption2.weight(.semibold))
                             .frame(width: labelDiameter, height: labelDiameter)
                             .background(Circle().fill(Color(UIColor.systemBackground)))
                             .overlay(Circle().stroke(colors[i], lineWidth: 2))
                             .shadow(radius: 1)
                             .position(x: x, y: y)
+                            .onAppear { focusedIndex = i }
+                            .onSubmit { activeIndex = nil }
+                        } else {
+                            Text("\(Int(value))g")
+                                .font(.caption2)
+                                .fontWeight(.semibold)
+                                .frame(width: labelDiameter, height: labelDiameter)
+                                .background(Circle().fill(Color(UIColor.systemBackground)))
+                                .overlay(Circle().stroke(colors[i], lineWidth: 2))
+                                .shadow(radius: 1)
+                                .position(x: x, y: y)
+                                .onTapGesture {
+                                    activeIndex = i
+                                }
+                        }
                     }
                 }
 
@@ -72,6 +105,7 @@ struct DonutChartView: View {
                     .font(.system(size: 28, weight: .bold))
                     .foregroundColor(.primary)
             }
+            
         }
         .frame(width: 220, height: 220)
     }
@@ -79,11 +113,5 @@ struct DonutChartView: View {
 
 
 
-#Preview {
-    DonutChartView(
-        values: [95, 40, 10],
-        colors: [.blue, .red, .yellow],
-        centerCalories: 2000
-    )
-}
+
 

@@ -14,6 +14,7 @@ struct WaterView: View {
 
     private let keyboardWillShow = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
     private let keyboardWillHide = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+    private let generator = UIImpactFeedbackGenerator(style: .medium)
     
     private let maxIntake = 1000
 
@@ -50,6 +51,7 @@ struct WaterView: View {
                                 }
                             }
                             else {
+                                generator.impactOccurred()
                                 showConfirmation("\(added) oz added!")
                                 withAnimation { checkmarkBounce = true }
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -128,9 +130,10 @@ struct WaterView: View {
                                     }
                                 }
                                 else {
-                                    showConfirmation("\(added) oz added!")
+                                    generator.impactOccurred()
                                     customAmount = ""
                                     hideKeyboard()
+                                    showConfirmation("\(added) oz added!")
                                     withAnimation { checkmarkBounce = true }
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                         withAnimation { checkmarkBounce = false }

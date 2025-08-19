@@ -27,19 +27,17 @@ enum ActiveSheet: Identifiable {
 struct HomeView: View {
     
     @Binding var selectedTab: Int
-    @Binding var goToChild: Bool
+    @Binding var goToChild: ProfileChild
     @State private var currentDate: Date = Date()
     @EnvironmentObject var nutritionManager: DailyNutritionManager
     @EnvironmentObject var profileManager: ProfileManager
     @State private var showMealSheet = false
     @State private var activeSheet: ActiveSheet?
     @State private var submissionError: String? = nil
-    @State private var showGoalsSheet = false
+    private let generator = UIImpactFeedbackGenerator(style: .medium)
 
     var body: some View {
         
-//        switch currentView {
-//        case .home:
             ZStack {
                 ScrollView {
                     VStack(spacing: 24) {
@@ -50,13 +48,18 @@ struct HomeView: View {
 
                         if let profile = profileManager.profile {
                             MacroOverview(profile: profile, selectedDate: $currentDate) {
-                                showGoalsSheet = true
+                                selectedTab = 3
+                                generator.impactOccurred()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    goToChild = .nutrientGoals
+                                }
                             }
-                                .environmentObject(nutritionManager)
+                            .environmentObject(nutritionManager)
                         }
                         
                         MealLogs(
                             onMealSelected: { meal in
+                                generator.impactOccurred()
                                 activeSheet = .mealDetail(meal)
                             },
                             currentDate: $currentDate,
@@ -85,29 +88,9 @@ struct HomeView: View {
                     MealDetailView(meal: meal)
                 }
             }
-            .sheet(isPresented: $showGoalsSheet) {
-                if let profile = profileManager.profile {
-                    GoalsCardView(
-                        userId: profile.id?.uuidString ?? "unknown",
-                        cal: profile.cal_goal ?? 2000,
-                        protein: profile.protein_goal ?? 50,
-                        carbs: profile.carb_goal ?? 250,
-                        fat: profile.fat_goal ?? 70
-                    )
-                    .environmentObject(nutritionManager)
-                    .environmentObject(profileManager)
-                }
-            }
             .task {
                 await profileManager.loadProfile()
             }
-//        case .mealDetail(let meal):
-//            MealDetailView(meal: meal)
-//                .transition(.move(edge: .trailing))
-//                .onDisappear {
-//                    currentView = .home
-//            }
-//        }
     }
     
 }

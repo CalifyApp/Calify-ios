@@ -9,10 +9,15 @@ import SwiftUI
 
 struct AddMealButton: View {
     var action: () -> Void
+    
     var body: some View {
         HStack {
             Spacer()
-            Button(action: action) {
+            Button {
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.impactOccurred()
+                action()
+            } label: {
                 Image(systemName: "plus")
                     .font(.system(size: 24, weight: .bold))
                     .foregroundColor(.white)

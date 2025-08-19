@@ -6,8 +6,6 @@
 //
 import SwiftUI
 
-import SwiftUI
-
 struct MacroOverview: View {
 
     let profile: Profiles

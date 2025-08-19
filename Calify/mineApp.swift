@@ -30,11 +30,11 @@ struct CalifyApp: App {
     
     
     var body: some Scene {
-        
-        
-        
         WindowGroup {
             ContentView()
+                .onAppear(){
+                    PendingMealProcessor.processPendingMeals(nutritionManager: nutritionManager)
+                }
                 .onChange(of: scenePhase) {
                     //I think that autorefresh supabase is doing its job, BUT, I am going to keep this code here, that refetches tokens, just in case...
                     if scenePhase == .active {
@@ -85,44 +85,52 @@ struct CalifyApp: App {
 
 struct ContentView: View {
     @State private var todaysTotal: NutrientTotals? = nil
+    @State private var goToChild: ProfileChild = .none
     @State private var selectedTab = 0
-    @State private var goToChild = false
     @EnvironmentObject var streakManager: StreakManager
 
     var body: some View {
         TabView (selection: $selectedTab) {
             HomeView(selectedTab: $selectedTab, goToChild: $goToChild)
                 .tabItem {
-                    Image(systemName: "house.fill")
+                    Image("House")
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(.blue)
                     Text("Home")
                 }
                 .tag(0)
 
             GraphView()
                 .tabItem {
-                    Image(systemName: "chart.bar.fill")
+                    Image("Bar Chart")
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(.blue)
                     Text("Progress")
                 }
                 .tag(1)
 
-//            TodayView()
-//                .tabItem {
-//                    Image(systemName: "clock.fill")
-//                    Text("History")
-//                }
             WaterView()
                 .tabItem{
-                    Image(systemName: "drop.fill")
+                    Image("Water")
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(.blue)
                     Text("Water Intake")
                 }
                 .tag(2)
 
             ProfileView(goToChild: $goToChild)
             .tabItem {
-                Image(systemName: "person.fill")
+                Image("Profile")
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(.blue)
                 Text("Profile")
             }
             .tag(3)
+            
         }
         .onAppear {
             Task {

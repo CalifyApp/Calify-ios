@@ -25,13 +25,17 @@ struct NotificationManager {
             }
         }
     }
+    
 
     static func scheduleMealReminders() {
         let center = UNUserNotificationCenter.current()
         center.removeAllPendingNotificationRequests()
 
+        guard MealCacheManager.shared.getMeals(for: Date()).isEmpty else {
+            return
+        }
+
         let times = [
-            (hour: 12, minute: 0, identifier: "lunchReminder"),
             (hour: 20, minute: 0, identifier: "dinnerReminder")
         ]
 

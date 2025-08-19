@@ -73,6 +73,9 @@ struct AddMeal: View {
     private func submitMeal(tempID: UUID, mealDate: Date) {
         guard !userMeal.isEmpty else { return }
         
+        let pending = PendingMeal(id: tempID, description: userMeal, date: mealDate)
+        PendingMealStore.add(pending)
+        
         Task {
             do {
                 try await withThrowingTimeout(seconds: 10) {
@@ -108,7 +111,7 @@ struct AddMeal: View {
                         )
                     }
                 }
-                
+                PendingMealStore.remove(pending)
                 nutritionManager.removeLoadingMeal(for: mealDate, id: tempID)
                 DispatchQueue.main.async {
                     nutritionManager.refresh(for: mealDate)
@@ -184,9 +187,23 @@ struct AddMeal: View {
                     Button {
                         let tempID = UUID()
                         let mealDate = selectedDate
+                        if(selectedDate != Date()){
+                            let now = Date()
+                            let calendar = Calendar.current
+                            let nowComponents = calendar.dateComponents([.hour, .minute, .second], from: now)
+                            let finalMealDate = calendar.date(
+                                bySettingHour: nowComponents.hour ?? 0,
+                                minute: nowComponents.minute ?? 0,
+                                second: nowComponents.second ?? 0,
+                                of: selectedDate
+                            ) ?? selectedDate
+                            selectedDate = finalMealDate
+                        }
                         nutritionManager.insertPlaceholderMeal(for: mealDate, tempID: tempID)
+                        let generator = UIImpactFeedbackGenerator(style: .medium)
+                        generator.impactOccurred()
                         dismiss()
-                        submitMeal(tempID: tempID, mealDate: mealDate)
+                        submitMeal(tempID: tempID, mealDate: selectedDate)
                         isTextFieldFocused = false
 
                     } label: {

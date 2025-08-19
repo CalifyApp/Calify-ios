@@ -8,8 +8,13 @@
 import SwiftUI
 import MessageUI
 
+enum ProfileChild: Hashable {
+    case nutrientGoals
+    case none
+}
+
 struct ProfileView: View {
-    @Binding var goToChild: Bool
+    @Binding var goToChild: ProfileChild
     @State private var navigationCards: [NavigationCardData] = [
         NavigationCardData(id: UUID(), title: "Support Email"),
         NavigationCardData(id: UUID(), title: "Nutrient Goals"),
@@ -17,107 +22,68 @@ struct ProfileView: View {
     ]
     @State private var showingMailComposer = false
     @State private var userId: String = "Loading..."
+    @State private var path: [ProfileChild] = []
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             ScrollView {
-                if(goToChild == true){
-                    GoalsView()
-                }
                 LazyVStack(spacing: 16) {
-                // Personal Details Card (always at top)
-//                VStack(alignment: .leading, spacing: 0) {
-//                    Text("Personal Details")
-//                        .font(.title2)
-//                        .fontWeight(.semibold)
-//                        .padding(.horizontal, 20)
-//                        .padding(.top, 20)
-//                        .padding(.bottom, 16)
-//                    
-//                    // Stats Grid
-//                    HStack(spacing: 0) {
-//                        // Left Column
-//                        VStack(spacing: 20) {
-//                            StatItemView(
-//                                icon: "ruler",
-//                                iconColor: .blue,
-//                                title: "Height",
-//                                value: "5'10\""
-//                            )
-//                            
-//                            StatItemView(
-//                                icon: "calendar",
-//                                iconColor: .orange,
-//                                title: "Age",
-//                                value: "28"
-//                            )
-//                        }
-//                        .frame(maxWidth: .infinity)
-//                        
-//                        // Right Column
-//                        VStack(spacing: 20) {
-//                            StatItemView(
-//                                icon: "scalemass",
-//                                iconColor: .green,
-//                                title: "Weight",
-//                                value: "170 lbs"
-//                            )
-//                            
-//                            StatItemView(
-//                                icon: "person",
-//                                iconColor: .purple,
-//                                title: "Gender",
-//                                value: "Male"
-//                            )
-//                        }
-//                        .frame(maxWidth: .infinity)
-//                    }
-//                    .padding(.horizontal, 20)
-//                    .padding(.bottom, 20)
-//                }
-//                .background(Color.white)
-//                .cornerRadius(16)
-//                .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
-                
-                // Dynamic Navigation Cards
-                ForEach(navigationCards) { card in
-                    if card.title == "Support Email" {
-                        Button(action: {
-                            showingMailComposer = true
-                        }) {
-                            NavigationCardView(title: card.title)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    } else if card.title == "Feedback Form" {
-                        Button(action: {
-                            if let url = URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSf-GZjCJH9xsdeZajO_Mz-NqtdF5wdpYY8oU8K8zbT1q0gntA/viewform?usp=header") {
-                                UIApplication.shared.open(url)
+                    ForEach(navigationCards) { card in
+                        if card.title == "Support Email" {
+                            Button(action: {
+                                showingMailComposer = true
+                            }) {
+                                NavigationCardView(title: card.title)
                             }
-                        }) {
-                            NavigationCardView(title: card.title, isExternalLink: true)
+                            .buttonStyle(.plain)
+                        } else if card.title == "Feedback Form" {
+                            Button(action: {
+                                if let url = URL(string: "https://docs.google.com/forms/d/e/1FAIpQLSf-GZjCJH9xsdeZajO_Mz-NqtdF5wdpYY8oU8K8zbT1q0gntA/viewform?usp=header") {
+                                    UIApplication.shared.open(url)
+                                }
+                            }) {
+                                NavigationCardView(title: card.title, isExternalLink: true)
+                            }
+                            .buttonStyle(.plain)
+                        } else {
+                            Button {
+                                goToChild = .nutrientGoals
+                            } label: {
+                                NavigationCardView(title: card.title)
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(PlainButtonStyle())
-                    } else {
-                        NavigationCardView(title: card.title, destination: card.title == "Nutrient Goals" ? AnyView(GoalsView()) : nil)
                     }
                 }
-            }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 20)
-                
-            } .gradientBackground()
+            }
+            .gradientBackground()
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
-                Task {
-                    await loadUserId()
-                }
+                Task { await loadUserId() }
             }
             .sheet(isPresented: $showingMailComposer) {
                 MailComposeView(
                     recipients: ["chrisnieves60@gmail.com"],
                     subject: "Calify App Support"
                 )
+            }
+            .navigationDestination(for: ProfileChild.self) { child in
+                switch child {
+                case .nutrientGoals:
+                    GoalsView()
+                default:
+                    EmptyView()
+                }
+            }
+        }
+        .onChange(of: goToChild) { newValue in
+            if newValue == .nutrientGoals {
+                path.removeAll()
+                path.append(.nutrientGoals)     
+                goToChild = .none
             }
         }
     }
@@ -130,18 +96,8 @@ struct ProfileView: View {
             userId = "Unable to retrieve user ID"
         }
     }
-    
-    private func getEmailBody() -> String {
-        return """
-
-
-Please describe your issue above this line.
-
-User ID: \(userId)
-"""
-    }
-    
 }
+
 
 struct NavigationCardData: Identifiable {
     let id: UUID

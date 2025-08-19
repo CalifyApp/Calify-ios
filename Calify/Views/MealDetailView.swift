@@ -1,15 +1,3 @@
-/**
- 
- struct NutrientTotals { //struct, better for type safety.
-     let totalCalories: Int
-     let totalProtein: Int
-     let totalCarbs: Int
-     let totalFat: Int
- }
- 
- 
- */
-
 
 
 import SwiftUI

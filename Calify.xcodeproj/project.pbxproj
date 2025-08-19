@@ -82,6 +82,8 @@
 		CEEC51FA2E41C012004027FC /* AddMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC51F92E41C010004027FC /* AddMeal.swift */; };
 		CEEC522A2E4B489E004027FC /* MealLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC52292E4B4894004027FC /* MealLoading.swift */; };
 		CEEC522C2E4B7C5A004027FC /* GoalPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC522B2E4B7C47004027FC /* GoalPieChart.swift */; };
+		CEEC52902E547A72004027FC /* NumberPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC528F2E547A6F004027FC /* NumberPad.swift */; };
+		CEEC52922E5490EC004027FC /* PendingMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC52912E5490E7004027FC /* PendingMeal.swift */; };
 		CEFD793A2E05B10B00BD4B66 /* WaterStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFD79392E05B0F600BD4B66 /* WaterStorage.swift */; };
 /* End PBXBuildFile section */
 
@@ -182,6 +184,8 @@
 		CEEC51F92E41C010004027FC /* AddMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMeal.swift; sourceTree = "<group>"; };
 		CEEC52292E4B4894004027FC /* MealLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealLoading.swift; sourceTree = "<group>"; };
 		CEEC522B2E4B7C47004027FC /* GoalPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPieChart.swift; sourceTree = "<group>"; };
+		CEEC528F2E547A6F004027FC /* NumberPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPad.swift; sourceTree = "<group>"; };
+		CEEC52912E5490E7004027FC /* PendingMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingMeal.swift; sourceTree = "<group>"; };
 		CEFD79352E0389A300BD4B66 /* WaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterView.swift; sourceTree = "<group>"; };
 		CEFD79372E058B2100BD4B66 /* WaterGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterGaugeView.swift; sourceTree = "<group>"; };
 		CEFD79392E05B0F600BD4B66 /* WaterStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterStorage.swift; sourceTree = "<group>"; };
@@ -308,6 +312,7 @@
 		9D05E1C12DA66EF000B37E2B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				CEEC52912E5490E7004027FC /* PendingMeal.swift */,
 				9D0263D12E078C1D007644C4 /* WaterStorage.swift */,
 				CEE45F9C2E09509200987ACD /* Permissions.swift */,
 				CEFD79392E05B0F600BD4B66 /* WaterStorage.swift */,
@@ -319,6 +324,7 @@
 		9D05E1C72DAADE3300B37E2B /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				CEEC528F2E547A6F004027FC /* NumberPad.swift */,
 				CEEC522B2E4B7C47004027FC /* GoalPieChart.swift */,
 				CEEC51F72E40BB56004027FC /* GradientBackground.swift */,
 				CEEC51E72E405D6B004027FC /* FailureMarkView.swift */,
@@ -638,6 +644,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEEC52922E5490EC004027FC /* PendingMeal.swift in Sources */,
 				CEE45F9D2E09509700987ACD /* Permissions.swift in Sources */,
 				CEE4605D2E1E4A7200987ACD /* CheckMarkView.swift in Sources */,
 				CEEC51EE2E4069B4004027FC /* MealLogs.swift in Sources */,
@@ -683,6 +690,7 @@
 				CEE45F9B2E093C1E00987ACD /* NotificationManager.swift in Sources */,
 				9DE72EE32DDADEB400468CD1 /* NameSetupView.swift in Sources */,
 				9D05E1B22D9FEBE500B37E2B /* OldHomeView.swift in Sources */,
+				CEEC52902E547A72004027FC /* NumberPad.swift in Sources */,
 				9D05E1B22D9FEBE500B37E2B /* OldHomeView.swift in Sources */,
 				9D219E8C2D9FEA9A00357A55 /* mineApp.swift in Sources */,
 				CE250A2B2E2FAEC100089A77 /* TimelineBar.swift in Sources */,
@@ -864,7 +872,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_ASSET_PATHS = "\"Calify/Preview Content\"";
-				DEVELOPMENT_TEAM = HYU3B9NY64;
+				DEVELOPMENT_TEAM = Y863KF9K87;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = NO;
@@ -887,7 +895,7 @@
 				NSMicrophoneUsageDescription = "Calify uses your microphone to log meals using voice input.";
 				NSSpeechRecognitionUsageDescription = "Calify uses speech recognition to interpret your spoken meal descriptions.";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine;
+				PRODUCT_BUNDLE_IDENTIFIER = justin.Calify.mine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -905,7 +913,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_ASSET_PATHS = "\"Calify/Preview Content\"";
-				DEVELOPMENT_TEAM = HYU3B9NY64;
+				DEVELOPMENT_TEAM = Y863KF9K87;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = NO;
@@ -927,7 +935,7 @@
 				MARKETING_VERSION = 2.1;
 				NSMicrophoneUsageDescription = "Calify uses your microphone to log meals using voice input.";
 				NSSpeechRecognitionUsageDescription = "Calify uses speech recognition to interpret your spoken meal descriptions.";
-				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine;
+				PRODUCT_BUNDLE_IDENTIFIER = justin.Calify.mine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -945,21 +953,21 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = HYU3B9NY64;
+				DEVELOPMENT_TEAM = Y863KF9K87;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTABILITY = NO;
 				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = CalifyWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = Calify.mine;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = justin.Calify.mine;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.1;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = justin.Calify.mine.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -979,20 +987,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = HYU3B9NY64;
+				DEVELOPMENT_TEAM = Y863KF9K87;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTABILITY = NO;
 				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = CalifyWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = Calify.mine;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = justin.Calify.mine;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = Calify.mine.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = justin.Calify.mine.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
